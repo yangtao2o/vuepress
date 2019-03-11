@@ -28,6 +28,9 @@ cd vuepress-blog
 DONE  [11:06:21] Build 63b84b finished in 3731 ms! 
 
 > VuePress dev server listening at http://localhost:8080/vuepress-blog/
+
+# 构建发布
+npm run deploy
 ```
 
 
