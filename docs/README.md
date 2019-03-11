@@ -4,7 +4,7 @@ heroImage: /me-lg.jpg
 footer: MIT Licensed | Copyright © 2019 Yang Tao
 ---
 
-### [VuePress中文网](http://caibaojian.com/vuepress/)
+![img](/home/about-bg.jpg)
 
 ### 起步就像数 1, 2, 3 一样容易
 
