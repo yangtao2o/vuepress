@@ -2,11 +2,20 @@ const sidebar = {
   '/web/': [
     {
       title: 'Vue',
-      children: [ 'vue/vuepress-blog' ]
+      children: [ 
+        'vue/vuepress-blog',
+        'vue/vue',
+      ]
     },
     {
       title: 'React',
       children: [ 'react/react-router' ]
+    },
+    {
+      title: 'Nodejs',
+      children: [
+        'node/node-http',
+      ]
     }
   ]
 }
@@ -21,6 +30,7 @@ const nav = [
     items: [
       { text: 'Vue', link: '/web/' + sidebar['/web/'][0]['children'][0] },
       { text: 'React', link: '/web/' + sidebar['/web/'][1]['children'][0] },
+      { text: 'Nodejs', link: '/web/' + sidebar['/web/'][2]['children'][0] },
     ]
   },
   {
@@ -35,7 +45,7 @@ const nav = [
 ]
 
 const config = {
-  base: '/home/',  // 基准 URL
+  base: '/vuepress-blog/',  // 基准 URL
   title: '大涛子',
   description: '前端开发、摄影、电影、羽毛球',
   head: [
