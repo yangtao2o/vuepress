@@ -24,13 +24,15 @@ const nav = [
 const config = {
   base: '/vuepress-blog/',  // 基准 URL
   title: '大涛子',
-  description: '大涛子的小客栈',
-  head: ['link', { rel: 'icon', href: `/favicon.ico` }],
+  description: '前端开发、摄影、电影、羽毛球',
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+  ],
   port: 8080,
   dest: '.vuepress/dist',  // 指定 vuepress build 的输出目录
   ga: '',
-  markdown: {
-    lineNumbers: true
+  markdown: {  // markdown设置
+    lineNumbers: true,
   },
   themeConfig: {  // 主题配置
     repo: 'yangtao2o/vuepress-blog',  // 项目的 github 地址

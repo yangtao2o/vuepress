@@ -33,11 +33,16 @@ DONE  [11:06:21] Build 63b84b finished in 3731 ms!
 
 ## 报错
 
-> `(node:84725) UnhandledPromiseRejectionWarning: TypeError: res.getHeader is not a function`
+#### Question
+
+```js
+(node:84725) UnhandledPromiseRejectionWarning: TypeError: res.getHeader is not a function
+```
 
 查看： [Issues](https://github.com/vuejs/vuepress/issues/1417)
 
 解决：
+
 While the npm user can re-install webpack-dev-middleware with a specific version:
 
 ```bash
