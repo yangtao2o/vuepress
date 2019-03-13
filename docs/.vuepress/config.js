@@ -4,7 +4,8 @@ const sidebar = {
       title: 'Vue',
       children: [ 
         'vue/vuepress-blog',
-        'vue/vue',
+        'vue/v-webpack',
+        'vue/v-router',
       ]
     },
     {
@@ -26,7 +27,7 @@ const nav = [
     link: 'https://istaotao.com/'
   },
   {
-    text: '前端开发',
+    text: '开发',
     items: [
       { text: 'Vue', link: '/web/' + sidebar['/web/'][0]['children'][0] },
       { text: 'React', link: '/web/' + sidebar['/web/'][1]['children'][0] },
@@ -34,7 +35,13 @@ const nav = [
     ]
   },
   {
-    text: '网站客栈',
+    text: '文档',
+    items: [
+      { text: 'Vue技术揭秘', link: 'https://ustbhuangyi.github.io/vue-analysis/' },
+    ]
+  },
+  {
+    text: '网栈',
     items: [
       {
         text: '我的小站',
