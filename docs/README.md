@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /tt.png
+heroImage: /vuepress-blog/me.jpg
 footer: MIT Licensed | Copyright © 2019 Yang Tao
 ---
 

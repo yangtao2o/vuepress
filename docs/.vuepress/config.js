@@ -22,7 +22,7 @@ const sidebar = {
 
 const nav = [
   {
-    text: '我的博客',
+    text: '博客',
     link: 'https://istaotao.com/'
   },
   {
@@ -34,20 +34,60 @@ const nav = [
     ]
   },
   {
-    text: '我的摄影',
+    text: '网站客栈',
+    items: [
+      {
+        text: '我的小站',
+        items: [
+          { text: '掘金分享', link: 'https://juejin.im/user/58b67dd58fd9c50061238e38/shares/' },
+          { text: '掘金收藏', link: 'https://juejin.im/user/58b67dd58fd9c50061238e38/collections' },
+          { text: 'CodePen', link: 'https://codepen.io/istaotao/' },
+          { text: 'QDfuns', link: 'https://www.qdfuns.com/u/32286.html' },
+          { text: 'CSDN', link: 'https://blog.csdn.net/qq_42840269' },
+          { text: 'SegmentFault', link: 'https://segmentfault.com/u/taoboy/notes' },
+        ]
+      },
+      {
+        text: '大牛别墅',
+        items: [
+          { text: '廖雪峰', link: 'https://www.liaoxuefeng.com/' },
+          { text: '阮一峰', link: 'http://www.ruanyifeng.com/blog/' },
+          { text: '张鑫旭', link: 'http://www.zhangxinxu.com/' },
+        ]
+      },
+      {
+        text: '造车工具',
+        items: [
+          { text: '收藏夹', link: 'http://collect.w3ctrain.com/' },
+          { text: '在线工具', link: 'https://tool.lu/c/developer/' },
+          { text: '', link: '' },
+        ]
+      }
+    ]
+  },
+  {
+    text: '摄影',
     items: [
       { text: 'LOFTER', link: 'http://dataoboy.lofter.com/' },
       { text: '简书', link: 'https://www.jianshu.com/u/c6b5715f3016' },
       { text: '图虫', link: 'https://tuchong.com/2763959/' },
       { text: '印象', link: 'https://cc.adnonstop.com/index.php?r=Info/Home&user_id=160865486&pn=interphoto' },
     ]
+  },
+  {
+    text: '友链',
+    items: [
+      { text: '大雷子', link: 'https://isliulei.com/' },
+      { text: '大贵子', link: 'https://zguii.com/' },
+      { text: 'xaoxuu', link: 'https://xaoxuu.com' },
+    ]
   }
 ]
 
 const config = {
-  base: '/vuepress-blog/',  // 基准 URL
-  title: '大涛子',
-  description: '前端开发、摄影、电影、羽毛球',
+  base: '/',  // 基准 URL
+  title: '大涛子客栈',
+  description: '前端开发、摄影、羽毛球、电影',
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
