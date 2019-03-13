@@ -85,7 +85,7 @@ const nav = [
 ]
 
 const config = {
-  base: '/',  // 基准 URL
+  base: '/home/',  // 基准 URL
   title: '大涛子客栈',
   description: '前端开发、摄影、羽毛球、电影',
   head: [
@@ -98,7 +98,7 @@ const config = {
     lineNumbers: true,
   },
   themeConfig: {  // 主题配置
-    repo: 'yangtao2o/vuepress-blog',  // 项目的 github 地址
+    repo: 'yangtao2o/blog',  // 项目的 github 地址
     repoLabel: '代码',  // github 地址的链接名
     editLinks: true,  // 当前 markdown 的 github 代码链接
     editLinkText: '查看原文|编辑此页',

@@ -12,22 +12,22 @@
 ## 开始
 
 ```bash
-git clone https://github.com/yangtao2o/vuepress-blog.git
+git clone https://github.com/yangtao2o/home.git
 
-cd vuepress-blog
+cd home
 
 # 安装依赖
-➜  vuepress-blog git:(master) ✗ npm i
+➜  home git:(master) ✗ npm i
 
 # 启动一个本地服务
-➜  vuepress-blog git:(master) ✗ npm run dev
+➜  home git:(master) ✗ npm run dev
 
-> vuepress-blog@1.0.0 dev /Users/yangtao/Documents/yangtao/myblog/vuepress-blog
+> home@1.0.0 dev /Users/yangtao/Documents/yangtao/myblog/home
 > vuepress dev docs
 
 DONE  [11:06:21] Build 63b84b finished in 3731 ms! 
 
-> VuePress dev server listening at http://localhost:8080/vuepress-blog/
+> VuePress dev server listening at http://localhost:8080/home/
 
 # 构建发布
 npm run deploy
