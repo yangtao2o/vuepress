@@ -17,6 +17,12 @@ const sidebar = {
       children: [
         'node/node-http',
       ]
+    },
+    {
+      title: '前端开发',
+      children: [
+        'front_dev/dev',
+      ]
     }
   ]
 }
@@ -32,12 +38,24 @@ const nav = [
       { text: 'Vue', link: '/web/' + sidebar['/web/'][0]['children'][0] },
       { text: 'React', link: '/web/' + sidebar['/web/'][1]['children'][0] },
       { text: 'Nodejs', link: '/web/' + sidebar['/web/'][2]['children'][0] },
+      { text: '前端开发', link: '/web/' + sidebar['/web/'][3]['children'][0] },
     ]
   },
   {
-    text: '文档',
+    text: '计算机',
     items: [
-      { text: 'Vue技术揭秘', link: 'https://ustbhuangyi.github.io/vue-analysis/' },
+      {
+        text: '文档',
+        items: [
+          { text: 'Vue技术揭秘', link: 'https://ustbhuangyi.github.io/vue-analysis/' },
+        ]
+      },
+      {
+        text: '网络',
+        items: [
+          { text: '网络基础', link: 'https://juejin.im/post/5c591fda6fb9a049dc02b1cc' },
+        ]
+      },
     ]
   },
   {
