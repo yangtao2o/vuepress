@@ -10,7 +10,7 @@ const sidebar = {
     },
     {
       title: 'React',
-      children: [ 'react/react-router' ]
+      children: [ 'react/react-demo' ]
     },
     {
       title: 'Nodejs',
