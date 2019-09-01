@@ -1,4 +1,6 @@
-# 'git push 报错之 Permission to userA.git denied to userB'
+# Permission to userA denied to userB
+
+> 'git push 报错之 Permission to userA.git denied to userB
 
 报错信息：
 ```bash

@@ -7,13 +7,15 @@ const sidebar = {
         'js-var',
         'js-prototype',
         'js-this-apply-call',
-        'es-class',
+        'es6-class',
         'js算法',
         'mode-单例模式',
         'js-chapter-1',
         'js-chapter-2',
         'js-chapter-3',
         'js-learn',
+        'blog-01',
+        '学习JavaScript深入系列简要总结',
       ]
     },
     {
@@ -21,6 +23,13 @@ const sidebar = {
       collapsable: false,
       children: [
         'js-code',
+        'debounce-throttle',
+        'js-closure',
+        '设置Cookie',
+        '九宫格抽奖',
+        '实现文字的无缝滚动、间歇性向上翻滚',
+        '整点秒杀功能优化',
+        '自定义单选框、复选框样式',
       ]
     },
     {
@@ -107,7 +116,6 @@ const sidebar = {
         'error-github-file',
         'error-macos-brew',
         'error-macos-node',
-        ''
       ]
     },
     {

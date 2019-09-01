@@ -1,8 +1,8 @@
 # 学习《JavaScript经典实例》之第2章
 
-### 第2章 JavaScript数组
+## 第2章 JavaScript数组
 
-#### 2.1 在数组中搜索
+### 2.1 在数组中搜索
 * `indexOf()、lastIndexOf()`
 
 ```javascript
@@ -23,7 +23,7 @@ var over = nums.findIndex(function(ele) {
 console.log('nums',nums[over]);  //199
 ```
 
-#### 2.2 用concat()和apply()将一个二维数组扁平化
+### 2.2 用concat()和apply()将一个二维数组扁平化
 
 * concat() 方法用于连接两个或多个数组。该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。
     * `arrayObject.concat(arrayX,arrayX,......,arrayX)`
@@ -99,7 +99,7 @@ _this.$box.on('mousedown', function()) {
 }
 ```
 
-#### 2.3 删除或替换数组元素
+### 2.3 删除或替换数组元素
 * [splice()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice) 方法与 [slice()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) 方法的作用是不同的，splice() 方法会直接对数组进行修改。
 
 ```javascript
@@ -123,7 +123,7 @@ while(charSets.indexOf('**') != -1) {
 console.log(charSets); //["bb", "cd", "cc", "dd"]
 ```
 
-#### 2.4 提取一个数组中的一部分
+### 2.4 提取一个数组中的一部分
 * 不更改原数组，使用[slice()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
 
 ```javascript
@@ -133,7 +133,7 @@ console.log(animals);  //["dog", "cat", "rabbit", "pig", "apple"]
 console.log(newAnimals);  //["cat"]
 ```
 
-#### 2.5 对每一个数组元素应用一个函数
+### 2.5 对每一个数组元素应用一个函数
 * [Array.prototype.forEach()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/forEach)
 
 ```javascript
@@ -144,7 +144,7 @@ charSets.forEach(function(element, index, array) {
 console.log(charSets);  //["**", "bb", "cd", "**", "cc", "**", "dd", "**"]
 ```
 
-#### 2.6 使用forEach()和call()遍历querySelectorAll()的结果
+### 2.6 使用forEach()和call()遍历querySelectorAll()的结果
 * [querySelectorAll()](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/querySelectorAll)
 * 可以将forEach()强制和一个NodeList一起使用
 
@@ -155,7 +155,7 @@ var cells = document.querySelectorAll('td + td');
 });
 ```
 
-#### 2.7 对数组中的每个元素执行一个函数并返回一个新数组
+### 2.7 对数组中的每个元素执行一个函数并返回一个新数组
 * 将一个十进制的数组转化为新的等价的十六进制数组
 * [map()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map)方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
 * 与forEach()不同，不会修改原数组，但是必须返回一个值
@@ -169,7 +169,7 @@ console.log(decArray);  //[23, 3, 24, 45, 500, 9, 70]
 console.log(hexArray);  //["17", "3", "18", "2d", "1f4", "9", "46"]
 ```
 
-#### 2.8 创建一个过滤后的数组
+### 2.8 创建一个过滤后的数组
 * [filter()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。 
 
 ```javascript
@@ -180,7 +180,7 @@ var newArray = charSet.filter(function(element, index, array) {
 console.log(newArray);  //["bb", "cc", "cd"]
 ```
 
-#### 2.9 验证数组内容
+### 2.9 验证数组内容
 * 使用Array [every()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)方法来检查每个元素是否符合给定的条件
 * [some()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some) 方法确保至少某些元素符合该条件
 * 区别：every()方法只要函数返回一个false值，处理就会结束，而some()方法会继续测试每个元素，直至返回true，此时，不再验证其他元素，即可返回ture
@@ -203,7 +203,7 @@ console.log(result);  //true
 console.log(result2);  //true
 ```
 
-#### 2.10 使用一个关联数组来存储表单元素名和值
+### 2.10 使用一个关联数组来存储表单元素名和值
 
 * [keys()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/keys) 方法返回一个新的Array迭代器，它包含数组中每个索引的键。
 
