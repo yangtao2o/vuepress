@@ -1,6 +1,13 @@
 ---
 home: true
 heroImage: /bookmark.svg
+features:
+- title: JUST DO IT
+  details: I will do my best to keep my knowledge current.
+- title: KEEP MOVING
+  details: I will continue to foster both hemispheres of my brain. 
+- title: FRONT END ENGINEER
+  details: I will strive to create secure applications.
 footer: MIT Licensed | Copyright © 2019 Yang Tao
 ---
 <p align="center">
