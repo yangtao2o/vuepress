@@ -2,7 +2,7 @@
 
 > 保证一个类仅有一个实例，并提供一个访问它的全局访问点
 
-#### 实现一个单例模式
+## 实现一个单例模式
 
 用一个变量标志当前是否已经为某个类型创建过对象，如果是，则下次直接返回之前创建的对象。
 
@@ -30,7 +30,7 @@ console.log(a === b); // true
 ```
 通过 `Singleton.getInstance `来获取 Singleton 类的唯一对象，里边使用了 new 来获取，导致了这个类的“不透明性”。
 
-#### 透明的单例模式
+## 透明的单例模式
 
 创建一个“透明”的单例类，就是让我们从这个类中创建对象的时候可以和使用其他普通类一样：`var aa = new CreateDiv('Sisi1');`
 
@@ -78,7 +78,7 @@ var CreateDiv = function (html) {
 
 但是，如果我们要创建很多的div，这里的 `return instance = this;` 就需要删掉。
 
-#### 用代理实现单例模式
+## 用代理实现单例模式
 
 这时候，为了避免上面不能复用的尴尬，通过引入代理类的方式，把负责管理单例的逻辑移交至代理类`ProxySingletonCreateDiv`，这样`CreateDiv`只是一个普通的类。
 
@@ -110,7 +110,7 @@ var bb = new ProxySingletonCreateDiv('Tony2');
 console.log(aa === bb); // true
 ```
 
-#### JavaScript 中的单例模式
+## JavaScript 中的单例模式
 
 单例模式的核心是：确保只有一个实例，并提供全局访问。
 
@@ -179,7 +179,7 @@ var user = (function () {
 console.log(user.getUserInfo()) // Seven-27
 ```
 
-#### 惰性单例
+## 惰性单例
 
 宗旨：在需要的时候才创建对象！！！
 
@@ -242,7 +242,7 @@ document.getElementById('loginBtn').addEventListener('click', function () {
 });
 ```
 
-#### 通用的惰性单例
+## 通用的惰性单例
 
 虽然上面的悬浮框是一个可用的惰性单例，但是仍然违反了单一职责原则，如果我们要创建其他的标签，就需要把创建悬浮窗的函数复制一份，再修修改改，无法做到复用。
 
@@ -298,7 +298,7 @@ document.getElementById('loginBtn2').addEventListener('click', function () {
 });
 ```
 
-#### 小结
+## 小结
 
 单例模式是一种简单却非常常用的模式，特别是惰性单例技术，在合适的时候才创建对象，并且只创建唯一的一个。
 

@@ -1,13 +1,13 @@
 # 冴羽的博客之JavaScript、ES6系列集锦
 
-### 专栏
+## 专栏
 
 * [掘金主页](https://juejin.im/user/58e4b9b261ff4b006b3227f4)
 * [segmentfault主页](https://segmentfault.com/u/yayu/articles)
 
 * [知乎](https://www.zhihu.com/people/qing-feng-yi-yang/activities)
 
-### 深入系列目录
+## 深入系列目录
 
 1. [JavaScirpt深入之从原型到原型链](https://github.com/mqyqingfeng/Blog/issues/2)
 2. [JavaScript深入之词法作用域和动态作用域](https://github.com/mqyqingfeng/Blog/issues/3)
@@ -26,7 +26,7 @@
 15. [JavaScript深入之继承的多种方式以及优缺点](https://github.com/mqyqingfeng/Blog/issues/16)
 16. [JavaScript深入系列15篇正式完结！](https://github.com/mqyqingfeng/Blog/issues/17)
 
-### 专题系列目录
+## 专题系列目录
 
 1. [JavaScript专题之跟着underscore学防抖](https://github.com/mqyqingfeng/Blog/issues/22)
 2. [JavaScript专题之跟着underscore学节流](https://github.com/mqyqingfeng/Blog/issues/26)
@@ -50,7 +50,7 @@
 20. [JavaScript专题之解读 v8 排序源码](https://github.com/mqyqingfeng/Blog/issues/52)
 21. [JavaScript专题系列20篇正式完结！](https://github.com/mqyqingfeng/Blog/issues/53)
 
-### underscore 系列目录
+## underscore 系列目录
 
 1. [underscore 系列之如何写自己的 underscore](https://github.com/mqyqingfeng/Blog/issues/56)
 2. [underscore 系列之链式调用](https://github.com/mqyqingfeng/Blog/issues/57)
@@ -62,7 +62,7 @@
 8. [underscore 系列之字符实体与 _.escape](https://github.com/mqyqingfeng/Blog/issues/77)
 9. [underscore 的源码该如何阅读？](https://github.com/mqyqingfeng/Blog/issues/79)
 
-### ES6 系列目录
+## ES6 系列目录
 
 1. [ES6 系列之 let 和 const](https://github.com/mqyqingfeng/Blog/issues/82)
 2. [ES6 系列之模板字符串](https://github.com/mqyqingfeng/Blog/issues/84)
@@ -75,6 +75,7 @@
 9. [ES6 系列之 Generator 的自动执行](https://github.com/mqyqingfeng/Blog/issues/99)
 10. [ES6 系列之我们来聊聊 Async](https://github.com/mqyqingfeng/Blog/issues/100)
 
-### 友情链接
+## 友情链接
 
 1. [如何轻松拿到淘宝前端 offer](https://juejin.im/post/5bbc54a2e51d450e5a7445b4)
+

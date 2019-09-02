@@ -2,7 +2,6 @@ const sidebar = {
   '/js/': [
     {
       title: '基础修炼',
-      collapsable: false,
       children: [
         'js-var',
         'js-prototype',
@@ -14,45 +13,42 @@ const sidebar = {
         'js-chapter-2',
         'js-chapter-3',
         'js-learn',
-        'blog-01',
         '学习JavaScript深入系列简要总结',
       ]
     },
     {
       title: '日常杂记',
-      collapsable: false,
       children: [
         'js-code',
-        'debounce-throttle',
-        'js-closure',
-        '设置Cookie',
-        '九宫格抽奖',
-        '实现文字的无缝滚动、间歇性向上翻滚',
-        '整点秒杀功能优化',
-        '自定义单选框、复选框样式',
+        'js-code-big',
+        'throttle-debounce',
+        'interview',
       ]
     },
     {
-      title: '插件',
-      collapsable: false,
+      title: '资源整合',
       children: [
         'plugin-purl',
         'plugin-wow',
         'plugin-jquery-1',
+        'blog-01',
       ]
     }
+    
   ],
   '/css/': [
     {
       title: 'CSS',
-      collapsable: false,
       children: [
         'css-code',
+        'css3',
+        'css-rem',
+        'css-flex-grid',
+        'article'
       ]
     },
     {
       title: 'HTML',
-      collapsable: false,
       children: [
         'html-edm',
       ]
@@ -74,6 +70,7 @@ const sidebar = {
       title: 'React.js',
       collapsable: false,
       children: [
+        'react-doc',
         'react-demo',
         'webpack-v3',
       ]
@@ -92,24 +89,23 @@ const sidebar = {
   '/web/': [
     {
       title: '前端开发',
-      collapsable: false,
       children: [
+        'web',
         'header-response'
       ]
     },
     {
       title: '开发工具',
-      collapsable: false,
       children: [
         'git-command',
         'git-revert',
         'gnvm',
         'macos-bash',
+        'tool-tree',
       ]
     },
     {
       title: '日常报错',
-      collapsable: false,
       children: [
         'localhost',
         'error-git-push',
@@ -119,8 +115,13 @@ const sidebar = {
       ]
     },
     {
+      title: '好文共享',
+      children: [
+        'article',
+      ]
+    },
+    {
       title: '其他',
-      collapsable: false,
       children: [
         'hexo',
         'hexo-order',
@@ -135,8 +136,8 @@ const nav = [
   {
     text: '开发日志',
     items: [
-      { text: 'Javascript', link: '/js/' + sidebar['/js/'][0]['children'][0] },
       { text: 'CSS', link: '/css/' + sidebar['/css/'][0]['children'][0] },
+      { text: 'JavaScript', link: '/js/' + sidebar['/js/'][0]['children'][0] },
       { text: 'Vue.js', link: '/vue/' + sidebar['/vue/'][0]['children'][0] },
       { text: 'React.js', link: '/react/' + sidebar['/react/'][0]['children'][0] },
       { text: 'Node.js', link: '/node/' + sidebar['/node/'][0]['children'][0] },

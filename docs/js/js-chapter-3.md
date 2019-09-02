@@ -1,13 +1,12 @@
-# 学习《JavaScript经典实例》之第3章
+# 第3章 JavaScript的构建块
 
-## 第3章 JavaScript的构建块
-
-### 3种基本的创建函数方式：
+3种基本的创建函数方式：
 * 声明式函数
 * 匿名函数或函数构造函数
 * 函数字面值或函数表达式
 
-### 3.1 放置函数并提升
+## 3.1 放置函数并提升
+
 * 声明式函数，可以放置在代码中的任何位置；函数表达式，必须将其放置在使用函数的位置之前
 
 ```javascript
@@ -33,7 +32,8 @@ var mytest2 = function() {
 
 ```
 
-### 3.2 把一个函数当做参数传递给另一个函数
+## 3.2 把一个函数当做参数传递给另一个函数
+
 
 ```javascript
 function otherFunction(x, y, z) {
@@ -66,7 +66,8 @@ console.log('sum2', sum2);  //75
 
 * [arr.reduce([callback, initialValue])](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce_clone) 方法接收一个函数作为累加器（accumulator），数组中的每个值（从左到右）开始缩减，最终为一个值。
 
-### 3.3 实现递归算法
+## 3.3 实现递归算法
+
 * 想要实现一个函数，它递归地遍历一个数组并返回一个反向的数组字符串
 * 缺点：递归很消耗内存
 
@@ -102,7 +103,8 @@ var numStr = orderArray(numArr, -1, "");
 console.log('numStr', numStr);  //1 2 3 4 
 ```
 
-### 3.4 使用一个定时器和回调防止代码阻塞
+## 3.4 使用一个定时器和回调防止代码阻塞
+
 * 在程序的输出中，3个外围的 `console.log()` 立即被处理了
 * 队列中下一个事件是第一个 `noBlock()` 函数调用，其中又调用了 `factorial()` ，记录了其运行时候的活动，最后跟着回调函数的调用
 * 第二次同样地调用了 `callBack()`

@@ -3,7 +3,7 @@
 > 总结在平时开发中遇到的一些小问题，大概很长一段时间就会来这么一次，小片段剧场。
 
 Show Time:
-#### 多行文本截取clamp.js
+## 多行文本截取clamp.js
 ```javascript
 <script src = "https://cdn.bootcss.com/Clamp.js/0.5.1/clamp.min.js" ></script>
 
@@ -19,7 +19,7 @@ function clampFunc(className, clampNum) {
   });
 }
 ```
-#### 判断本地是否存在jquery写法
+## 判断本地是否存在jquery写法
 ```javascript
 <script type="text/javascript">
   if (typeof jQuery == 'undefined') {
@@ -27,7 +27,7 @@ function clampFunc(className, clampNum) {
   }
 </script>
 ```
-#### 截流函数 AND 节流函数
+## 截流函数 AND 节流函数
 ```javascript
 /** 截流函数 **/
 /**
@@ -72,7 +72,7 @@ var throttle = function(fn, delay, mustRunDelay) {
 }
 ```
 
-#### for循环添加点击事件
+## for循环添加点击事件
 ```javascript
 var elems = document.getElementsByTagName('a');
 for (var i = 0, l = elems.length; i < l; i++) {
@@ -85,7 +85,7 @@ for (var i = 0, l = elems.length; i < l; i++) {
 }
 
 ```
-#### 判断浏览器是否开启本地cookie
+## 判断浏览器是否开启本地cookie
 ```javascript
 var nd = new Date();
 nd.setSeconds(nd.getSeconds() + 60);
@@ -99,7 +99,7 @@ if (!cookiesEnabled) {
   alert("已经启用cookie ");
 }
 ```
-#### 解决同级元素鼠标移入移出效果
+## 解决同级元素鼠标移入移出效果
 ```html
 <a class="member-card-item" id="memberCard" href="#"></a>
 <div class="member-card-wper" id="memberProfile">
@@ -130,7 +130,7 @@ function clearCardTime() {
   $mProfile.show();
 }
 ```
-#### placeholder样式兼容&&属性IE兼容
+## placeholder样式兼容&&属性IE兼容
 ```css
 .common-form-control::-webkit-input-placeholder,
 .common-form-control::-moz-placeholder,
@@ -165,7 +165,7 @@ function clearCardTime() {
 	$("input").placeholder();
 </script>
 ```
-#### 返回顶部函数
+## 返回顶部函数
 ```javascript
 // 返回顶部
 function gotoTop(acceleration,stime) {
@@ -200,7 +200,7 @@ function gotoTop(acceleration,stime) {
   }
 }
 ```
-#### 滚动监听垂直联动
+## 滚动监听垂直联动
 ```javascript
 $(window).scroll(function (event) {
   var i = 0,
@@ -231,7 +231,7 @@ $(window).scroll(function (event) {
   $('#navList li').eq(i).addClass('active').siblings().removeClass('active');
 });
 ```
-#### 右侧浮动导航平滑切换
+## 右侧浮动导航平滑切换
 ```javascript
 $("#navList a").click(function () {
   var href = $(this).attr("href");
@@ -245,7 +245,7 @@ $("#navList a").click(function () {
   return false;
 });
 ```
-#### 判断浏览器是否为IE（包括IE11）
+## 判断浏览器是否为IE（包括IE11）
 ```javascript
 function isIE() {
   if (!!window.ActiveXObject || "ActiveXObject" in window) {
@@ -259,7 +259,7 @@ function isIE() {
 
 ```
 
-#### 判断浏览器是否为移动端
+## 判断浏览器是否为移动端
 ```javascript
 var isMobile = false;
 if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
@@ -268,7 +268,7 @@ if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
   isMobile = false;
 }
 ```
-#### 将时间戳转换为时间
+## 将时间戳转换为时间
 ```javascript
 function getMyDate(str) {
   var oDate = new Date(str),
@@ -291,7 +291,7 @@ function getzf(num) {
 
 ```
 
-#### Node实现JavaScript模块的原理简单介绍
+## Node实现JavaScript模块的原理简单介绍
 [原文](https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434502419592fd80bbb0613a42118ccab9435af408fd000)
 ```
 /** Node实现JavaScript模块的一个简单的原理介绍
@@ -322,7 +322,7 @@ var exported = load(module);
 //保存
 save(module, exported);
 ```
-#### Nodejs基本模块fs
+## Nodejs基本模块fs
 
 [Node.js内置的fs模块就是文件系统模块，负责读写文件。](https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434501497361a4e77c055f5c4a8da2d5a1868df36ad1000)
 
@@ -383,7 +383,7 @@ fs.stat('test1.txt', function(err, stat) {
 // 同步读取文件 statSync() 
 
 ```
-#### Nodejs基本模块http
+## Nodejs基本模块http
 [廖雪峰的官方网站之Node中的Http](https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014345015296018cac40c198b543fead5c549865b9bd4a000)
 ```javascript
 'use strict';

@@ -1,6 +1,6 @@
 # 初探 JavaScript 的变量
 
-### 基本类型和引用类型的值
+## 基本类型和引用类型的值
 
 `ECMAScript`变量一般有两种数据类型的值：**基本类型和引用类型**。
 * 基本类型： 简单的数据段：`Undefined, Null, Boolean, Number, String`

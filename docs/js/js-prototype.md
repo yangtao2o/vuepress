@@ -9,7 +9,7 @@ var fn = function() {}
 console.log(fn.prototype)  // {constructor: ƒ}
 console.log(fn.prototype.constructor === fn)  // true
 ```
-![image](https://user-gold-cdn.xitu.io/2019/2/25/169237e0c93f8c42?w=410&h=206&f=png&s=18863)
+![](https://pic.superbed.cn/item/5d6c902c451253d1786d5569.png)
 
 这里的 `fn.prototype` 打印出一个对象，对象里的 `constructor` 属性又指回了该函数本身 fn。
 
@@ -18,7 +18,7 @@ console.log(fn.prototype.constructor === fn)  // true
 ```javascript
 Array === Array.prototype.constructor //true
 ```
-![image](https://user-gold-cdn.xitu.io/2019/2/25/169237e0c9502534?w=417&h=258&f=png&s=25521)
+![](https://pic.superbed.cn/item/5d6c902c451253d1786d556b.png)
 
 我们接着看：
 
@@ -37,7 +37,7 @@ var arr = new Array()
 arr.__proto__ === Array.prototype // true
 Array === Array.prototype.constructor //true
 ```
-![image](https://user-gold-cdn.xitu.io/2019/2/25/169237e0c9690ff1?w=427&h=333&f=png&s=32313)
+![](https://pic.superbed.cn/item/5d6c902c451253d1786d556d.png)
 
 说白了，通过构造函数 new 出来的函数，该函数的`__proto__`属性指向构造函数的原型对象（即`Array.prototype`），所以，该函数与构造函数之间没有什么关联，是通过 原型对象 产生了联系，这也就是原型链继承的雏形吧。
 
@@ -123,7 +123,7 @@ arr.__proto__.addClass = function () {
 arr.push(4);
 arr.addClass();   // 123
 ```
-![image](https://user-gold-cdn.xitu.io/2019/2/25/169237e0c9bd1a05?w=542&h=407&f=png&s=46941)
+![](https://pic.superbed.cn/item/5d6c902c451253d1786d556f.png)
 
 但是，这里要注意，如下重写之后，就没有了诸如 push、concat等方法：
 
@@ -169,7 +169,7 @@ typeof null  //"object"
 * 最后的null对象，可以当做是 什么都没有
   
 盗一张图，我们就更加清楚了（蓝色这条表示的是原型链）
-![image](https://user-gold-cdn.xitu.io/2019/2/25/169237e0c9a3b9c5?w=590&h=525&f=png&s=40652)
+![](https://pic.superbed.cn/item/5d6c902c451253d1786d5572.png)
 
 PS: 关于原型对象这一块本来就很绕，自己看懂了不一定就真的懂了，自己梳理的时候还是漏洞百出，而且还乱，就算现在我梳理了一遍，过些日子，我要是不再继续翻阅，应该又讲不通了，下面的资料很详细，在我学习的过程中提供了很大的帮助，在此感谢作者们！
 
