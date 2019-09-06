@@ -109,3 +109,55 @@ select{
   z-index: -1;
 }
 ```
+
+## 文字两端对齐
+
+```css
+text-align: justify;
+text-align-last:justify;
+```
+
+## 每个单词的首字母大写
+
+```css
+text-transform: uppercase;
+```
+
+* [text-transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-transform)
+
+> 这是 CSS2 中的属性，参数有 capitalize | uppercase | lowercase | none
+
+参数介绍：
+
+* none： 默认。定义带有小写字母和大写字母的标准的文本。
+* capitalize： 文本中的每个单词以大写字母开头。
+* uppercase： 定义仅有大写字母。
+* lowercase： 定义无大写字母，仅有小写字母。
+
+## 单选高亮
+[原文](https://juejin.im/post/5d6ffb676fb9a06b1c744bd5#heading-12)
+
+```css
+.input:checked + .colors {
+  border-color: #e63838;
+  color: #e63838;
+}
+
+<div class="single-check">
+    <input class="input" type="radio" name="colors" value="1">
+    <div class="colors">天空之境</div> 
+</div>
+```
+
+ * `~ 选择器`：查找某个元素后面的所有兄弟元素
+ * `+ 选择器`：查找某个元素后面紧邻的兄弟元素
+
+## 多列等高问题
+
+1. `padding + margin`：每列设置一个比较大的`padding-bottom`，然后通过取负值的 `margin-bottom`，缺点很明显：如下方无法看到圆角，无法看到 `border-bottom` 等
+2. `display: table`
+3. `display: flex`
+
+
+ ## 学习资料
+ * [【前端词典】11 个 CSS 知识搭配 11 个 JS 特性 （实用合集）](https://juejin.im/post/5d6ffb676fb9a06b1c744bd5#heading-12)

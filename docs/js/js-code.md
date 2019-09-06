@@ -2,7 +2,6 @@
 
 > 总结在平时开发中遇到的一些小问题，大概很长一段时间就会来这么一次，小片段剧场。
 
-Show Time:
 ## 多行文本截取clamp.js
 ```javascript
 <script src = "https://cdn.bootcss.com/Clamp.js/0.5.1/clamp.min.js" ></script>
