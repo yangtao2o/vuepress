@@ -145,40 +145,16 @@ const nav = [
     ]
   },
   {
-    text: '计算机',
+    text: '开发必备',
     items: [
       {
-        text: '文档',
+        text: '前端博客',
         items: [
           { text: 'Vue技术揭秘', link: 'https://ustbhuangyi.github.io/vue-analysis/' },
-        ]
-      },
-      {
-        text: '网络',
-        items: [
-          { text: '网络基础', link: 'https://juejin.im/post/5c591fda6fb9a049dc02b1cc' },
-        ]
-      },
-    ]
-  },
-  {
-    text: '博客',
-    link: 'https://istaotao.com/'
-  },
-  {
-    text: '网栈',
-    items: [
-      {
-        text: '我的小站',
-        items: [
-          { text: 'Hexo博客', link: 'https://istaotao.com/' },
-          { text: '牛客网博客', link: 'https://blog.nowcoder.net/istaotao' },
-          { text: '掘金分享', link: 'https://juejin.im/user/58b67dd58fd9c50061238e38/shares/' },
-          { text: '掘金收藏', link: 'https://juejin.im/user/58b67dd58fd9c50061238e38/collections' },
-          { text: 'CodePen', link: 'https://codepen.io/istaotao/' },
-          // { text: 'QDfuns', link: 'https://www.qdfuns.com/u/32286.html' },
-          { text: 'CSDN', link: 'https://blog.csdn.net/qq_42840269' },
-          { text: 'SegmentFault', link: 'https://segmentfault.com/u/taoboy/notes' },
+          { text: 'ConardLi的blog', link: 'http://www.conardli.top/blog/' },
+          { text: 'awesome-coding-js', link: 'http://www.conardli.top/docs/' },
+          { text: '木易杨前端进阶', link: 'https://muyiy.vip/' },
+          { text: '冴羽的博客', link: 'https://github.com/mqyqingfeng/Blog' },
         ]
       },
       {
@@ -196,7 +172,27 @@ const nav = [
           { text: '在线工具', link: 'https://tool.lu/c/developer/' },
           { text: '', link: '' },
         ]
-      }
+      },
+      {
+        text: '前端工程',
+        items: [
+          { text: '网络基础', link: 'https://juejin.im/post/5c591fda6fb9a049dc02b1cc' },
+          { text: '数据结构和算法', link: 'https://juejin.im/post/5d5b307b5188253da24d3cd1' },
+        ]
+      },
+    ]
+  },
+  {
+    text: '我的小站',
+    items: [
+      { text: 'Hexo博客', link: 'https://istaotao.com/' },
+      { text: '牛客网博客', link: 'https://blog.nowcoder.net/istaotao' },
+      { text: '掘金分享', link: 'https://juejin.im/user/58b67dd58fd9c50061238e38/shares/' },
+      { text: '掘金收藏', link: 'https://juejin.im/user/58b67dd58fd9c50061238e38/collections' },
+      { text: 'CodePen', link: 'https://codepen.io/istaotao/' },
+      // { text: 'QDfuns', link: 'https://www.qdfuns.com/u/32286.html' },
+      { text: 'CSDN', link: 'https://blog.csdn.net/qq_42840269' },
+      { text: 'SegmentFault', link: 'https://segmentfault.com/u/taoboy/notes' },
     ]
   },
   {
