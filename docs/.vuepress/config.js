@@ -3,6 +3,7 @@ const sidebar = {
     {
       title: '基础修炼',
       children: [
+        'js-series-summary',
         'js-var',
         'js-prototype',
         'js-this-apply-call',
@@ -13,7 +14,6 @@ const sidebar = {
         'js-chapter-2',
         'js-chapter-3',
         'js-learn',
-        '学习JavaScript深入系列简要总结',
       ]
     },
     {
@@ -81,8 +81,15 @@ const sidebar = {
       title: 'Node.js',
       collapsable: false,
       children: [
+        'nodejs-learn',
+        'connect',
+        'tcp',
+        'http',
+        'event',
+        'express-init',
+        'express-spider',
+        'express-spider-more',
         'node-event',
-        'node-express'
       ]
     }
   ],
@@ -91,6 +98,7 @@ const sidebar = {
       title: '前端开发',
       children: [
         'web',
+        'web-xss',
         'header-response'
       ]
     },
@@ -136,8 +144,8 @@ const nav = [
   {
     text: '开发日志',
     items: [
+      { text: 'JS', link: '/js/' + sidebar['/js/'][0]['children'][0] },
       { text: 'CSS', link: '/css/' + sidebar['/css/'][0]['children'][0] },
-      { text: 'JavaScript', link: '/js/' + sidebar['/js/'][0]['children'][0] },
       { text: 'Vue.js', link: '/vue/' + sidebar['/vue/'][0]['children'][0] },
       { text: 'React.js', link: '/react/' + sidebar['/react/'][0]['children'][0] },
       { text: 'Node.js', link: '/node/' + sidebar['/node/'][0]['children'][0] },
