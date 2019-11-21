@@ -40,6 +40,7 @@ const sidebar = {
     {
       title: 'CSS',
       children: [
+        'css-learn',
         'css-code',
         'css3',
         'css-rem',

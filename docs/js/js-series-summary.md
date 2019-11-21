@@ -383,61 +383,427 @@ ECStack = [globalContext];
 
 那么，闭包 = 函数 + 函数能够访问的自由变量。
 
+看这道刷题必刷，面试必考的闭包题：
+
+```js
+var data = [];
+
+for (var i = 0; i < 3; i++) {
+  data[i] = function() {
+    console.log(i);
+  };
+}
+
+data[0]();
+data[1]();
+data[2]();
+```
+
+循环结束后
+
+```js
+data[0] = function() {
+  console.log(i);
+};
+data[1] = function() {
+  console.log(i);
+};
+data[2] = function() {
+  console.log(i);
+};
+```
+
+执行`data[0]()，data[1]()，data[2]()`时，i=3,所以都打印 3
+
+让我们改成闭包看看：
+
+```js
+var data = [];
+
+for (var i = 0; i < 3; i++) {
+  data[i] = (function(i) {
+    return function() {
+      console.log(i);
+    };
+  })(i);
+}
+
+data[0]();
+data[1]();
+data[2]();
+```
+
+原文链接：[JavaScript 深入之闭包](https://github.com/mqyqingfeng/Blog/issues/9)
+
 ## 参数按值传递
 
-ECMAScript 中所有函数的参数都是按值传递的。
+ECMAScript 中所有函数的参数都是按值传递的。 --- 《JavaScript 高级程序设计-第三版》
 
 即，把函数外部的值复制给函数内部的参数，就和把值从一个变量复制给另一个变量一样。
 
-参数如果是基本类型是按值传递，如果是引用类型按共享传递。
+但是通俗地理解，参数如果是基本类型是按值传递，参数如果是引用类型就按共享传递。
 
 共享传递是指，在传递对象的时候，传递对象的引用的副本。
 
+代码演示：
+
+```js
+// 参数是基本类型
+var value = 1;
+function foo(v) {
+  v = 2;
+  console.log(v); //2
+}
+foo(value);
+console.log(value); // 1
+
+// 参数是引用类型
+var obj = {
+  value: 1
+};
+function foo(o) {
+  o.value = 2;
+  console.log(o.value); //2
+}
+foo(obj);
+console.log(obj.value); // 2
+```
+
+原文链接：[JavaScript 深入之参数按值传递](https://github.com/mqyqingfeng/Blog/issues/10)
+
 ## call 和 apply 的模拟实现
 
-`call()`在使用一个指定的 this 值和若干个指定的参数值的前提下，调用某个函数或方法。
+### call
+
+`call()`在使用一个指定的 this 值和若干个指定的参数值的前提下，调用某个函数或方法。该方法的语法和作用与 apply() 方法类似，只有一个区别，就是 call() 方法接受的是一个参数列表，而 apply() 方法接受的是一个包含多个参数的数组。
+
+使用 call 方法调用函数并且指定上下文的 'this'
+
+```js
+var value = 1;
+var obj = {
+  value: 2
+};
+function foo() {
+  console.log(this.value);
+}
+foo(); // 1
+foo.call(obj); // 2
+```
+
+使用 call 方法调用父构造函数
+
+```js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+function Tao(name, age, job) {
+  Person.call(this, name, age);
+  this.job = job;
+}
+var tao = new Tao("yangtao", 27, "Teacher");
+```
+
+所以我们模拟的步骤可以分为：
+
+- 将函数设为对象的属性
+- 执行该函数
+- 删除该函数
+
+```js
+// 类似于：
+var foo = {
+  value: 1,
+  bar: function() {
+    return this.value;
+  }
+};
+foo.bar(); // 1
+
+// 第一步
+foo.fn = bar;
+// 第二步
+foo.fn();
+// 第三步
+delete foo.fn;
+```
+
+第一版：绑定 this
+
+```js
+Function.prototype.mycall = function(context) {
+  context.fn = this;
+  context.fn();
+  delete context.fn;
+};
+// 测试一下
+var foo = {
+  value: 1
+};
+
+function bar() {
+  console.log(this.value);
+}
+
+bar.mycall(foo); // 1
+
+// 如下所示
+var foo = {
+  value: 1,
+  bar: function() {
+    console.log(this.value);
+  }
+};
+foo.bar();
+```
+
+第二版：给定参数
+
+```js
+Function.prototype.mycall = function(context, name, age) {
+  context.fn = this;
+  context.fn();
+  var args = [];
+  for (var i = 1, l = arguments.length; i < l; i++) {
+    args.push("arguments[" + i + "]");
+  }
+  eval("context.fn(" + args + ")");
+  delete context.fn;
+};
+```
+
+第三版：传参为 null 和返回结果
 
 ```javascript
 Function.prototype.mycall = function(context) {
   var context = context || window;
   //获取调用call的函数，用this可以获取
   context.fn = this;
-  var args = [];
+  var args = []; // ["arguments[1]", "arguments[2]"]
   for (var i = 1, l = arguments.length; i < l; i++) {
     args.push("arguments[" + i + "]");
   }
   // 把传给call的参数传递给了context.fn函数
+  // context.fn(args.join(','));
+  // context.fn(...args)
   var result = eval("context.fn(" + args + ")");
   delete context.fn;
   return result;
 };
 ```
 
-`apply()`同`call()`，只不过将多个参数值，以数组的形式传入而已。
+第四版：考虑 context，以及 context.fn 的可能性
 
-```javascript
-Function.prototype.myapply = function(context, arr) {
-  var context = Object(context) || window;
-  context.fn = this;
-  var result;
-  if (!arr) {
-    result = context.fn();
-  } else {
-    var args = [];
-    for (var index = 0; index < arr.length; index++) {
-      args.push("arr[" + index + "]");
-    }
-    result = eval("context.fn(" + args + ")");
+```js
+Function.prototype.mycall = function(context) {
+  // 这一步如果不强制是 object 类型，可以省略
+  if (typeof context != "object") {
+    throw new Error("Arguments error");
   }
-  delete context.fn;
+
+  var context = context || window;
+  var args = [],
+    reslut;
+
+  if ("fn" in context && context.hasOwnProperty("fn")) {
+    var fn = context.fn;
+    var fnFlag = true;
+  }
+
+  context.fn = this;
+
+  for (var i = 1, l = arguments.length; i < l; i++) {
+    args.push("arguments[" + i + "]");
+  }
+
+  result = eval("context.fn(" + args + ")");
+
+  if (fnFlag) {
+    context.fn = fn;
+  } else {
+    delete context.fn;
+  }
+
   return result;
 };
 ```
 
+### apply
+
+`apply()`同`call()`，只不过将多个参数值，以数组的形式传入而已。
+
+用 apply 将数组添加到另一个数组：
+
+```js
+var arr = ["a", "b"];
+var arr2 = [1, 2];
+arr.push.apply(arr, arr2);
+console.log(arr); // ["a", "b", 1, 2]
+```
+
+使用 apply 和内置函数：
+
+```js
+var nums = [1, 10, 3, 6, 2];
+var max = Math.max.apply(null, nums); // 10
+var min = Math.min.apply(null, nums); // 1
+
+// ES6 写法：
+var max = Math.max(...nums); // 10
+var min = Math.min(...nums); // 1
+```
+
+```javascript
+Function.prototype.myapply = function(context, arr) {
+  var context = context || window;
+  var reslut;
+
+  context.fn = this;
+
+  if (!arr) {
+    reslut = context.fn();
+  } else {
+    var args = [];
+    for (var i = 0, l = arr.length; i < l; i++) {
+      args.push("arr[" + i + "]");
+    }
+    eval("context.fn(" + args + ")");
+  }
+
+  delete context.fn;
+  return reslut;
+};
+```
+
+原文链接：[JavaScript 深入之 call 和 apply 的模拟实现](https://github.com/mqyqingfeng/Blog/issues/11)
+
 ## bind 的模拟实现
 
-`bind()`方法会创建一个新函数。当这个新函数被调用，bind()第一个参数将作为它运行时的 this，之后的一系列参数将会在传递的实参前传入，作为它的参数。
+> `bind()`方法会创建一个新函数。当这个新函数被调用，bind()第一个参数将作为它运行时的 this，之后的一系列参数将会在传递的实参前传入，作为它的参数。 --- 来自于 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+
+创建绑定函数
+
+```js
+var value = 1;
+var obj = {
+  value: 2,
+  getValue: function() {
+    return this.value;
+  }
+};
+var getV = obj.getValue;
+getV(); // 1
+var getV2 = obj.getValue.bind(obj);
+getV2(); // 2
+```
+
+配合 setTimeout
+
+```js
+var value = 1;
+function Fn() {
+  this.value = 2;
+}
+Fn.prototype.getValue = function() {
+  // setTimeout(this.msg, 1000);  // 1
+  setTimeout(this.msg.bind(this), 1000); //2
+};
+Fn.prototype.msg = function() {
+  console.log("value: ", this.value);
+};
+var myFn = new Fn();
+myFn.getValue();
+```
+
+由此我们可以首先得出 bind 函数的两个特点：
+
+- 返回一个函数
+- 可以传入参数
+
+第一版：返回函数
+
+```js
+Function.prototype.mybind = function(context) {
+  var self = this;
+  return function() {
+    return self.apply(context);
+  };
+};
+var obj = {
+  value: 1
+};
+function foo() {
+  return this.value;
+}
+var bindFoo = foo.mybind(obj);
+bindFoo(); //1
+```
+
+第二版：传参
+
+```js
+Function.prototype.mybind = function(context) {
+  var self = this;
+  // 获取除了第一个参数的剩余参数
+  var args = Array.prototype.slice.call(arguments, 1);
+  return function() {
+    // 这里获取的是返回函数调用时传入的参数
+    var bindArgs = Array.prototype.slice.call(arguments);
+    return self.apply(context, args.concat(bindArgs));
+  };
+};
+var obj = {
+  value: 1
+};
+function foo(name, age) {
+  console.log(this.value);
+  console.log(name);
+  console.log(age);
+}
+var bindFoo = foo.mybind(obj, "yang");
+bindFoo(27);
+// 1
+// yang
+// 27
+```
+
+第三版：构造函数效果
+
+当 bind 返回的函数作为构造函数的时候，bind 时指定的 this 值会失效，但传入的参数依然生效。
+
+```js
+
+```
+
+原文链接：[JavaScript 深入之 bind 的模拟实现](https://github.com/mqyqingfeng/Blog/issues/12)
 
 ## new 的模拟实现
 
 new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象类型之一。
+
+```js
+function Person (name, age) {
+    this.name = name;
+    this.age = age;
+    this.habit = 'Games';
+}
+
+Person.prototype.getName = function () {
+    console.log('I am ' + this.name);
+}
+
+var person1 = new Person('Yang', '27');
+
+console.log(person1.name) // Yang
+console.log(person1.habit) // Games
+
+person1.getName(); // I am Yang
+```
+
+由上可知，实例 person1 可以：
+
+- 访问到 Person 构造函数里的属性
+- 访问到 Person.prototype 中的属性
+
+原文链接：[JavaScript深入之new的模拟实现](https://github.com/mqyqingfeng/Blog/issues/13)
