@@ -17,12 +17,17 @@ const sidebar = {
       ]
     },
     {
+      title: '面试总结',
+      children: [
+        'interview',
+      ]
+    },
+    {
       title: '日常杂记',
       children: [
         'js-code',
         'js-code-big',
         'throttle-debounce',
-        'interview',
       ]
     },
     {
@@ -111,6 +116,7 @@ const sidebar = {
         'gnvm',
         'macos-bash',
         'tool-tree',
+        'linux-shell'
       ]
     },
     {
