@@ -113,10 +113,13 @@ const sidebar = {
       children: [
         'git-command',
         'git-revert',
+        'git-learn',
         'gnvm',
         'macos-bash',
         'tool-tree',
-        'linux-shell'
+        'doc-rule',
+        'linux-shell',
+        'macos-du',
       ]
     },
     {

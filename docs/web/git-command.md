@@ -3,14 +3,16 @@
 > 使用 `git bash` 的过程中，除了常用的那几条，其它的总需要查找手册，索性跟着大牛总结的文章走一遍吧
 
 ## 前言
-* Workspace: 工作区
-* Index / Stage: 暂存区
-* Repository: 仓库区（或本地仓库）
-* Remote: 远程仓库
-  
+
+- Workspace: 工作区
+- Index / Stage: 暂存区
+- Repository: 仓库区（或本地仓库）
+- Remote: 远程仓库
+
 ![image](https://user-images.githubusercontent.com/19526072/49999253-4c690980-ffd1-11e8-892a-bff60b374d12.png)
 
 ### 新建
+
 ```bash
 # 在当前目录 git-command 下新建 Git 代码库，（会生成 .git 文件）
 git init
@@ -23,7 +25,8 @@ git clone https://github.com/yangtao2o/git-command.git
 ```
 
 ### 配置
-Git的设置文件为 `.gitconfig` ，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
+
+Git 的设置文件为 `.gitconfig` ，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
 
 ```bash
 # 显示配置信息
@@ -37,6 +40,7 @@ git config --global user.email "xxx@.qq.com"
 ```
 
 ### 增加、删除文件
+
 ```bash
 # 添加指定文件到暂存区
 git add index.html
@@ -62,6 +66,7 @@ git mv index.html index-new.html
 ```
 
 ### 代码提交
+
 ```bash
 # 暂存区提交到仓库区 ( -m (msg) )
 git commit -m "My first commit"
@@ -85,6 +90,7 @@ git commit --amend [file1] [file2] ...
 ```
 
 ### 分支
+
 ```bash
 # 列出所有的本地分支
 git branch
@@ -129,25 +135,28 @@ git branch -d master-ytt
 git push origin --delete [branch-name]
 git branch -dr [remote/branch]
 ```
+
 ### 标签
 
 ```bash
 # 列出标签
 git tag
 ```
+
 ### 查看信息
 
-```bash 
+```bash
 # 显示有变更的文件
 git status
 
 # 显示当前分支的版本历史
 git log
 ```
+
 ## 参考目录
 
-* [Git 常用命令](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
-* [Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
-* [珍藏多年的 Git 问题和操作清单](https://mp.weixin.qq.com/s/14WBS4GcZlEbBumfUagXMA)
+- [Git 常用命令](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
+- [Git 教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+- [珍藏多年的 Git 问题和操作清单](https://mp.weixin.qq.com/s/14WBS4GcZlEbBumfUagXMA)
 
 [练习 Demo](https://github.com/yangtao2o/git-command)
