@@ -4,6 +4,7 @@ const sidebar = {
       title: '基础修炼',
       children: [
         'js-series-summary',
+        'js-theme-summary',
         'js-var',
         'js-prototype',
         'js-this-apply-call',
@@ -117,9 +118,10 @@ const sidebar = {
         'gnvm',
         'macos-bash',
         'tool-tree',
-        'doc-rule',
         'linux-shell',
+        'ubuntu-aliyun',
         'macos-du',
+        'doc-rule',
       ]
     },
     {
