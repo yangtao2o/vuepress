@@ -135,7 +135,7 @@ button.addEventListener("click", function() {
 });
 ```
 
-原文地址：[JavaScript 专题之跟着 underscore 学防抖](https://juejin.im/post/5931561fa22b9d0058c5b87d)
+原文地址：[JavaScript 专题之跟着 underscore 学防抖](https://github.com/mqyqingfeng/Blog/issues/22)
 
 ## 跟着 underscore 学节流
 
@@ -290,7 +290,7 @@ function throttle(func, wait, options) {
 
 注意：就是 `leading：false` 和 `trailing: false` 不能同时设置。
 
-原文地址：[JavaScript 专题之跟着 underscore 学节流](https://juejin.im/post/5947312a61ff4b006cf66be9)
+原文地址：[JavaScript 专题之跟着 underscore 学节流](https://github.com/mqyqingfeng/Blog/issues/26)
 
 ## 数组去重
 
@@ -499,9 +499,125 @@ function unique(arr) {
 }
 ```
 
-原文地址：[JavaScript 专题之数组去重](https://juejin.im/post/5949d85f61ff4b006c0de98b)
+原文地址：[JavaScript 专题之数组去重](https://github.com/mqyqingfeng/Blog/issues/27)
 
-## 类型判断(上) 
+## 类型判断
 
-原文地址：[JavaScript专题之类型判断(上)](https://juejin.im/post/5951ba9f6fb9a06bbd6f5a12)
+原文地址：
 
+- [JavaScript 专题之类型判断(上)](https://github.com/mqyqingfeng/Blog/issues/28)
+- [JavaScript 专题之类型判断(下)](https://github.com/mqyqingfeng/Blog/issues/30)
+
+## 深浅拷贝
+
+### 数组的浅拷贝
+
+如果数组元素是基本类型，就会拷贝一份，互不影响，而如果是对象或者数组，就会只拷贝对象和数组的引用，这样我们无论在新旧数组进行了修改，两者都会发生变化。
+
+我们把这种复制引用的拷贝方法称之为浅拷贝，与之对应的就是深拷贝，深拷贝就是指完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。
+
+比如，数组的一些方法：`concat、slice`：
+
+```js
+var arr = ["old", 1, true, null, undefined];
+
+var newArr = arr.concat();
+newArr.shift();
+console.log(arr); // [ 'old', 1, true, null, undefined ]
+console.log(newArr); // [ 1, true, null, undefined ]
+
+var newArr2 = arr.slice();
+console.log(newArr2); // [ 'old', 1, true, null, undefined ]
+```
+
+但是如果数组嵌套了对象或者数组的话，就会都受影响，比如：
+
+```js
+var arrObj = [{ a: 1 }, { b: 2 }];
+
+var newArrObj = arrObj.concat();
+newArrObj[0].a = "aaa";
+console.log(newArrObj); // [ { a: 'aaa' }, { b: 2 } ]
+console.log(arrObj); // [ { a: 'aaa' }, { b: 2 } ]
+```
+
+### 数组的深拷贝
+
+使用 `JSON.stringify()`和`JSON.parse()`，不管是数组还是对象，都可以实现深拷贝，但是不能拷贝函数，会返回一个 null：
+
+```js
+var arr1 = ["old", 1, true, ["old1", "old2"], { old: 1 }, function() {}];
+var newArr1 = JSON.parse(JSON.stringify(arr1));
+newArr1.shift();
+console.log(arr1); // [ 'old', 1, true, [ 'old1', 'old2' ], { old: 1 }, [Function] ]
+console.log(newArr1); // [ 1, true, [ 'old1', 'old2' ], { old: 1 }, null ]
+```
+
+### 浅拷贝的实现
+
+技巧型的拷贝，如上边使用的 `concat、slice、JSON.stringify`等，如果要实现一个对象或者数组的浅拷贝，该怎么实现呢？
+
+思路：既然是浅拷贝，那就只需要遍历，把对应的属性及属性值添加到新的对象，并返回。
+
+代码实现：
+
+```js
+var shallowCopy = function(obj) {
+  if(typeof obj !== 'object') return;
+
+  // 判断新建的是数组还是对象
+  var newObj = obj instanceof Array ? [] : {};
+  // 遍历obj，并且判断是obj的属性才拷贝
+  for(var key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      newObj[key] = obj[key];
+    }
+  }
+
+  return newObj;
+}
+
+var arr20 = ['old', 1, true, ['old1', 'old2'], {old: 1}, function() {}];
+var newArr20 = shallowCopy(arr20);
+
+console.log({newArr20})  
+// [ 'old', 1, true, [ 'old1', 'old2' ], { old: 1 }, [Function] ]
+```
+
+### 深拷贝的实现
+
+思路：如果是对象，通过递归调用拷贝函数
+
+代码实现：
+
+```js
+var deepCopy = function (obj) {
+  if (typeof obj !== 'object') return;
+  var newObj = obj instanceof Array ? [] : {};
+
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = typeof obj[key] !== 'object' ? obj[key] : deepCopy(obj[key]);
+    }
+  }
+
+  return newObj;
+}
+
+var obj = {
+  a: function () {},
+  b: {
+    name: 'Tony',
+    age: 10
+  },
+  c: [1, 2, 3]
+};
+
+var newObj = deepCopy(obj);
+console.log(newObj);
+// { a: [Function: a],
+  // b: { name: 'Tony', age: 10 },
+  // c: [ 1, 2, 3 ] }
+```
+
+原文地址：[JavaScript 专题之深浅拷贝](https://github.com/mqyqingfeng/Blog/issues/32)

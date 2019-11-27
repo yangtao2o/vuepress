@@ -161,7 +161,89 @@ text-transform: uppercase;
 2. `display: table`
 3. `display: flex`
 
+## 1px 方案
+
+```css
+.min-device-pixel-ratio(@scale2, @scale3) {
+  @media screen and (min-device-pixel-ratio: 2),
+    (-webkit-min-device-pixel-ratio: 2) {
+    transform: @scale2;
+  }
+  @media screen and (min-device-pixel-ratio: 3),
+    (-webkit-min-device-pixel-ratio: 3) {
+    transform: @scale3;
+  }
+}
+
+.border-1px(@color: #DDD, @radius: 2px, @style: solid) {
+  &::before {
+    content: "";
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    border: 1px @style @color;
+    border-radius: @radius;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    @media screen and (min-device-pixel-ratio: 2),
+      (-webkit-min-device-pixel-ratio: 2) {
+      width: 200%;
+      height: 200%;
+      border-radius: @radius * 2;
+      transform: scale(0.5);
+    }
+    @media screen and (min-device-pixel-ratio: 3),
+      (-webkit-min-device-pixel-ratio: 3) {
+      width: 300%;
+      height: 300%;
+      border-radius: @radius * 3;
+      transform: scale(0.33);
+    }
+  }
+}
+
+.border-top-1px(@color: #DDD, @style: solid) {
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border-top: 1px @style @color;
+    transform-origin: 0 0;
+    .min-device-pixel-ratio(scaleY(0.5), scaleY(0.33));
+  }
+}
+```
+
+- [原文](https://juejin.im/post/5d6ffb676fb9a06b1c744bd5#heading-5)
+
+## css 之 flex 和 grid
+
+### flex
+
+- [flex - CSS（层叠样式表）| MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex)
+- [Aligning Items in a Flex Container
+  ](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container)
+- [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html) - 阮一峰
+- [Flex 布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html) - 阮一峰
+- [30 分钟彻底弄懂 flex 布局](https://cloud.tencent.com/developer/article/1354252) --- 可以直接读这篇总结文章，讲的很详细
+- [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) --- 比较生动形象，自身网站就很好看
+
+### grid
+
+- [Bootstrap 4](https://v4.bootcss.com/docs/4.0/layout/grid/) 的布局在使用 grid
+- [CSS Grid 网格布局教程](http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html) - 阮一峰
+
+### 使用 flex 还是 grid
+
+- [最全～ Grid vs Flex](https://zhuanlan.zhihu.com/p/46757975)
+
 ## 学习资料
 
 - [【前端词典】11 个 CSS 知识搭配 11 个 JS 特性 （实用合集）](https://juejin.im/post/5d6ffb676fb9a06b1c744bd5#heading-12)
-- [web前端面试中10个关于css高频面试题,你都会吗?](https://mp.weixin.qq.com/s?__biz=MzI4NDYxNTM0OQ==&mid=2247484312&idx=1&sn=f4c51d7c3b7dc49f234d119ca0983bb4&chksm=ebf9f442dc8e7d54e2c29761fe9b8c9909a475aca434543759ddd5c1a6e2e8ac10e406bb99ef&mpshare=1&scene=23&srcid=1121SGoxE9Vgb66UMridQbbF&sharer_sharetime=1574331417826&sharer_shareid=73865875704bcba3caa8b09c62f6bd7a%23rd)
+- [web 前端面试中 10 个关于 css 高频面试题,你都会吗?](https://mp.weixin.qq.com/s?__biz=MzI4NDYxNTM0OQ==&mid=2247484312&idx=1&sn=f4c51d7c3b7dc49f234d119ca0983bb4&chksm=ebf9f442dc8e7d54e2c29761fe9b8c9909a475aca434543759ddd5c1a6e2e8ac10e406bb99ef&mpshare=1&scene=23&srcid=1121SGoxE9Vgb66UMridQbbF&sharer_sharetime=1574331417826&sharer_shareid=73865875704bcba3caa8b09c62f6bd7a%23rd)

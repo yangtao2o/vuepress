@@ -55,7 +55,6 @@ const sidebar = {
         'css-code',
         'css3',
         'css-rem',
-        'css-flex-grid',
         'article'
       ]
     },
