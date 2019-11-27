@@ -4,7 +4,12 @@ const sidebar = {
       title: '基础修炼',
       children: [
         'js-series-summary',
-        'js-theme-summary',
+        'js-series-1',
+        'js-series-2',
+        'js-series-3',
+        'js-theme-1',
+        'js-theme-2',
+        'js-theme-3',
         'js-var',
         'js-prototype',
         'js-this-apply-call',
@@ -237,7 +242,7 @@ const nav = [
 ]
 
 const config = {
-  base: '/home/',  // 基准 URL
+  base: '/vuepress/',  // 基准 URL
   title: '大涛子客栈',
   description: '前端开发、摄影、羽毛球、电影',
   head: [

@@ -195,8 +195,6 @@ nginx 服务器日志文件：
 
 ## hexo 部署到服务器上
 
-
-
 ## 资料
 
 ### 学习资料
@@ -217,6 +215,6 @@ nginx 服务器日志文件：
 - [vim 基本操作](https://www.cnblogs.com/chenlogin/p/6245958.html)
 - [阿里云 ubuntu nginx 无法访问，求解答](https://segmentfault.com/q/1010000009437407)
 - [Hexo 个人博客部署到 CentOS 个人服务器](https://segmentfault.com/a/1190000010680022)
-- [Hexo部署在阿里云服务器上](https://www.jianshu.com/p/e1ccd49b4e5d)
+- [Hexo 部署在阿里云服务器上](https://www.jianshu.com/p/e1ccd49b4e5d)
 - [通过 Git 将 Hexo 博客部署到服务器](https://www.jianshu.com/p/e03e363713f9)
 - [使用 Git Hook 自动部署 Hexo 到个人 VPS](http://www.swiftyper.com/2016/04/17/deploy-hexo-with-git-hook/)

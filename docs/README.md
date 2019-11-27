@@ -11,15 +11,15 @@ features:
 footer: MIT Licensed | Copyright © 2019 Yang Tao
 ---
 <p align="center">
-<img src="/home/group.svg">
+<img src="/vuepress/group.svg">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="/home/monitor.svg">
+<img src="/vuepress/monitor.svg">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="/home/edit-tools.svg">
+<img src="/vuepress/edit-tools.svg">
 </p>
 
 ####  快给我留言吧...

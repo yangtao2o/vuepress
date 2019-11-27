@@ -1,4 +1,4 @@
-# 学习冴羽的 JS 专题系列简要总结
+# 学习冴羽的 JS 专题系列·上篇
 
 ## 跟着 underscore 学防抖
 
@@ -351,7 +351,7 @@ function unique(arr) {
 }
 ```
 
-### unique API 
+### unique API
 
 写一个名为 unique 的工具函数，我们根据一个参数 isSorted 判断传入的数组是否是已排序的，如果为 true，我们就判断相邻元素是否相同，如果为 false，我们就使用 indexOf 进行判断
 
@@ -383,7 +383,6 @@ function unique(arr, isSorted) {
 - isSorted：表示函数传入的数组是否已排过序，如果为 true，将会采用更快的方法进行去重
 - iteratee：传入一个函数，可以对每个元素进行重新的计算，然后根据处理的结果进行去重
 
-
 ```js
 function unique(array, isSorted, iteratee) {
   var res = [];
@@ -399,7 +398,7 @@ function unique(array, isSorted, iteratee) {
       }
       seen = value;
     } else if (iteratee) {
-      if(seen.indexOf(computed) === -1) {
+      if (seen.indexOf(computed) === -1) {
         seen.push(computed);
         res.push(value);
       }
@@ -415,11 +414,94 @@ function unique(array, isSorted, iteratee) {
 如：
 
 ```js
-var arr = [1, 1, 2, 90, 1, '1', 'a', 'A'];
-console.log(unique(arr, false, function(item) {
-  return typeof item === 'string' ? item.toLowerCase() : item;
-}));
+var arr = [1, 1, 2, 90, 1, "1", "a", "A"];
+console.log(
+  unique(arr, false, function(item) {
+    return typeof item === "string" ? item.toLowerCase() : item;
+  })
+);
 // [ 1, 2, 90, '1', 'a' ]
 ```
 
+### filter
+
+indexOf 方法：
+
+```js
+function unique(array) {
+  return array.filter(function(value, index, array) {
+    return array.indexOf(value) === index;
+  });
+}
+```
+
+排序去重方法：
+
+```js
+function unique(array) {
+  return array
+    .concat()
+    .sort()
+    .filter(function(value, index, array) {
+      return !index || value !== array[index - 1];
+    });
+}
+```
+
+### Object 键值对
+
+使用 `typeof item + item` （或者`item += typeof item`) 拼成字符串作为 key 值，避免 1 和 '1' 是相同的问题，比如：`'1number'`和`1string`。
+
+```js
+function unique(array) {
+  var obj = {};
+  return array.filter(function(item, index, array) {
+    item += typeof item;
+    return obj.hasOwnProperty(item) ? false : (obj[item] = true);
+  });
+}
+```
+
+### ES6
+
+Set 去重：
+
+```js
+// 初始化
+function unique(array) {
+  return Array.from(new Set(array));
+}
+
+// 变形
+function unique(array) {
+  return [...new Set(array)];
+}
+
+// 超级变幻形态
+let unique = arr => [...new Set(arr)];
+```
+
+数组去重合并：
+
+```js
+function combine() {
+  const arr = [].concat.apply([], arguments);
+  return Array.from(new Set(arr));
+}
+```
+
+Map 去重：
+
+```js
+function unique(arr) {
+  const seen = new Map();
+  return arr.filter(item => !seen.has(item) && seen.set(item, null));
+}
+```
+
 原文地址：[JavaScript 专题之数组去重](https://juejin.im/post/5949d85f61ff4b006c0de98b)
+
+## 类型判断(上) 
+
+原文地址：[JavaScript专题之类型判断(上)](https://juejin.im/post/5951ba9f6fb9a06bbd6f5a12)
+
