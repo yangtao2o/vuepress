@@ -3,13 +3,13 @@ const sidebar = {
     {
       title: '基础修炼',
       children: [
-        'js-series-summary',
         'js-series-1',
         'js-series-2',
         'js-series-3',
         'js-theme-1',
         'js-theme-2',
         'js-theme-3',
+        'js-series-summary',
         'js-var',
         'js-prototype',
         'js-this-apply-call',
@@ -61,6 +61,7 @@ const sidebar = {
     {
       title: 'HTML',
       children: [
+        'html-code',
         'html-edm',
       ]
     }
@@ -156,9 +157,10 @@ const sidebar = {
 }
 
 const nav = [
-  { text: 'Home', link: '/' },
+  { text: '主页', link: '/' },
+  { text: '博文', link: '/../' },
   {
-    text: '开发日志',
+    text: '博文分类',
     items: [
       { text: 'JS', link: '/js/' + sidebar['/js/'][0]['children'][0] },
       { text: 'CSS', link: '/css/' + sidebar['/css/'][0]['children'][0] },

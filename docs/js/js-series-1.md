@@ -2,29 +2,7 @@
 
 ## 从原型到原型链
 
-### 图示总结
-
-`prototype`：每一个函数都有一个`prototype`属性，该属性指向了一个对象，此对象为调用该函数而创建的实例的原型
-
-![构造函数和实例原型的关系图](https://ae01.alicdn.com/kf/Hacfcf286c7a7419db3e4c0932fb535923.png)
-
-`__proto__`：每一个对象（除 null）都具有一个属性：`__proto__`，这个属性指向该对象的原型
-
-![实例与实例原型的关系图](https://ae01.alicdn.com/kf/H0167f64ea5a14d00977d7347f3771ce7T.png)
-
-`constructor`：每个原型都有一个`constructor`属性指向关联的构造函数
-
-![constructor](https://ae01.alicdn.com/kf/Hb2d428716f6341b58ac36eefd3ab7398b.png)
-
-`Object`：原型对象是通过 `Object` 构造函数生成的，最后`Object.prototype.__proto__ = null`
-
-![原型链示意图](https://ae01.alicdn.com/kf/H162bf41c88784952a445c19c5ce3159e5.png)
-
-原型链：由相互关联的原型(**proto**)组成的链状结构就是原型链，即图中蓝色的这条线
-
-![原型链](https://ae01.alicdn.com/kf/H46dd0d5cd87243f4beb2d4c3e974a1e5K.png)
-
-### 代码总结
+### 代码演示
 
 每个函数都有一个 prototype 属性
 
@@ -63,6 +41,28 @@ Object.prototype.**proto** 的值为 null，即 Object.prototype 没有原型，
 ```js
 Object.prototype.__proto__; // null
 ```
+
+### 图示总结
+
+`prototype`：每一个函数都有一个`prototype`属性，该属性指向了一个对象，此对象为调用该函数而创建的实例的原型
+
+![构造函数和实例原型的关系图](https://ae01.alicdn.com/kf/Hacfcf286c7a7419db3e4c0932fb535923.png)
+
+`__proto__`：每一个对象（除 null）都具有一个属性：`__proto__`，这个属性指向该对象的原型
+
+![实例与实例原型的关系图](https://ae01.alicdn.com/kf/H0167f64ea5a14d00977d7347f3771ce7T.png)
+
+`constructor`：每个原型都有一个`constructor`属性指向关联的构造函数
+
+![constructor](https://ae01.alicdn.com/kf/Hb2d428716f6341b58ac36eefd3ab7398b.png)
+
+`Object`：原型对象是通过 `Object` 构造函数生成的，最后`Object.prototype.__proto__ = null`
+
+![原型链示意图](https://ae01.alicdn.com/kf/H162bf41c88784952a445c19c5ce3159e5.png)
+
+原型链：由相互关联的原型(**proto**)组成的链状结构就是原型链，即图中蓝色的这条线
+
+![原型链](https://ae01.alicdn.com/kf/H46dd0d5cd87243f4beb2d4c3e974a1e5K.png)
 
 原文地址：[JavaScript 深入之从原型到原型链](https://github.com/mqyqingfeng/Blog/issues/2)
 

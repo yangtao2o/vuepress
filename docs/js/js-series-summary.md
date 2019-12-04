@@ -52,3 +52,8 @@
 6. [JavaScript 专题之递归](https://github.com/mqyqingfeng/Blog/issues/49)
 7. [JavaScript 专题之乱序](https://github.com/mqyqingfeng/Blog/issues/51)
 8. [JavaScript 专题之解读 v8 排序源码](https://github.com/mqyqingfeng/Blog/issues/52)
+
+
+## 其他
+
+1. [如何轻松拿到淘宝前端 offer | 掘金技术征文](https://juejin.im/post/5bbc54a2e51d450e5a7445b4)

@@ -299,9 +299,67 @@ bindFoo(27);
 
 第三版：构造函数效果
 
-当 bind 返回的函数作为构造函数的时候，bind 时指定的 this 值会失效，但传入的参数依然生效。
+bind 还有一个特点，就是:一个绑定函数也能使用 new 操作符创建对象：这种行为就像把原函数当成构造器。提供的 this 值被忽略，同时调用时的参数被提供给模拟函数。
+
+也就是说，当 bind 返回的函数作为构造函数的时候，bind 时指定的 this 值会失效，但传入的参数依然生效。
+
+所以我们可以通过修改返回的函数的原型来实现：
 
 ```js
+Function.prototype.mybind = function(context) {
+  var self = this;
+  var args = Array.prototype.slice.call(arguments, 1);
+  var fBound = function() {
+    var bindArgs = Array.prototype.slice.call(arguments);
+    // 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值
+    // 以上面的是 demo 为例，如果改成 `this instanceof fBound ? null : context`，实例只是一个空对象，将 null 改成 this ，实例会具有 habit 属性
+    // 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context
+    return self.apply(
+      this instanceof fBound ? this : context,
+      args.concat(bindArgs)
+    );
+  };
+
+  // 修改返回函数的 prototype 为绑定函数的 prototype，实例就可以继承绑定函数的原型中的值
+  fBound.prototype = this.prototype;
+  return fBound;
+};
+```
+
+优化：
+
+```js
+Function.prototype.mybind = function(context) {
+  if (typeof this !== "function") {
+    throw new Error(
+      "Function.prototype.bind - what is trying to be bound is not callable"
+    );
+  }
+
+  var self = this;
+  var args = Array.prototype.slice.call(arguments, 1);
+
+  var fNOP = function() {};
+  var fBound = function() {
+    var bindArgs = Array.prototype.slice.call(arguments);
+    return self.apply(
+      this instanceof fNOP ? this : context,
+      args.concat(bindArgs)
+    );
+  };
+
+  fNOP.prototype = this.prototype;
+  fBound.prototype = new fNOP();
+  return fBound;
+};
+```
+
+那别忘了做个兼容：
+
+```js
+Function.prototype.bind = Function.prototype.bind || function () {
+    ……
+};
 ```
 
 原文链接：[JavaScript 深入之 bind 的模拟实现](https://github.com/mqyqingfeng/Blog/issues/12)
@@ -333,6 +391,51 @@ person1.getName(); // I am Yang
 
 - 访问到 Person 构造函数里的属性
 - 访问到 Person.prototype 中的属性
+
+### 初步实现
+
+分析：
+
+因为 new 的结果是一个新对象，所以在模拟实现的时候，我们也要建立一个新对象，这个新对象会具有构造函数里的属性。
+
+实例的 `__proto__` 属性会指向构造函数的 `prototype`，也正是因为建立起这样的关系，实例可以访问原型上的属性。
+
+```js
+function objectFactory() {
+  // 用new Object() 的方式新建了一个对象 obj
+  var obj = new Object();
+
+  // 取出第一个参数，就是我们要传入的构造函数
+  // 此外因为 shift 会修改原数组，所以 arguments 会被去除第一个参数
+  var Constructor = [].shift.call(arguments);
+
+  // 将 obj 的原型指向构造函数，这样 obj 就可以访问到构造函数原型中的属性
+  obj.__proto__ = Constructor.prototype;
+
+  // 使用 apply，改变构造函数 this 的指向到新建的对象，这样 obj 就可以访问到构造函数中的属性
+  Constructor.apply(obj, arguments);
+
+  // 返回 obj
+  return obj;
+}
+```
+
+### 返回值效果实现
+
+需要判断返回的值是不是一个对象，如果是一个对象，我们就返回这个对象，如果没有，我们该返回什么就返回什么
+
+```js
+function objectFactory() {
+  var obj = new Object();
+  var Constructor = [].shift.call(arguments);
+
+  obj.__proto__ = Constructor.prototype;
+
+  var ret = Constructor.apply(obj, arguments);
+
+  return typeof ret === "object" ? ret : obj;
+}
+```
 
 原文链接：[JavaScript 深入之 new 的模拟实现](https://github.com/mqyqingfeng/Blog/issues/13)
 
@@ -406,4 +509,3 @@ arguments 的应用其实很多，如果要总结这些场景的话，暂时能�
 - 函数重载
 
 原文链接：[JavaScript 深入之类数组对象与 arguments](https://github.com/mqyqingfeng/Blog/issues/14)
-

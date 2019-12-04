@@ -503,6 +503,225 @@ function unique(arr) {
 
 ## 类型判断
 
+### typeof
+
+最新的 ECMAScript 标准定义了 8 种数据类型:
+
+7 种原始类型:
+
+- Boolean
+- Null
+- Undefined
+- Number
+- String
+- Symbol 
+- BigInt
+
+和 Object
+
+使用 typeof 检测类型如下：
+
+```js
+Number is:  number
+String is:  string
+Boolean is:  boolean
+Undefined is:  undefined
+Null is:  object
+Symbol is:  symbol
+BigInt is:  bigint
+Object is:  object
+```
+
+所以 typeof 能检测出七种基本类型的值，但是，除此之外 Object 下还有很多细分的类型呐，如 Array、Function、Date、RegExp、Error 等。
+
+如果用 typeof 去检测这些类型，返回的都是 object，除了 Function：
+
+```js
+var date = new Date();
+var error = new Error();
+var fn = function() {};
+console.log(typeof date);   // object
+console.log(typeof error);  // object
+console.log(typeof fn);   // function
+```
+
+### Object.prototype.toString
+
+所有，该如何区分 object 呢？我们用`Object.prototype.toString`。
+
+规范：当 toString 方法被调用的时候，下面的步骤会被执行：
+
+- 如果 this 值是 undefined，就返回 `[object Undefined]`
+- 如果 this 的值是 null，就返回 `[object Null]`
+- 让 O 成为 `ToObject(this)` 的结果
+- 让 class 成为 O 的内部属性 `[[Class]]` 的值
+- 最后返回由 `"[object "` 和 `class` 和 `"]"` 三个部分组成的字符串
+
+通过规范，我们至少知道了调用 `Object.prototype.toString` 会返回一个由 `"[object " 和 class 和 "]"` 组成的字符串，而 class 是要判断的对象的内部属性。
+
+我们可以了解到这个 class 值就是识别对象类型的关键！
+
+正是因为这种特性，我们可以用 `Object.prototype.toString` 方法识别出更多类型！
+
+先看下常见的 15 种（ES6新增：Symbol Set Map，还有 BigInt）：
+
+```js
+var number = 1;            // [object Number]
+var string = '123';        // [object String]
+var boolean = true;        // [object Boolean]
+var und = undefined;       // [object Undefined]
+var nul = null;            // [object Null]
+var obj = {a: 1}           // [object Object]
+var array = [1, 2, 3];     // [object Array]
+var date = new Date();     // [object Date]
+var error = new Error();   // [object Error]
+var reg = /a/g;            // [object RegExp]
+var func = function a(){}; // [object Function]
+var symb = Symbol('test'); // [object Symbol]
+var set = new Set();       // [object Set]
+var map = new Map();       // [object Map]
+var bigI = BigInt(1);      // [object BigInt]
+
+function checkType() {
+  for(var i = 0, l = arguments.length; i < l; i++) {
+    console.log(Object.prototype.toString.call(arguments[i]));
+  }
+}
+
+checkType(number, string, boolean, und, nul, obj, array, date, error, reg, func, symb, set, map, bigI);
+```
+
+除了以上 15 种，还有以下 3 种：
+
+```js
+console.log(Object.prototype.toString.call(Math));  // [object Math]
+console.log(Object.prototype.toString.call(JSON));  // [object JSON]
+
+var fn = function() {
+  console.log(Object.prototype.toString.call(arguments));  // [object Arguments]
+}
+
+fn();
+```
+
+### type API
+
+写一个 type 函数能检测各种类型的值，如果是基本类型，就使用 typeof，引用类型就使用 toString。
+
+此外鉴于 typeof 的结果是小写，我也希望所有的结果都是小写。
+
+```js
+var class2type = {};
+
+"Boolean Number String Function Array Date RegExp Object Error Null Undefined"
+  .split(" ")
+  .map(function(item) {
+    class2type["[object " + item + "]"] = item.toLowerCase(); // e.g. '[object Boolean]': 'boolean'
+  });
+
+function type(obj) {
+  if (obj == null) {
+    return obj + "";  // IE6
+  }
+  return typeof obj === "object" || typeof obj === "function"
+    ? class2type[Object.prototype.toString.call(obj)] || "object"
+    : typeof obj;
+}
+```
+
+这里`class2type[Object.prototype.toString.call(obj)] || "object"`的 object，为了 ES6 新增的 Symbol、Map、Set 等类型返回 object。
+
+当然也可以添加进去，返回的就是对应的类型：
+
+```js
+var class2type = {};
+
+"Boolean Number String Function Array Date RegExp Object Error Null Undefined Symbol Set Map BigInt"
+  .split(" ")
+  .map(function(item) {
+    class2type["[object " + item + "]"] = item.toLowerCase();
+  });
+
+function type(obj) {
+  if (obj == null) {
+    return obj + "";  // IE6
+  }
+  return typeof obj === "object" || typeof obj === "function"
+    ? class2type[Object.prototype.toString.call(obj)]
+    : typeof obj;
+}
+```
+
+### isFunction
+
+```js
+function isFunction(obj) {
+  return type(obj) === "function";
+}
+```
+
+### isArray
+
+```js
+var isArray = Array.isArray || function (obj) {
+  return type(obj) === "array";
+}
+```
+
+### plainObject
+
+`plainObject` 来自于 jQuery，可以翻译成纯粹的对象，所谓"纯粹的对象"，就是该对象是通过 "{}" 或 "new Object" 创建的，该对象含有零个或者多个键值对。
+
+之所以要判断是不是 `plainObject`，是为了跟其他的 JavaScript 对象如 null，数组，宿主对象（documents）等作区分，因为这些用 typeof 都会返回 object。
+
+### EmptyObject
+
+jQuery提供了 `isEmptyObject` 方法来判断是否是空对象，代码简单：
+
+```js
+function isEmptyObject(obj) {
+  var name;
+  // 判断是否有属性，for 循环一旦执行，就说明有属性，有属性就会返回 false
+  for (name in obj) {
+    return false;
+  }
+  return true;
+}
+
+console.log(isEmptyObject({})); // true
+console.log(isEmptyObject([])); // true
+console.log(isEmptyObject(null)); // true
+console.log(isEmptyObject(undefined)); // true
+console.log(isEmptyObject(1)); // true
+console.log(isEmptyObject('')); // true
+console.log(isEmptyObject(true)); // true
+```
+
+### Window对象
+
+Window 对象作为客户端 JavaScript 的全局对象，它有一个 window 属性指向自身。我们可以利用这个特性判断是否是 Window 对象。
+
+```js
+function isWindow(obj) {
+  return obj !== null && obj === obj.window
+}
+```
+
+### isArrayLike
+
+### isElement
+
+判断是不是 DOM 元素
+
+```js
+function isElement(obj) {
+  return !!(obj && obj.nodeType === 1);
+}
+var div = document.createElement('div');
+console.log(isElement(div));  // true
+console.log(isElement(''));   // false
+```
+
 原文地址：
 
 - [JavaScript 专题之类型判断(上)](https://github.com/mqyqingfeng/Blog/issues/28)
@@ -563,24 +782,24 @@ console.log(newArr1); // [ 1, true, [ 'old1', 'old2' ], { old: 1 }, null ]
 
 ```js
 var shallowCopy = function(obj) {
-  if(typeof obj !== 'object') return;
+  if (typeof obj !== "object") return;
 
   // 判断新建的是数组还是对象
   var newObj = obj instanceof Array ? [] : {};
   // 遍历obj，并且判断是obj的属性才拷贝
-  for(var key in obj) {
-    if(obj.hasOwnProperty(key)) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
       newObj[key] = obj[key];
     }
   }
 
   return newObj;
-}
+};
 
-var arr20 = ['old', 1, true, ['old1', 'old2'], {old: 1}, function() {}];
+var arr20 = ["old", 1, true, ["old1", "old2"], { old: 1 }, function() {}];
 var newArr20 = shallowCopy(arr20);
 
-console.log({newArr20})  
+console.log({ newArr20 });
 // [ 'old', 1, true, [ 'old1', 'old2' ], { old: 1 }, [Function] ]
 ```
 
@@ -591,23 +810,24 @@ console.log({newArr20})
 代码实现：
 
 ```js
-var deepCopy = function (obj) {
-  if (typeof obj !== 'object') return;
+var deepCopy = function(obj) {
+  if (typeof obj !== "object") return;
   var newObj = obj instanceof Array ? [] : {};
 
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) {
-      newObj[key] = typeof obj[key] !== 'object' ? obj[key] : deepCopy(obj[key]);
+      newObj[key] =
+        typeof obj[key] !== "object" ? obj[key] : deepCopy(obj[key]);
     }
   }
 
   return newObj;
-}
+};
 
 var obj = {
-  a: function () {},
+  a: function() {},
   b: {
-    name: 'Tony',
+    name: "Tony",
     age: 10
   },
   c: [1, 2, 3]
@@ -616,8 +836,8 @@ var obj = {
 var newObj = deepCopy(obj);
 console.log(newObj);
 // { a: [Function: a],
-  // b: { name: 'Tony', age: 10 },
-  // c: [ 1, 2, 3 ] }
+// b: { name: 'Tony', age: 10 },
+// c: [ 1, 2, 3 ] }
 ```
 
 原文地址：[JavaScript 专题之深浅拷贝](https://github.com/mqyqingfeng/Blog/issues/32)
