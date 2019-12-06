@@ -9,6 +9,7 @@ const sidebar = {
         'js-theme-1',
         'js-theme-2',
         'js-theme-3',
+        'es6-series',
         'js-series-summary',
         'js-var',
         'js-prototype',
@@ -140,7 +141,7 @@ const sidebar = {
       ]
     },
     {
-      title: '好文共享',
+      title: '工程师',
       children: [
         'article',
       ]
@@ -158,7 +159,7 @@ const sidebar = {
 
 const nav = [
   { text: '主页', link: '/' },
-  { text: '博文', link: '/../' },
+  { text: '博文', link: 'http://www.yangtao.site' },
   {
     text: '博文分类',
     items: [

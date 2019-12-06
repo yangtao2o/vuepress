@@ -199,3 +199,7 @@ Array.from(arrayLike); // ["name", "age", "sex"]
 // 4. apply
 Array.prototype.concat.apply([], arrayLike)
 ```
+
+## 学习资料
+
+- [通过 20 个棘手的ES6面试问题来提高咱们的 JS 技能](https://juejin.im/post/5dc8a231f265da4d40712f8a)
