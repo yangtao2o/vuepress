@@ -432,7 +432,7 @@ ReactDOM.render(
 
 如果 Promise 对象抓取数据成功（fulfilled 状态），组件显示获取的数据。
 
-[在这里查看完整 Demo](https://istaotao.com/myreact/demo/11/)/[源码](https://github.com/yangtao2o/myreact/blob/master/demo/11/index.html) --- 谷歌浏览器有时候会报跨域的问题，可以使用火狐等浏览器试看
+[在这里查看完整 Demo](https://istaotao.com/myreact/demo/10/)/[源码](https://github.com/yangtao2o/myreact/blob/master/demo/10/index.html) --- 谷歌浏览器有时候会报跨域的问题，可以使用火狐等浏览器试看
 
 ## 接下来来几个混合实战吧
 

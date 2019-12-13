@@ -83,6 +83,7 @@ const sidebar = {
       title: 'React.js',
       collapsable: false,
       children: [
+        'learn',
         'react-doc',
         'react-demo',
         'webpack-v3',
@@ -110,9 +111,10 @@ const sidebar = {
     {
       title: '前端开发',
       children: [
+        'article',
         'web',
         'web-xss',
-        'header-response'
+        'header-response',
       ]
     },
     {
@@ -138,12 +140,6 @@ const sidebar = {
         'error-github-file',
         'error-macos-brew',
         'error-macos-node',
-      ]
-    },
-    {
-      title: '工程师',
-      children: [
-        'article',
       ]
     },
     {

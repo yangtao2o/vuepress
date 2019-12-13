@@ -1,6 +1,6 @@
-# 前端工程师
+# 面试内容准备
 
-## 面试
+## 面试简历
 
 > 一份好的简历不光说明事实，更通过 FAB 模式来增强其说服力。
 >
@@ -14,6 +14,8 @@
 
 ### 简历模板
 
+简历最重要的作用就是帮你约到面试。
+
 - [程序员简历模板系列](https://github.com/geekcompany/ResumeSample)
 - [在线 MarkDown 简历书写工具-冷熊简历](http://cv.ftqq.com/)
 - [超级简历](https://www.wondercv.com/) - 简洁
@@ -23,6 +25,12 @@
 
 - [如何写出一份专业的技术简历](https://juejin.im/book/59e17a7ff265da430629cc4e/section/59faec225188252abc5db42c)
 
-## 前端
+## 面试题目
 
 1. [高级前端进阶博文](https://www.muyiy.cn/blog/)
+2. [56 道高频 JavaScript 与 ES6+ 的面试题及答案](https://zhuanlan.zhihu.com/p/78667828)
+3. [35 道咱们必须要清楚的 React 面试题](https://zhuanlan.zhihu.com/p/91874441)
+4. [2019 前端面试题汇总（主要为 Vue）](https://zhuanlan.zhihu.com/p/82908445)
+5. [在浏览器输入 URL 回车之后发生了什么？（超详细版）](https://4ark.me/post/b6c7c0a2.html)
+6. [前端硬核面试专题](https://yangtao2o.github.io/learn/#/docs/Interview)`HTML + CSS + JS + ES6 + Webpack + Vue + React + Node + HTTPS + 数据结构与算法 + Git`
+

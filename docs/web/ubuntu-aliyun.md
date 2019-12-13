@@ -613,6 +613,7 @@ sh deploy.sh
 - [阿里云 Ubuntu 16.04 系统下安装 Nginx](https://www.pingfangushi.com/posts/35448/)
 - [Linux 系统下如何查看及修改文件读写权限](https://www.cnblogs.com/CgenJ/archive/2011/07/28/2119454.html)
 - [vim 基本操作](https://www.cnblogs.com/chenlogin/p/6245958.html)
+- [简明 VIM 练级攻略](https://www.cnblogs.com/chengjiawei/p/9339951.html)
 - [阿里云 ubuntu nginx 无法访问，求解答](https://segmentfault.com/q/1010000009437407)
 - [Hexo 个人博客部署到 CentOS 个人服务器](https://segmentfault.com/a/1190000010680022)
 - [Hexo 部署在阿里云服务器上](https://www.jianshu.com/p/e1ccd49b4e5d)

@@ -5,14 +5,13 @@
 - [webpack 指南](https://webpack.docschina.org/guides/)
 - [React 的 Webpack 配置](https://www.jianshu.com/p/0e01ca947e50)
 
-*PS：* 文章结尾有完整实例启动方法：[Github地址](https://github.com/yangtao2o/happymmall/tree/webpack%403-react)
+_PS：_ 文章结尾有完整实例启动方法：[Github 地址](https://github.com/yangtao2o/happymmall/tree/webpack%403-react)
 
 本次配置练习主要是针对 `webpack-v3`，切换分支至 `webpack@3-react` ，每一次 `Commits`，基本上对应着相应的文件配置，可以对照着瞅瞅。
- 
 
 ## 开始安装
 
-#### 配置 Webpack
+### 配置 Webpack
 
 准备环境：
 
@@ -27,7 +26,7 @@ git version 2.17.2 (Apple Git-113)
 1.17.3
 ```
 
-##### 安装 [yarn](https://yarn.bootcss.com/docs/install/#mac-stable)
+#### 安装 [yarn](https://yarn.bootcss.com/docs/install/#mac-stable)
 
 ```bash
 # homebrew 安装
@@ -52,7 +51,7 @@ yarn remove [package]  # 删除依赖包
 yarn install   # 安装所有依赖包
 ```
 
-##### 安装 webpack@3
+#### 安装 webpack@3
 
 ```bash
 yarn init
@@ -102,7 +101,7 @@ console.log('Hello, world');
 
 一个简单的文件就此打包成功，开心吧...
 
-#### 配置 HMTL 模板
+### 配置 HMTL 模板
 
 文档：[HtmlWebpackPlugin](https://webpack.js.org/plugins/html-webpack-plugin/#root) 简化了 HTML 文件的创建，以便为你的 webpack 包提供服务。这对于在文件名中包含每次会随着编译而发生变化哈希的 webpack bundle 尤其有用。
 
@@ -134,7 +133,7 @@ module.exports = {
 
 接着跑一下：`node_modules/.bin/webpack`，不出意外的话，dist 下会出现一个 index.html，打开查看就会发现，不仅有我们自己指定的内容，还把`app.js`也自动引入了，这波操作够可以。
 
-#### Babel 处理脚本
+### Babel 处理脚本
 
 文档：[babel-loader](https://www.webpackjs.com/loaders/babel-loader/)
 
@@ -205,7 +204,7 @@ var Man = (function(_People) {
 })(People);
 ```
 
-#### 配置 React
+### 配置 React
 
 安装：
 
@@ -259,7 +258,7 @@ _reactDom2.default.render(
 
 那么，表示解析 .jsx 成功。
 
-#### 解析 CSS
+### 解析 CSS
 
 安装：
 
@@ -328,7 +327,7 @@ module: {
 <link href="style.css" rel="stylesheet" />
 ```
 
-#### 解析 scss
+### 解析 scss
 
 安装: sass-loader node-sass
 
@@ -379,7 +378,7 @@ body h1 {
 
 测试通过，完美！
 
-#### 处理图片资源
+### 处理图片资源
 
 安装：[url-loader](https://webpack.js.org/loaders/url-loader/#root)
 
@@ -419,7 +418,7 @@ ReactDOM.render(
 
 然后跑一下，发现：如果图片大于 limit 的设置（8kb=8192/1024kb）就会出现在 dist 目录下，否则会以 base64 格式直接引入使用。
 
-#### 处理 fonts 字体
+### 处理 fonts 字体
 
 先下载个[Font Awesome](http://www.fontawesome.com.cn/get-started/)试试水：
 
@@ -456,7 +455,7 @@ $fa-font-path: "./font-awesome/fonts";
 
 接着我们跑一下：`node_modules/.bin/webpack`，dist 下瞬间就会出现一堆文件，表示测试通过。
 
-#### 公共模块
+### 公共模块
 
 [CommonsChunkPlugin](https://webpack.docschina.org/plugins/commons-chunk-plugin/#%E9%85%8D%E7%BD%AE)插件，是一个可选的用于建立一个独立文件(又称作 chunk)的功能，这个文件包括多个入口 chunk 的公共模块。
 
@@ -473,7 +472,7 @@ new webpack.optimize.CommonsChunkPlugin({
 }),
 ```
 
-#### 使用 webpack-dev-server
+### 使用 webpack-dev-server
 
 `webpack-dev-server` 为你提供了一个简单的 `web server`，并且具有 `live reloading`(实时重新加载) 功能。
 
@@ -510,7 +509,7 @@ npm start
 npm run build
 ```
 
-#### 清理 /dist 文件夹
+### 清理 /dist 文件夹
 
 需求：每次 `build` 的时候，发现 `/dist` 下的文件一直会堆砌，能不能每次构建的时候，只生成项目中真正在使用的文件？
 
@@ -530,7 +529,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 new CleanWebpackPlugin();
 ```
 
-#### 模块热替换 HMR
+### 模块热替换 HMR
 
 需求：在开发环境下，可不可以每次保存之后，不用刷新浏览器，就自动更新了呢？
 
@@ -553,7 +552,7 @@ devServer: {
 
 这样，重启服务，然后修改 `index.jsx` 文件，就会发现自动更新了，妈妈再也不用担心我的 F5 了...
 
-#### 启动 Server
+### 启动 Server
 
 `webpack-dev-middleware` 是一个封装器(`wrapper`)，它可以把 `webpack` 处理过的文件发送到一个 `server`。
 
@@ -607,7 +606,7 @@ output: {
 
 跑一下：`npm run server`，访问 `http://localhost:8082/`，完美运行。
 
-#### 最后的配置文件
+### 最后的配置文件
 
 webpack.config.js:
 
@@ -688,7 +687,7 @@ module.exports = {
 };
 ```
 
-#### 项目目录结构
+### 项目目录结构
 
 关于 tree 的使用总结：[MacOS 如何使用 tree 生成目录结构](https://www.jianshu.com/p/6b57f6e40d64)
 
@@ -729,35 +728,35 @@ tree.md 的内容为：
 ├── package.json
 ├── server.js
 ├── src
-│   ├── app.scss
-│   ├── font-awesome
-│   │   ├── fonts
-│   │   │   ├── FontAwesome.otf
-│   │   │   ├── fontawesome-webfont.eot
-│   │   │   ├── fontawesome-webfont.svg
-│   │   │   ├── fontawesome-webfont.ttf
-│   │   │   ├── fontawesome-webfont.woff
-│   │   │   └── fontawesome-webfont.woff2
-│   │   └── scss
-│   │   ├── \_animated.scss
-│   │   ├── \_bordered-pulled.scss
-│   │   ├── \_core.scss
-│   │   ├── \_fixed-width.scss
-│   │   ├── \_icons.scss
-│   │   ├── \_larger.scss
-│   │   ├── \_list.scss
-│   │   ├── \_mixins.scss
-│   │   ├── \_path.scss
-│   │   ├── \_rotated-flipped.scss
-│   │   ├── \_screen-reader.scss
-│   │   ├── \_stacked.scss
-│   │   ├── \_variables.scss
-│   │   └── font-awesome.scss
-│   ├── index.html
-│   ├── index.js
-│   ├── index.jsx
-│   ├── react.png
-│   └── style.css
+│ ├── app.scss
+│ ├── font-awesome
+│ │ ├── fonts
+│ │ │ ├── FontAwesome.otf
+│ │ │ ├── fontawesome-webfont.eot
+│ │ │ ├── fontawesome-webfont.svg
+│ │ │ ├── fontawesome-webfont.ttf
+│ │ │ ├── fontawesome-webfont.woff
+│ │ │ └── fontawesome-webfont.woff2
+│ │ └── scss
+│ │ ├── \_animated.scss
+│ │ ├── \_bordered-pulled.scss
+│ │ ├── \_core.scss
+│ │ ├── \_fixed-width.scss
+│ │ ├── \_icons.scss
+│ │ ├── \_larger.scss
+│ │ ├── \_list.scss
+│ │ ├── \_mixins.scss
+│ │ ├── \_path.scss
+│ │ ├── \_rotated-flipped.scss
+│ │ ├── \_screen-reader.scss
+│ │ ├── \_stacked.scss
+│ │ ├── \_variables.scss
+│ │ └── font-awesome.scss
+│ ├── index.html
+│ ├── index.js
+│ ├── index.jsx
+│ ├── react.png
+│ └── style.css
 ├── tree.md
 ├── webpack.config.js
 └── yarn.lock
@@ -765,7 +764,7 @@ tree.md 的内容为：
 5 directories, 32 files
 ```
 
-#### 项目启动
+### 项目启动
 
 > 项目里的每一次 `Commits`，基本上对应着相应的文件配置，可以对照着瞅瞅。
 
