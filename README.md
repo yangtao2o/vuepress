@@ -1,7 +1,7 @@
 # 使用 VuePress 构建个人博客
 
 - VuePress、Valine
-- 我的博客示例：[istaotao.com/vuepress/](https://istaotao.com/vuepress/)
+- 我的博客示例：[yangtao.site/vuepress/](http://www.yangtao.site/vuepress/)
 
 ## 文档
 
