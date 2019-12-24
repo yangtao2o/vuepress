@@ -25,6 +25,11 @@
 
 - [如何写出一份专业的技术简历](https://juejin.im/book/59e17a7ff265da430629cc4e/section/59faec225188252abc5db42c)
 
+## 面试途径
+
+- [V2EX 酷工作](https://www.v2ex.com/?tab=jobs)
+- [Cnodejs.org](https://cnodejs.org/?tab=job)
+
 ## 面试题目
 
 1. [高级前端进阶博文](https://www.muyiy.cn/blog/)

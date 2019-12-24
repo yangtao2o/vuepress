@@ -184,9 +184,39 @@ React16 中新增了一个生命周期函数:
 
 ### React16 中的生命周期函数变化
 
-`componentWillMount，componentWillUpdate, componentWillReceiveProps` 等生命周期方法在 React16 中被重命名为 `UNSAFE_componentWillMount，UNSAFE_componentWillUpdate，UNSAFE_componentWillReceiveProps`，而在更下个大版本中他们会被废弃。
+React 16 之后有三个生命周期被废弃(但并未删除)
 
-参考：[React 的生命周期](https://www.yuque.com/ant-design/course/lifemethods) - 语雀
+- componentWillMount
+- componentWillReceiveProps
+- componentWillUpdate
+
+官方计划在 17 版本完全删除这三个函数，只保留 UNSAVE\_前缀的三个函数，目的是为了向下兼容，但是对于开发者而言应该尽量避免使用他们，而是使用新增的生命周期函数替代它们。
+
+### 总结
+
+挂载阶段:
+
+- constructor: 构造函数，最先被执行,我们通常在构造函数里初始化 state 对象或者给自定义方法绑定 this
+- getDerivedStateFromProps: `static getDerivedStateFromProps(nextProps, prevState)`,这是个静态方法,当我们接收到新的属性想去修改我们 state，可以使用 getDerivedStateFromProps
+- render: render 函数是纯函数，只返回需要渲染的东西，不应该包含其它的业务逻辑,可以返回原生的 DOM、React 组件、Fragment、Portals、字符串和数字、Boolean 和 null 等内容
+- componentDidMount: 组件装载之后调用，此时我们可以获取到 DOM 节点并操作，比如对 canvas，svg 的操作，服务器请求，订阅都可以写在这个里面，但是记得在 componentWillUnmount 中取消订阅
+
+更新阶段:
+
+- getDerivedStateFromProps: 此方法在更新个挂载阶段都可能会调用
+  `shouldComponentUpdate: shouldComponentUpdate(nextProps, nextState)`,有两个参数 nextProps 和 nextState，表示新的属性和变化之后的 state，返回一个布尔值，true 表示会触发重新渲染，false 表示不会触发重新渲染，默认返回 true,我们通常利用此生命周期来优化 React 程序性能
+- render: 更新阶段也会触发此生命周期
+- getSnapshotBeforeUpdate: `getSnapshotBeforeUpdate(prevProps, prevState)`,这个方法在 render 之后，componentDidUpdate 之前调用，有两个参数 prevProps 和 prevState，表示之前的属性和之前的 state，这个函数有一个返回值，会作为第三个参数传给 componentDidUpdate，如果你不想要返回值，可以返回 null，此生命周期必须与 componentDidUpdate 搭配使用
+- componentDidUpdate: `componentDidUpdate(prevProps, prevState, snapshot)`,该方法在 getSnapshotBeforeUpdate 方法之后被调用，有三个参数 prevProps，prevState，snapshot，表示之前的 props，之前的 state，和 snapshot。第三个参数是 getSnapshotBeforeUpdate 返回的,如果触发某些回调函数时需要用到 DOM 元素的状态，则将对比或计算的过程迁移至 getSnapshotBeforeUpdate，然后在 componentDidUpdate 中统一触发回调或更新状态。
+
+卸载阶段:
+
+- componentWillUnmount: 当我们的组件被卸载或者销毁了就会调用，我们可以在这个函数里去清除一些定时器，取消网络请求，清理无效的 DOM 元素等垃圾清理工作
+
+参考：
+
+- [React 的生命周期](https://www.yuque.com/ant-design/course/lifemethods) - 语雀
+- [2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
 
 ## React 是如何处理事件的
 
@@ -324,6 +354,8 @@ this.setState(state => {
 });
 ```
 
+setState  的批量更新优化也是建立在“异步”（合成事件、钩子函数）之上的，在原生事件和 setTimeout 中不会批量更新，在“异步”中如果对同一个值进行多次 setState，setState 的批量更新策略会对其进行覆盖，取最后一次的执行，如果是同时 setState 多个不同的值，在更新时会对其进行合并批量更新。
+
 - 那表现出异步的原理是怎么样的呢？
 
 我这里还是用最简单的语言让你理解：在 React 的 setState 函数实现中，会根据 `isBatchingUpdates`(默认是 false) 变量判断是否直接更新 `this.state` 还是放到队列中稍后更新。然后有一个 `batchedUpdate` 函数，可以修改 `isBatchingUpdates` 为 true，当 React 调用事件处理函数之前，或者生命周期函数之前就会调用 `batchedUpdate` 函数，这样的话，setState 就不会同步更新 `this.state`，而是放到更新队列里面后续更新。
@@ -398,6 +430,116 @@ key 用于识别唯一的 Virtual DOM 元素及其驱动 UI 的相应数据。
 
 这些 key 必须是唯一的数字或字符串，React 只是重新排序元素而不是重新渲染它们。这可以提高应用程序的性能。
 
+## React组件通信如何实现
+
+React组件间通信方式:
+
+- 父组件向子组件通讯: 父组件可以向子组件通过传 props 的方式，向子组件进行通讯
+
+```js
+class Son extends React.Component {
+  render() {
+    return <p>{this.props.text}</p>;
+  }
+}
+
+class Father extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <Son text="这是父组件传给子组件的内容"/>
+      </div>
+    );
+  }
+}
+```
+
+- 子组件向父组件通讯: props+回调的方式,父组件向子组件传递props进行通讯，此props为作用域为父组件自身的函数，子组件调用该函数，将子组件想要传递的信息，作为参数，传递到父组件的作用域中
+
+```js
+class Son extends React.Component {
+  render() {
+    return <p onClick={this.props.onClick}>{this.props.text}</p>;
+  }
+}
+
+class Father extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fatherToSonText: "父组件传给子组件的内容",
+      sonToFatherText: "子组件传给父组件的内容"
+    };
+  }
+  handleClick(text) {
+    alert(text);
+  }
+  render() {
+    return (
+      <Son
+        text={this.state.fatherToSonText}
+        onClick={e => this.handleClick(this.state.sonToFatherText, e)}
+      />
+    );
+  }
+}
+```
+
+- 兄弟组件通信: 找到这两个兄弟节点共同的父节点,结合上面两种方式由父节点转发信息进行通信
+
+```js
+class FirstSon extends React.Component {
+  render() {
+    return <h2 onClick={this.props.onClick}>戳我，我要让旁边那位变成红色</h2>;
+  }
+}
+
+class SecondSon extends React.Component {
+  render() {
+    return <h2 style={{ color: this.props.color }}>我是你旁边那位</h2>;
+  }
+}
+
+class Father extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: "#666"
+    };
+  }
+  handleClick() {
+    this.setState({
+      color: "red"
+    });
+  }
+  render() {
+    return (
+      <div>
+        <FirstSon onClick={() => this.handleClick()} />
+        <SecondSon color={this.state.color} />
+      </div>
+    );
+  }
+}
+```
+
+- 跨层级通信: Context设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言,对于跨越多层的全局数据通过Context通信再适合不过
+
+```js
+const MyContext = React.createContext(defaultValue);
+```
+
+- 发布订阅模式: 发布者发布事件，订阅者监听事件并做出反应,我们可以通过引入event模块进行通信
+
+- 全局状态管理工具: 借助Redux或者Mobx等全局状态管理工具进行通信,这种工具会维护一个全局状态中心Store,并根据不同的事件产生新的状态
+
+![Redux](https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e6fd6847c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+原文：[2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
+
 ## MVC 框架的主要问题是什么
 
 - 对 DOM 操作的代价非常高
@@ -414,7 +556,7 @@ Flux 将一个应用分成四个部分:
 - Dispatcher（派发器）：用来接收 Actions、执行回调函数
 - Store（数据层）：用来存放应用的状态，一旦发生变动，就提醒 Views 要更新页面
 
-![Flux](https://segmentfault.com/img/bVbqdVk?w=796&h=262)
+![Flux](https://image-static.segmentfault.com/115/853/1158536343-5c935016e51c7_articlex)
 
 Flux 是一种强制单向数据流的架构模式(MVC)。
 
@@ -433,7 +575,7 @@ Redux 是 JavaScript 状态容器，提供可预测化的状态管理。Redux �
 - Store – 整个程序的状态/对象树保存在 Store 中。
 - View – 只显示 Store 提供的数据。
 
-![Redux 数据流动](https://segmentfault.com/img/bVbqdVh?w=1292&h=560)
+![Redux 数据流动](https://image-static.segmentfault.com/966/439/96643934-5c935008d48ce_articlex)
 
 Redux 遵循的三个原则：
 
@@ -469,11 +611,20 @@ Redux 的优点如下：
 - 易于测试 - Redux 的代码主要是小巧、纯粹和独立的功能。这使代码可测试且独立。
   组织 - Redux 准确地说明了代码的组织方式，这使得代码在团队使用时更加一致和简单。
 
-[Redux 中文文档](https://www.redux.org.cn/)
+关于 Redux 的资料：
+
+- [Redux 中文文档](https://www.redux.org.cn/)
+- [Redux 入门教程（一）：基本用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
+- [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html)
+- [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html)
 
 ## 学习资料
 
 - [新手学习 react 迷惑的点(一)](https://juejin.im/post/5d6be5c95188255aee7aa4e0)
 - [新手学习 react 迷惑的点(二)](https://juejin.im/post/5d6f127bf265da03cf7aab6d)
 - [必须要会的 50 个 React 面试题](https://segmentfault.com/a/1190000018604138)
-- [2019年17道高频React面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
+- [2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
+- [Redux 中文文档](https://www.redux.org.cn/)
+- [Redux 入门教程（一）：基本用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
+- [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html)
+- [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html)
