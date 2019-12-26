@@ -430,9 +430,9 @@ key 用于识别唯一的 Virtual DOM 元素及其驱动 UI 的相应数据。
 
 这些 key 必须是唯一的数字或字符串，React 只是重新排序元素而不是重新渲染它们。这可以提高应用程序的性能。
 
-## React组件通信如何实现
+## React 组件通信如何实现
 
-React组件间通信方式:
+React 组件间通信方式:
 
 - 父组件向子组件通讯: 父组件可以向子组件通过传 props 的方式，向子组件进行通讯
 
@@ -450,14 +450,14 @@ class Father extends React.Component {
   render() {
     return (
       <div>
-        <Son text="这是父组件传给子组件的内容"/>
+        <Son text="这是父组件传给子组件的内容" />
       </div>
     );
   }
 }
 ```
 
-- 子组件向父组件通讯: props+回调的方式,父组件向子组件传递props进行通讯，此props为作用域为父组件自身的函数，子组件调用该函数，将子组件想要传递的信息，作为参数，传递到父组件的作用域中
+- 子组件向父组件通讯: props+回调的方式,父组件向子组件传递 props 进行通讯，此 props 为作用域为父组件自身的函数，子组件调用该函数，将子组件想要传递的信息，作为参数，传递到父组件的作用域中
 
 ```js
 class Son extends React.Component {
@@ -526,28 +526,50 @@ class Father extends React.Component {
 }
 ```
 
-- 跨层级通信: Context设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言,对于跨越多层的全局数据通过Context通信再适合不过
+- 跨层级通信: Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言, 对于跨越多层的全局数据通过 Context 通信再适合不过
 
 ```js
 const MyContext = React.createContext(defaultValue);
 ```
 
-- 发布订阅模式: 发布者发布事件，订阅者监听事件并做出反应,我们可以通过引入event模块进行通信
+- 发布订阅模式: 发布者发布事件，订阅者监听事件并做出反应,我们可以通过引入 event 模块进行通信
 
-- 全局状态管理工具: 借助Redux或者Mobx等全局状态管理工具进行通信,这种工具会维护一个全局状态中心Store,并根据不同的事件产生新的状态
+- 全局状态管理工具: 借助 Redux 或者 Mobx 等全局状态管理工具进行通信,这种工具会维护一个全局状态中心 Store,并根据不同的事件产生新的状态
 
 ![Redux](https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e6fd6847c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
 原文：[2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
 
-## MVC 框架的主要问题是什么
+## MVC VS MVVM
+
+### MVC 的含义
+
+- M（modal）：是应用程序中处理数据逻辑的部分。
+- V（view） ：是应用程序中数据显示的部分。
+- C（controller）：是应用程序中处理用户交互的地方（Controller 是 MVC 中的数据和视图的协调者，也就是在 Controller 里面把 Model 的数据赋值给 View 来显示（或者是 View 接收用户输入的数据然后由 Controller 把这些数据传给 Model 来保存到本地或者上传到服务器））
+
+### MVC 模式有什么缺点
 
 - 对 DOM 操作的代价非常高
 - 程序运行缓慢且效率低下
 - 内存浪费严重
+- 应用程序复杂性高，难以分工开发
 - 由于循环依赖性，组件模型需要围绕 models 和 views 进行创建
 
-## 解释一下 Flux
+### MVVM 的含义
+
+- M（modal）：模型，定义数据结构。
+- C（controller）：实现业务逻辑，数据的增删改查。在 MVVM 模式中一般把 C 层算在 M 层中，（只有在理想的双向绑定模式下，Controller 才会完全的消失。这种理想状态一般不存在）。
+- VM（viewModal）：视图 View 的模型、映射和显示逻辑（如 if for 等，非业务逻辑），另外绑定器也在此层。ViewModel 是基于视图开发的一套模型，如果你的应用是给盲人用的，那么也可以开发一套基于 Audio 的模型 AudioModel。
+- V（view） ：将 ViewModel 通过特定的 GUI 展示出来，并在 GUI 控件上绑定视图交互事件，V(iew)一般由 MVVM 框架自动生成在浏览器中。
+
+### MVVM 的优点
+
+MVVM 比 MVC 精简很多，不仅简化了业务与界面的依赖，还解决了数据频繁更新的问题，不用再用选择器操作 DOM 元素。因为在 MVVM 中，View 不知道 Model 的存在，Model 和 ViewModel 也观察不到 View，这种低耦合模式提高代码的可重用性。
+
+[理解 MVVM 在 react、vue 中的使用](https://www.cnblogs.com/momozjm/p/11542635.html)
+
+## Flux
 
 Flux 将一个应用分成四个部分:
 
@@ -566,7 +588,7 @@ Flux 为应用提供稳定性并减少运行时的错误。
 
 - [Flux 架构入门教程](http://www.ruanyifeng.com/blog/2016/01/flux.html) - 阮一峰
 
-## 什么是 Redux
+## Redux
 
 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。Redux 由以下组件组成：
 
@@ -576,6 +598,15 @@ Redux 是 JavaScript 状态容器，提供可预测化的状态管理。Redux �
 - View – 只显示 Store 提供的数据。
 
 ![Redux 数据流动](https://image-static.segmentfault.com/966/439/96643934-5c935008d48ce_articlex)
+
+简要描述：
+
+- redux 是的诞生是为了给 React 应用提供「可预测化的状态管理」机制。
+- Redux 会将整个应用状态(其实也就是数据)存储到到一个地方，称为 store
+- 这个 store 里面保存一棵状态树(state tree)
+- 组件改变 state 的唯一方法是通过调用 store 的 dispatch 方法，触发一个 action，这个 action 被对应的 reducer 处理，于是 state 完成更新
+- 组件可以派发(dispatch)行为(action)给 store,而不是直接通知其它组件
+- 其它组件可以通过订阅 store 中的状态(state)来刷新自己的视图
 
 Redux 遵循的三个原则：
 
@@ -599,15 +630,10 @@ Redux 与 Flux 有何不同?
 Redux 的优点如下：
 
 - 结果的可预测性 - 由于总是存在一个真实来源，即 store ，因此不存在如何将当前状态与动作和应用的其他部分同步的问题。
-
 - 可维护性 - 代码变得更容易维护，具有可预测的结果和严格的结构。
-
 - 服务器端渲染 - 你只需将服务器上创建的 store 传到客户端即可。这对初始渲染非常有用，并且可以优化应用性能，从而提供更好的用户体验。
-
 - 开发人员工具 - 从操作到状态更改，开发人员可以实时跟踪应用中发生的所有事情。
-
 - 社区和生态系统 - Redux 背后有一个巨大的社区，这使得它更加迷人。一个由才华横溢的人组成的大型社区为库的改进做出了贡献，并开发了各种应用。
-
 - 易于测试 - Redux 的代码主要是小巧、纯粹和独立的功能。这使代码可测试且独立。
   组织 - Redux 准确地说明了代码的组织方式，这使得代码在团队使用时更加一致和简单。
 
@@ -618,13 +644,109 @@ Redux 的优点如下：
 - [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html)
 - [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html)
 
+## MobX
+
+[MobX 中文文档](https://cn.mobx.js.org/)
+
+## React Router
+
+Router 会创建一个 history 对象，history 用来跟踪 URL，当 URL 发生变化时，Router 的后代组件会重新渲染。React Router 中提供的其他组件可以通过 context 获取 history 对象，所以，React Router 中的其他组件必须作为 Router 组件的后代组件使用。但 Router 中只能有唯一的一个子元素。
+
+### 基本组件
+
+React Router 中有三类组件:
+
+- router 组件（BrowserRouter，HashRouter）
+- route matching 组件（Route，Switch）
+- navigation 组件（Link）
+
+使用 react-router-dom 之前，我们需要在工程路径下安装这个包
+
+```shell
+npm install react-router-dom
+```
+
+复制代码安装完成后，上面所列出的这些组件，我们可以通过 react-router-dom 得到。
+
+```jsx
+import { BrowserRouter, Route, Link } from "react-router-dom";
+```
+
+### Route Rendering Props
+
+`<Route>` 匹配时所显示的组件，有三种写法：
+
+- component
+- render
+- children
+
+```jsx
+<Route path="/user/:username" component={User} />;
+// convenient inline rendering
+<Route path="/foo" render={(props) => (
+  <Foo {...props} data={exactProps} />
+)} />
+<Route path="/foo" children={(props) => (
+  <div className={props.match ? 'active' : ''}>
+    <Foo />
+  </div>
+)} />
+
+function User({ match }) {
+  return <h1>Hello {match.params.username}!</h1>;
+}
+```
+
+### Navigation
+
+- Link
+- Navlink
+- Redirect
+
+```jsx
+<Link to="/">Home</Link>
+// <a href='/'>Home</a>
+
+// location = { pathname: '/react' }
+<NavLink to="/react" activeClassName="hurray">
+  React
+</NavLink>
+// <a href='/react' className='hurray'>React</a>
+
+<Route exact path="/" render={() => (
+  loggedIn ? (
+    <Redirect to="/dashboard"/>
+  ) : (
+    <PublicHomePage/>
+  )
+)}/>
+```
+
+### withRoute
+
+不是通过 Route 渲染出来的组件没有 match、location、history 三个属性,但是又想要使用这三个属性，那该怎么办呢，所以可以在外面套一层 Route 组件，从而得到这三个属性，这种做法叫高阶组件。
+
+- [React-Router 的基本使用](https://juejin.im/post/5be2993df265da611e4d220c)
+- [React Router 使用教程](http://www.ruanyifeng.com/blog/2016/05/react_router.html) - 阮一峰
+- [React-Router 文档](https://reacttraining.com/react-router/web/guides/quick-start)
+- [React Router 中文文档](http://react-guide.github.io/react-router-cn/)
+- [让 react 用起来更得心应手——（react-router 原理简析）](https://juejin.im/post/5bcdb66251882577102a3b21)
+
 ## 学习资料
 
+- [React 精髓！一篇全概括(急速)](https://juejin.im/post/5cd9752f6fb9a03247157b6d)
 - [新手学习 react 迷惑的点(一)](https://juejin.im/post/5d6be5c95188255aee7aa4e0)
 - [新手学习 react 迷惑的点(二)](https://juejin.im/post/5d6f127bf265da03cf7aab6d)
 - [必须要会的 50 个 React 面试题](https://segmentfault.com/a/1190000018604138)
 - [2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
 - [Redux 中文文档](https://www.redux.org.cn/)
-- [Redux 入门教程（一）：基本用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
-- [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html)
-- [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html)
+- [Redux 入门教程（一）：基本用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html) - 阮一峰
+- [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html) - 阮一峰
+- [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html) - 阮一峰
+- [React Router 使用教程](http://www.ruanyifeng.com/blog/2016/05/react_router.html) - 阮一峰
+- [React-Router 的基本使用](https://juejin.im/post/5be2993df265da611e4d220c)
+- [React-Router 文档](https://reacttraining.com/react-router/web/guides/quick-start)
+- [React Router 中文文档](http://react-guide.github.io/react-router-cn/)
+- [一篇文章总结 redux、react-redux、redux-saga](https://juejin.im/post/5ce0ae0c5188252f5e019c2c)
+- [MobX 中文文档](https://cn.mobx.js.org/)
+- [理解 MVVM 在 react、vue 中的使用](https://www.cnblogs.com/momozjm/p/11542635.html)
