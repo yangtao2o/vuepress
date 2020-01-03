@@ -599,6 +599,14 @@ Redux 是 JavaScript 状态容器，提供可预测化的状态管理。Redux �
 
 ![Redux 数据流动](https://image-static.segmentfault.com/966/439/96643934-5c935008d48ce_articlex)
 
+Redux 遵循的三个原则：
+
+**单一事实来源**：整个应用的状态存储在单个 store 中的对象/状态树里。单一状态树可以更容易地跟踪随时间的变化，并调试或检查应用程序。
+
+**状态是只读的**：改变状态的唯一方法是去触发一个动作。动作是描述变化的普通 JS 对象。就像 state 是数据的最小表示一样，该操作是对数据更改的最小表示。
+
+**使用纯函数进行更改**：为了指定状态树如何通过操作进行转换，你需要纯函数。纯函数是那些返回值仅取决于其参数值的函数。
+
 简要描述：
 
 - redux 是的诞生是为了给 React 应用提供「可预测化的状态管理」机制。
@@ -608,13 +616,50 @@ Redux 是 JavaScript 状态容器，提供可预测化的状态管理。Redux �
 - 组件可以派发(dispatch)行为(action)给 store,而不是直接通知其它组件
 - 其它组件可以通过订阅 store 中的状态(state)来刷新自己的视图
 
-Redux 遵循的三个原则：
+代码演示：
 
-**单一事实来源**：整个应用的状态存储在单个 store 中的对象/状态树里。单一状态树可以更容易地跟踪随时间的变化，并调试或检查应用程序。
+```js
+import { createStore } from "redux";
 
-**状态是只读的**：改变状态的唯一方法是去触发一个动作。动作是描述变化的普通 JS 对象。就像 state 是数据的最小表示一样，该操作是对数据更改的最小表示。
+/* 创建reducer
+ ** 可以使用单独的一个reducer,也可以将多个reducer合并为一个reducer，即：combineReducers()
+ ** action发出命令后将state放入reucer加工函数中，返回新的state,对state进行加工处理
+ */
+const reducer = (state = { counter: 0 }, action) => {
+  switch (action.type) {
+    case "INCREASE":
+      return { counter: state.counter + 1 };
+    case "DECREASE":
+      return { counter: state.counter - 1 };
+    default:
+      return state;
+  }
+};
 
-**使用纯函数进行更改**：为了指定状态树如何通过操作进行转换，你需要纯函数。纯函数是那些返回值仅取决于其参数值的函数。
+/* 创建action
+ ** 用户是接触不到state的，只能有view触发，所以，这个action可以理解为指令，需要发出多少动作就有多少指令
+ ** action是一个对象，必须有一个叫type的参数，定义action类型
+ */
+const actions = {
+  increase: () => ({ type: "INCREASE" }),
+  decrease: () => ({ type: "DECREASE" })
+};
+
+/* 创建的store，使用createStore方法
+ ** store 可以理解为有多个加工机器的总工厂
+ ** 提供subscribe，dispatch，getState这些方法。
+ */
+const store = createStore(reducer);
+
+// 订阅
+store.subscribe(() => console.log(store.getState()));
+
+// 发布
+store.dispatch(actions.increase()); // {counter: 1}
+store.dispatch(actions.increase()); // {counter: 2}
+store.dispatch(actions.increase()); // {counter: 3}
+store.dispatch(actions.decrease()); // {counter: 2}
+```
 
 Redux 与 Flux 有何不同?
 
@@ -644,9 +689,64 @@ Redux 的优点如下：
 - [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html)
 - [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html)
 
+## React-Redux
+
+React Redux 将组件区分为 容器组件 和 UI 组件：
+
+- 前者会处理逻辑
+- 后者只负责显示和交互，内部不处理逻辑，状态完全由外部掌控
+
+两个核心：
+
+- Provider 顶层组件，目的是让所有组件都能够访问到 Redux 中的数据
+- connect：`connect(mapStateToProps, mapDispatchToProps)(MyComponent)`
+
+  - mapStateToProps - 把 Redux 中的数据映射到 React 中的 props 中去
+  - mapDispatchToProps - 把各种 dispatch 变成了 props 让你可以直接使用
+
+- [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html) - 阮一峰
+- [一篇文章总结 redux、react-redux、redux-saga](https://juejin.im/post/5ce0ae0c5188252f5e019c2c#heading-4)
+- [让 react 用起来更得心应手——（react-redux）](https://juejin.im/post/5bcfce9ff265da0aa5294a25让react用起来更得心应手——（react-redux）)
+
+## Redux 中间件
+
+- redux-saga
+
+在实际中，组件中发生的 action 后，在进入 reducer 之前需要完成如发送 ajax 请求之后，再进入 reducer,reducer 又是一个纯函数，不能在 reducer 中进行异步操作。所以目前使用 `redux-saga` 中间件来处理这种业务场景。
+
+- redux-thunk
+
+- redux-promise
+
+详细操作方法：[Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html) - 阮一峰
+
 ## MobX
 
 [MobX 中文文档](https://cn.mobx.js.org/)
+
+## React Hooks
+
+> Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
+
+动机：
+
+- 在组件之间复用状态逻辑很难
+- 复杂组件变得难以理解
+- 难以理解的 class
+
+React Hooks 的设计目的，就是加强版函数组件，完全不使用"类"，就能写出一个全功能的组件。
+
+React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功能和副作用，就用钩子把外部代码"钩"进来。 React Hooks 就是那些钩子。
+
+常用钩子：
+
+- useState() 状态钩子
+- useContext() 共享钩子
+- useReducer() action 钩子
+- useEffect() 副作用钩子
+
+- [Hook 简介](https://zh-hans.reactjs.org/docs/hooks-intro.html) - 官方文档
+- [React Hooks 入门教程](http://www.ruanyifeng.com/blog/2019/09/react-hooks.html) - 阮一峰
 
 ## React Router
 
@@ -743,6 +843,7 @@ function User({ match }) {
 - [Redux 入门教程（一）：基本用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html) - 阮一峰
 - [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html) - 阮一峰
 - [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html) - 阮一峰
+- [React Hooks 入门教程](http://www.ruanyifeng.com/blog/2019/09/react-hooks.html) - 阮一峰
 - [React Router 使用教程](http://www.ruanyifeng.com/blog/2016/05/react_router.html) - 阮一峰
 - [React-Router 的基本使用](https://juejin.im/post/5be2993df265da611e4d220c)
 - [React-Router 文档](https://reacttraining.com/react-router/web/guides/quick-start)
