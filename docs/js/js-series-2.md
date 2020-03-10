@@ -115,7 +115,7 @@ Function.prototype.mycall = function(context) {
   }
   // 把传给call的参数传递给了context.fn函数
   // context.fn(args.join(','));
-  // context.fn(...args)
+  // context.fn(...args)  // ES6
   var result = eval("context.fn(" + args + ")");
   delete context.fn;
   return result;
@@ -125,15 +125,16 @@ Function.prototype.mycall = function(context) {
 第四版：考虑 context，以及 context.fn 的可能性
 
 ```js
-Function.prototype.mycall = function(context) {
+Function.prototype.myCall = function(context) {
   // 这一步如果不强制是 object 类型，可以省略
   if (typeof context != "object") {
     throw new Error("Arguments error");
   }
 
-  var context = context || window;
-  var args = [],
-    reslut;
+  context = context || window;
+  
+  var args = [];
+  var result;
 
   if ("fn" in context && context.hasOwnProperty("fn")) {
     var fn = context.fn;
@@ -185,23 +186,24 @@ var min = Math.min(...nums); // 1
 
 ```javascript
 Function.prototype.myapply = function(context, arr) {
-  var context = context || window;
-  var reslut;
-
+  if (typeof context !== "object") {
+    throw new Error("Arguments error");
+  }
+  context = context || window;
   context.fn = this;
 
+  let result;
   if (!arr) {
-    reslut = context.fn();
+    result = context.fn();
   } else {
-    var args = [];
+    let args = [];
     for (var i = 0, l = arr.length; i < l; i++) {
       args.push("arr[" + i + "]");
     }
-    eval("context.fn(" + args + ")");
+    result = eval("context.fn(" + args + ")");
   }
-
   delete context.fn;
-  return reslut;
+  return result;
 };
 ```
 

@@ -505,7 +505,7 @@ function unique(arr) {
 
 ### typeof
 
-最新的 ECMAScript 标准定义了 8 种数据类型:
+最新的 ECMAScript 标准定义了 8 种数据类型：
 
 7 种原始类型:
 
@@ -514,7 +514,7 @@ function unique(arr) {
 - Undefined
 - Number
 - String
-- Symbol 
+- Symbol
 - BigInt
 
 和 Object
@@ -522,14 +522,14 @@ function unique(arr) {
 使用 typeof 检测类型如下：
 
 ```js
-Number is:  number
-String is:  string
-Boolean is:  boolean
-Undefined is:  undefined
-Null is:  object
-Symbol is:  symbol
-BigInt is:  bigint
-Object is:  object
+'Number'   // number
+'String'   // string
+'Boolean'   // boolean
+'Undefined'   // undefined
+'Null'   // object
+'Symbol'   // symbol
+'BigInt'   // bigint
+'Object'   // object
 ```
 
 所以 typeof 能检测出七种基本类型的值，但是，除此之外 Object 下还有很多细分的类型呐，如 Array、Function、Date、RegExp、Error 等。
@@ -540,9 +540,9 @@ Object is:  object
 var date = new Date();
 var error = new Error();
 var fn = function() {};
-console.log(typeof date);   // object
-console.log(typeof error);  // object
-console.log(typeof fn);   // function
+console.log(typeof date); // object
+console.log(typeof error); // object
+console.log(typeof fn); // function
 ```
 
 ### Object.prototype.toString
@@ -563,43 +563,59 @@ console.log(typeof fn);   // function
 
 正是因为这种特性，我们可以用 `Object.prototype.toString` 方法识别出更多类型！
 
-先看下常见的 15 种（ES6新增：Symbol Set Map，还有 BigInt）：
+先看下常见的 15 种（ES6 新增：Symbol Set Map，还有 BigInt）：
 
 ```js
-var number = 1;            // [object Number]
-var string = '123';        // [object String]
-var boolean = true;        // [object Boolean]
-var und = undefined;       // [object Undefined]
-var nul = null;            // [object Null]
-var obj = {a: 1}           // [object Object]
-var array = [1, 2, 3];     // [object Array]
-var date = new Date();     // [object Date]
-var error = new Error();   // [object Error]
-var reg = /a/g;            // [object RegExp]
-var func = function a(){}; // [object Function]
-var symb = Symbol('test'); // [object Symbol]
-var set = new Set();       // [object Set]
-var map = new Map();       // [object Map]
-var bigI = BigInt(1);      // [object BigInt]
+var number = 1; // [object Number]
+var string = "123"; // [object String]
+var boolean = true; // [object Boolean]
+var und = undefined; // [object Undefined]
+var nul = null; // [object Null]
+var obj = { a: 1 }; // [object Object]
+var array = [1, 2, 3]; // [object Array]
+var date = new Date(); // [object Date]
+var error = new Error(); // [object Error]
+var reg = /a/g; // [object RegExp]
+var func = function a() {}; // [object Function]
+var symb = Symbol("test"); // [object Symbol]
+var set = new Set(); // [object Set]
+var map = new Map(); // [object Map]
+var bigI = BigInt(1); // [object BigInt]
 
 function checkType() {
-  for(var i = 0, l = arguments.length; i < l; i++) {
+  for (var i = 0, l = arguments.length; i < l; i++) {
     console.log(Object.prototype.toString.call(arguments[i]));
   }
 }
 
-checkType(number, string, boolean, und, nul, obj, array, date, error, reg, func, symb, set, map, bigI);
+checkType(
+  number,
+  string,
+  boolean,
+  und,
+  nul,
+  obj,
+  array,
+  date,
+  error,
+  reg,
+  func,
+  symb,
+  set,
+  map,
+  bigI
+);
 ```
 
 除了以上 15 种，还有以下 3 种：
 
 ```js
-console.log(Object.prototype.toString.call(Math));  // [object Math]
-console.log(Object.prototype.toString.call(JSON));  // [object JSON]
+console.log(Object.prototype.toString.call(Math)); // [object Math]
+console.log(Object.prototype.toString.call(JSON)); // [object JSON]
 
 var fn = function() {
-  console.log(Object.prototype.toString.call(arguments));  // [object Arguments]
-}
+  console.log(Object.prototype.toString.call(arguments)); // [object Arguments]
+};
 
 fn();
 ```
@@ -621,7 +637,7 @@ var class2type = {};
 
 function type(obj) {
   if (obj == null) {
-    return obj + "";  // IE6
+    return obj + ""; // IE6
   }
   return typeof obj === "object" || typeof obj === "function"
     ? class2type[Object.prototype.toString.call(obj)] || "object"
@@ -644,7 +660,7 @@ var class2type = {};
 
 function type(obj) {
   if (obj == null) {
-    return obj + "";  // IE6
+    return obj + ""; // IE6
   }
   return typeof obj === "object" || typeof obj === "function"
     ? class2type[Object.prototype.toString.call(obj)]
@@ -663,9 +679,11 @@ function isFunction(obj) {
 ### isArray
 
 ```js
-var isArray = Array.isArray || function (obj) {
-  return type(obj) === "array";
-}
+var isArray =
+  Array.isArray ||
+  function(obj) {
+    return type(obj) === "array";
+  };
 ```
 
 ### plainObject
@@ -674,9 +692,54 @@ var isArray = Array.isArray || function (obj) {
 
 之所以要判断是不是 `plainObject`，是为了跟其他的 JavaScript 对象如 null，数组，宿主对象（documents）等作区分，因为这些用 typeof 都会返回 object。
 
+```js
+// 上节中写 type 函数时，用来存放 toString 映射结果的对象
+var class2type = {};
+
+// 相当于 Object.prototype.toString
+var toString = class2type.toString;
+
+// 相当于 Object.prototype.hasOwnProperty
+var hasOwn = class2type.hasOwnProperty;
+
+function isPlainObject(obj) {
+  var proto, Ctor;
+
+  // 排除掉明显不是obj的以及一些宿主对象如Window
+  if (!obj || toString.call(obj) !== "[object Object]") {
+    return false;
+  }
+
+  /**
+   * getPrototypeOf es5 方法，获取 obj 的原型
+   * 以 new Object 创建的对象为例的话
+   * obj.__proto__ === Object.prototype
+   */
+  proto = Object.getPrototypeOf(obj);
+
+  // 没有原型的对象是纯粹的，Object.create(null) 就在这里返回 true
+  if (!proto) {
+    return true;
+  }
+
+  /**
+   * 以下判断通过 new Object 方式创建的对象
+   * 判断 proto 是否有 constructor 属性，如果有就让 Ctor 的值为 proto.constructor
+   * 如果是 Object 函数创建的对象，Ctor 在这里就等于 Object 构造函数
+   */
+  Ctor = hasOwn.call(proto, "constructor") && proto.constructor;
+
+  // 在这里判断 Ctor 构造函数是不是 Object 构造函数，用于区分自定义构造函数和 Object 构造函数
+  return (
+    typeof Ctor === "function" &&
+    hasOwn.toString.call(Ctor) === hasOwn.toString.call(Object)
+  );
+}
+```
+
 ### EmptyObject
 
-jQuery提供了 `isEmptyObject` 方法来判断是否是空对象，代码简单：
+jQuery 提供了 `isEmptyObject` 方法来判断是否是空对象，代码简单：
 
 ```js
 function isEmptyObject(obj) {
@@ -693,21 +756,46 @@ console.log(isEmptyObject([])); // true
 console.log(isEmptyObject(null)); // true
 console.log(isEmptyObject(undefined)); // true
 console.log(isEmptyObject(1)); // true
-console.log(isEmptyObject('')); // true
+console.log(isEmptyObject("")); // true
 console.log(isEmptyObject(true)); // true
 ```
 
-### Window对象
+### Window 对象
 
 Window 对象作为客户端 JavaScript 的全局对象，它有一个 window 属性指向自身。我们可以利用这个特性判断是否是 Window 对象。
 
 ```js
 function isWindow(obj) {
-  return obj !== null && obj === obj.window
+  return obj !== null && obj === obj.window;
 }
 ```
 
 ### isArrayLike
+
+如果 isArrayLike 返回 true，至少要满足三个条件之一：
+
+- 是数组
+- 长度为 0
+- lengths 属性是大于 0 的数字类型，并且 `obj[length - 1]`必须存在
+
+```js
+function isArrayLike(obj) {
+  // obj 必须有 length属性
+  var length = !!obj && "length" in obj && obj.length;
+  var typeRes = type(obj);
+
+  // 排除掉函数和 Window 对象
+  if (typeRes === "function" || isWindow(obj)) {
+    return false;
+  }
+
+  return (
+    typeRes === "array" ||
+    length === 0 ||
+    (typeof length === "number" && length > 0 && length - 1 in obj)
+  );
+}
+```
 
 ### isElement
 
@@ -717,9 +805,9 @@ function isWindow(obj) {
 function isElement(obj) {
   return !!(obj && obj.nodeType === 1);
 }
-var div = document.createElement('div');
-console.log(isElement(div));  // true
-console.log(isElement(''));   // false
+var div = document.createElement("div");
+console.log(isElement(div)); // true
+console.log(isElement("")); // false
 ```
 
 原文地址：
