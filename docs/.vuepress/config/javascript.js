@@ -31,7 +31,7 @@ module.exports = [
     children: ["interview"]
   },
   {
-    title: "资源整合",
+    title: "插件等资源",
     children: [
       "js-doc",
       "plugin-purl",

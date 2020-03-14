@@ -2,6 +2,6 @@ module.exports = [
   {
     title: "React",
     collapsable: false,
-    children: ["learn", "react-doc", "react-demo", "webpack-v3"]
+    children: ["learn", "react-demo", "webpack-v3", "react-doc"]
   }
 ];

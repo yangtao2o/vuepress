@@ -1,69 +1,6 @@
 # React 理论知识点
 
-## JSX 语法
-
-JSX 是一个 JavaScript 的语法扩展。
-
-JSX 可以被 Babel 转码器转为正常的 JavaScript 语法。Babel 会把 JSX 转译成一个名为 `React.createElement()` 函数调用。
-
-React 认为渲染逻辑本质上与其他 UI 逻辑内在耦合，比如，在 UI 中需要绑定处理事件、在某些时刻状态发生变化时需要通知到 UI，以及需要在 UI 中展示准备好的数据。
-
-React 并没有采用将标记与逻辑进行分离到不同文件这种人为地分离方式，而是通过将二者共同存放在称之为“组件”的松散耦合单元之中，来实现关注点分离。
-
-```js
-export default () => {
-  return <div className="greeting">hello world</div>;
-};
-```
-
-可以转化为：
-
-```js
-export default = function() {
-  return React.createElement(
-    'div',
-    {className: 'greeting'},
-    'hello world'
-  )
-}
-```
-
-`React.createElement()` 会预先执行一些检查，以帮助你编写无错代码，但实际上它创建了一个这样的对象：
-
-```js
-// 注意：这是简化过的结构
-const element = {
-  type: "div",
-  props: {
-    className: "greeting",
-    children: "hello world"
-  }
-};
-```
-
-所以，可以回答为什么要引入 React?
-
-babel 里进行转化一下，发现 babel 会把代码转化成:
-
-```js
-return React.createElement("div", { className: "greeting" }, "hello world");
-```
-
-因为从本质上讲，JSX 只是为 `React.createElement(component, props, ...children)` 函数提供的语法糖。
-
-参考：[JSX 简介](https://zh-hans.reactjs.org/docs/introducing-jsx.html)
-
-## 受控组件与非受控组件
-
-| 受控组件                                       | 非受控组件               |
-| ---------------------------------------------- | ------------------------ |
-| 1. 没有维持自己的状态                          | 1. 保持着自己的状态      |
-| 2.数据由父组件控制                             | 2.数据由 DOM 控制        |
-| 3. 通过 props 获取当前值，然后通过回调通知更改 | 3. Refs 用于获取其当前值 |
-
-参考：[受控组件与非受控组件](https://www.yuque.com/ant-design/course/goozth)
-
-## 生命周期
+## React 生命周期
 
 [生命周期图谱](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)速查表。
 
@@ -217,6 +154,69 @@ React 16 之后有三个生命周期被废弃(但并未删除)
 
 - [React 的生命周期](https://www.yuque.com/ant-design/course/lifemethods) - 语雀
 - [2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
+
+## JSX 语法
+
+JSX 是一个 JavaScript 的语法扩展。
+
+JSX 可以被 Babel 转码器转为正常的 JavaScript 语法。Babel 会把 JSX 转译成一个名为 `React.createElement()` 函数调用。
+
+React 认为渲染逻辑本质上与其他 UI 逻辑内在耦合，比如，在 UI 中需要绑定处理事件、在某些时刻状态发生变化时需要通知到 UI，以及需要在 UI 中展示准备好的数据。
+
+React 并没有采用将标记与逻辑进行分离到不同文件这种人为地分离方式，而是通过将二者共同存放在称之为“组件”的松散耦合单元之中，来实现关注点分离。
+
+```js
+export default () => {
+  return <div className="greeting">hello world</div>;
+};
+```
+
+可以转化为：
+
+```js
+export default = function() {
+  return React.createElement(
+    'div',
+    {className: 'greeting'},
+    'hello world'
+  )
+}
+```
+
+`React.createElement()` 会预先执行一些检查，以帮助你编写无错代码，但实际上它创建了一个这样的对象：
+
+```js
+// 注意：这是简化过的结构
+const element = {
+  type: "div",
+  props: {
+    className: "greeting",
+    children: "hello world"
+  }
+};
+```
+
+所以，可以回答为什么要引入 React?
+
+babel 里进行转化一下，发现 babel 会把代码转化成:
+
+```js
+return React.createElement("div", { className: "greeting" }, "hello world");
+```
+
+因为从本质上讲，JSX 只是为 `React.createElement(component, props, ...children)` 函数提供的语法糖。
+
+参考：[JSX 简介](https://zh-hans.reactjs.org/docs/introducing-jsx.html)
+
+## 受控组件与非受控组件
+
+| 受控组件                                       | 非受控组件               |
+| ---------------------------------------------- | ------------------------ |
+| 1. 没有维持自己的状态                          | 1. 保持着自己的状态      |
+| 2.数据由父组件控制                             | 2.数据由 DOM 控制        |
+| 3. 通过 props 获取当前值，然后通过回调通知更改 | 3. Refs 用于获取其当前值 |
+
+参考：[受控组件与非受控组件](https://www.yuque.com/ant-design/course/goozth)
 
 ## React 是如何处理事件的
 

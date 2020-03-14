@@ -1,6 +1,5 @@
-const navbar = require('./config/config-sidebar');
-const sidebar = require('./config/config-navbar');
-
+const nav = require('./config/config-nav');
+const sidebar = require('./config/config-sidebar');
 module.exports = {
   base: "/vuepress/", // 基准 URL
   title: "大涛子客栈",
@@ -28,8 +27,8 @@ module.exports = {
     editLinks: false, // 当前 markdown 的 github 代码链接
     editLinkText: "查看原文|编辑此页",
     lastUpdated: "Last Updated",
-    navbar,
-    sidebar
+    sidebar,
+    nav
   }
 };
 

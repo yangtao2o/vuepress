@@ -10,27 +10,31 @@ module.exports = [
     items: [
       {
         text: "JS",
-        link: "/js/" + sidebar["jsCont"][0]["children"][0]
+        link: "/js/" + sidebar["/js/"][0]["children"][0]
       },
       {
         text: "CSS",
-        link: "/css/" + sidebar["cssCont"][0]["children"][0]
+        link: "/css/" + sidebar["/css/"][0]["children"][0]
+      },
+      {
+        text: "HTML",
+        link: "/html/" + sidebar["/html/"][0]["children"][0]
       },
       {
         text: "Vue.js",
-        link: "/vue/" + sidebar["vueCont"][0]["children"][0]
+        link: "/vue/" + sidebar["/vue/"][0]["children"][0]
       },
       {
         text: "React.js",
-        link: "/react/" + sidebar["reactCont"][0]["children"][0]
+        link: "/react/" + sidebar["/react/"][0]["children"][0]
       },
       {
         text: "Node.js",
-        link: "/node/" + sidebar["nodeCont"][0]["children"][0]
+        link: "/node/" + sidebar["/node/"][0]["children"][0]
       },
       {
         text: "前端开发",
-        link: "/web/" + sidebar["webCont"][0]["children"][0]
+        link: "/web/" + sidebar["/web/"][0]["children"][0]
       }
     ]
   },
