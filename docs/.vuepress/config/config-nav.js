@@ -35,6 +35,10 @@ module.exports = [
       {
         text: "前端开发",
         link: "/web/" + sidebar["/web/"][0]["children"][0]
+      },
+      {
+        text: "生活与代码",
+        link: "/life/" + sidebar["/life/"][0]["children"][0]
       }
     ]
   },

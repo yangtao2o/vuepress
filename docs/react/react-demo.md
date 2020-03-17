@@ -1,21 +1,8 @@
 # 入门学习 React 一些实例
-> 这是几个入门学习 React 的小 Demo，帮助自己学习了解 React 的运行机制，结合 [React官方文档](https://zh-hans.reactjs.org/docs/getting-started.html)，会更佳噢...
 
-## DEMO 目录
+> 这是几个入门学习 React 的小 Demo [Github 地址](https://github.com/yangtao2o/myreact/tree/master/demo)，帮助自己学习了解 React 的运行机制，结合 [React 官方文档](https://zh-hans.reactjs.org/docs/getting-started.html)，会更佳噢...
 
-1. [ReactDOM.render()](https://istaotao.com/myreact/demo/01/)
-1. [Use Array in JSX](https://istaotao.com/myreact/demo/02/)
-1. [组件](https://istaotao.com/myreact/demo/03/)
-1. [this.props.children](https://istaotao.com/myreact/demo/04/)
-1. [PropTypes](https://istaotao.com/myreact/demo/05/)
-1. [获取真实的 DOM 节点](https://istaotao.com/myreact/demo/06/)
-1. [this.state](https://istaotao.com/myreact/demo/07/)
-1. [表单](https://istaotao.com/myreact/demo/08/)
-1. [组件的生命周期](https://istaotao.com/myreact/demo/09/)
-1. [使用 Promise 获取 Github 的数据](https://istaotao.com/myreact/demo/10/)
-1. [Todo List](https://istaotao.com/myreact/demo/11/)
-1. [井字棋（Tic Tac Toe）](https://istaotao.com/myreact/demo/12/)
-## 引入资源
+## 前期准备
 
 - [With babel-standalone](https://babeljs.io/en/setup/#installation)
 
@@ -30,7 +17,8 @@ const getMessage = () => "Hello World";
 document.getElementById('output').innerHTML = getMessage();
 </script>
 ```
-### Demo01: ReactDOM.render()
+
+## Demo01: ReactDOM.render()
 
 [Demo](https://istaotao.com/myreact/demo/01/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/01/index.html)
 
@@ -48,7 +36,7 @@ ReactDOM.render(
 );
 ```
 
-### Demo02: Use Array in JSX
+## Demo02: Use Array in JSX
 
 [Demo](https://istaotao.com/myreact/demo/02/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/02/index.html)
 
@@ -59,7 +47,7 @@ var arr = [<h1 key="h1">Hello,</h1>, <h2 key="h2">React is awesome!</h2>];
 ReactDOM.render(<div>{arr}</div>, document.getElementById("example"));
 ```
 
-### Demo03: 组件
+## Demo03: 组件
 
 [Demo](https://istaotao.com/myreact/demo/03/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/03/index.html)
 
@@ -77,7 +65,7 @@ ReactDOM.render(
 );
 ```
 
-### Demo04: this.props.children
+## Demo04: this.props.children
 
 [Demo](https://istaotao.com/myreact/demo/04/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/04/index.html)
 
@@ -107,7 +95,7 @@ ReactDOM.render(
 );
 ```
 
-### Demo05: PropTypes
+## Demo05: PropTypes
 
 [Demo](https://istaotao.com/myreact/demo/05/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/05/index.html)
 
@@ -156,7 +144,7 @@ DefaultTitle.defaultProps = {
 ReactDOM.render(<DefaultTitle />, document.getElementById("root2"));
 ```
 
-### Demo06: 获取真实的 DOM 节点
+## Demo06: 获取真实的 DOM 节点
 
 [Demo](https://istaotao.com/myreact/demo/06/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/06/index.html)
 
@@ -198,7 +186,7 @@ class MyComponent extends React.Component {
 ReactDOM.render(<MyComponent />, document.getElementById("root"));
 ```
 
-### Demo07: this.state
+## Demo07: this.state
 
 [Demo](https://istaotao.com/myreact/demo/07/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/07/index.html)
 
@@ -241,7 +229,7 @@ class Clock extends React.Component {
 ReactDOM.render(<Clock />, document.getElementById("root"));
 ```
 
-### Demo08: 表单
+## Demo08: 表单
 
 [Demo](https://istaotao.com/myreact/demo/08/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/08/index.html)
 
@@ -318,7 +306,7 @@ class NameForm extends React.Component {
 ReactDOM.render(<NameForm />, document.getElementById("root"));
 ```
 
-### Demo09: 组件的生命周期
+## Demo09: 组件的生命周期
 
 [Demo](https://istaotao.com/myreact/demo/09/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/09/index.html)
 
@@ -409,7 +397,7 @@ class Hello extends React.Component {
 ReactDOM.render(<Hello name="React" />, document.getElementById("root"));
 ```
 
-### Demo10: 使用 Promise 获取 Github 的数据
+## Demo10: 使用 Promise 获取 Github 的数据
 
 [Demo](https://istaotao.com/myreact/demo/10/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/10/index.html)
 
@@ -434,9 +422,7 @@ ReactDOM.render(
 
 [在这里查看完整 Demo](https://istaotao.com/myreact/demo/10/)/[源码](https://github.com/yangtao2o/myreact/blob/master/demo/10/index.html) --- 谷歌浏览器有时候会报跨域的问题，可以使用火狐等浏览器试看
 
-## 接下来来几个混合实战吧
-
-### Demo11: Todo List
+## Demo11: Todo List
 
 [Demo](https://istaotao.com/myreact/demo/11/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/11/index.html)
 
@@ -499,7 +485,7 @@ class TodoApp extends React.Component {
 }
 ```
 
-### Demo12: 井字棋（Tic Tac Toe）
+## Demo12: 井字棋（Tic Tac Toe）
 
 [Demo](https://istaotao.com/myreact/demo/12/) / [Source](https://github.com/yangtao2o/myreact/blob/master/demo/12/index.html)
 
@@ -507,7 +493,7 @@ class TodoApp extends React.Component {
 - [井字棋游戏教程文档](https://zh-hans.reactjs.org/tutorial/tutorial.html#inspecting-the-starter-code)
 - [React 的井字过三关](https://www.bbsmax.com/A/8Bz8kVodxg/)
 
-#### tic-tac-toe(三连棋)游戏的功能
+### tic-tac-toe(三连棋)游戏的功能
 
 - 能够判定玩家何时获胜
 - 能够记录游戏进程
@@ -515,10 +501,9 @@ class TodoApp extends React.Component {
 - 在游戏历史记录列表显示每一步棋的坐标，格式为 (列号, 行号)
 - 在历史记录列表中加粗显示当前选择的项目
 - 当无人获胜时，显示一个平局的消息
-- [ ] 使用两个循环来渲染出棋盘的格子，而不是在代码里写死（hardcode）
-- [ ] 添加一个可以升序或降序显示历史记录的按钮
-- [ ] 每当有人获胜时，高亮显示连成一线的 3 颗棋子
-
+- x 使用两个循环来渲染出棋盘的格子，而不是在代码里写死（hardcode）
+- x 添加一个可以升序或降序显示历史记录的按钮
+- x 每当有人获胜时，高亮显示连成一线的 3 颗棋子
 
 ## 学习资料
 

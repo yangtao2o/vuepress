@@ -8,6 +8,10 @@ module.exports = [
     children: ["http", "tcp-ip"]
   },
   {
+    title: "Webpack",
+    children: ["webpack-thinking"]
+  },
+  {
     title: "开发工具",
     children: [
       "git-command",

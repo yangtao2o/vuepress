@@ -5,6 +5,7 @@ const vueCont = require("./vue");
 const reactCont = require("./react");
 const nodeCont = require("./node");
 const webCont = require("./web");
+const lifeCont = require("./life");
 
 module.exports = {
   "/js/": jsCont,
@@ -13,5 +14,6 @@ module.exports = {
   "/vue/": vueCont,
   "/react/": reactCont,
   "/node/": nodeCont,
-  "/web/": webCont
+  "/web/": webCont,
+  "/life/": lifeCont
 };
