@@ -1,15 +1,11 @@
 module.exports = [
   {
     title: "前端开发",
-    children: ["article", "web", "web-xss", "header-response"]
+    children: ["article", "web", "web-xss", "storage", "header-response"]
   },
   {
     title: "网络基础",
     children: ["http", "tcp-ip"]
-  },
-  {
-    title: "Webpack",
-    children: ["webpack-thinking"]
   },
   {
     title: "开发工具",

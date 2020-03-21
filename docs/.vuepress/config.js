@@ -1,5 +1,5 @@
-const nav = require('./config/config-nav');
-const sidebar = require('./config/config-sidebar');
+const nav = require("./config/config-nav");
+const sidebar = require("./config/config-sidebar");
 module.exports = {
   base: "/vuepress/", // 基准 URL
   title: "大涛子客栈",
@@ -31,4 +31,3 @@ module.exports = {
     nav
   }
 };
-

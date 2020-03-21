@@ -1,7 +1,6 @@
 module.exports = [
   {
     title: "Node",
-    collapsable: false,
     children: [
       "nodejs-learn",
       "connect",
@@ -11,7 +10,13 @@ module.exports = [
       "express-init",
       "express-spider",
       "express-spider-more",
-      "node-event"
+      "node-event",
+      "middleware",
+      "nginx"
     ]
+  },
+  {
+    title: "Webpack",
+    children: ["module", "webpack-thinking", "webpack-v3", "commonjs-amd"]
   }
 ];

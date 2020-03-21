@@ -142,19 +142,23 @@ module.exports = [
     items: [
       {
         text: "Hexo博客",
-        link: "https://istaotao.com/"
+        link: "http://www.yangtao.site"
       },
       {
         text: "牛客网博客",
         link: "https://blog.nowcoder.net/istaotao"
       },
       {
+        text: "掘金收藏",
+        link: "https://juejin.im/user/58b67dd58fd9c50061238e38/collections"
+      },
+      {
         text: "掘金分享",
         link: "https://juejin.im/user/58b67dd58fd9c50061238e38/shares/"
       },
       {
-        text: "掘金收藏",
-        link: "https://juejin.im/user/58b67dd58fd9c50061238e38/collections"
+        text: "慕课网手记",
+        link: "http://www.imooc.com/u/3120512/articles"
       },
       {
         text: "CodePen",

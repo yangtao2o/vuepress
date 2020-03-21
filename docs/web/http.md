@@ -176,6 +176,8 @@ TLS/SSL 的功能实现主要依赖于三类基本算法：
 - 浏览器解析代码（如果服务器有 gzip 压缩，浏览器先解压）
 - 浏览器渲染呈现给用户
 
+[当我们在浏览器中输入一个URL后，发生了什么？](https://kmknkk.xin/2018/03/04/%E5%BD%93%E6%88%91%E4%BB%AC%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AAURL%E5%90%8E%EF%BC%8C%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F/)
+
 [「真 ® 全栈之路 - DNS 篇」故事从输入 URL 开始.....](https://juejin.im/post/5ceebb7251882507266414b7)
 
 [在浏览器输入 URL 回车之后发生了什么（超详细版）](https://4ark.me/post/b6c7c0a2.html)

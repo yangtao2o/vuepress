@@ -1,6 +1,4 @@
-# 学习冴羽的 ES6 系列·上篇
-
-## let 和 const
+# 学习冴羽的 ES6 系列
 
 原文链接：[ES6 系列之 let 和 const](https://github.com/mqyqingfeng/Blog/issues/82)
 

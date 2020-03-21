@@ -1,9 +1,15 @@
-# 入门 Webpack@3 的配置过程
+# Webpack@3 的基本使用
 
 ## 前言
 
 - [webpack 指南](https://webpack.docschina.org/guides/)
+- [Webpack 中文指南](https://zhaoda.net/webpack-handbook/index.html)
+- [Webpack傻瓜式指南（一）](https://zhuanlan.zhihu.com/p/20367175) - 入门学习 webpack 的基本知识
+- [Webpack傻瓜式指南](https://vikingmute.gitbooks.io/webpack-for-fools/content/) - 这是一本关于webpack这种构建工具的书
 - [React 的 Webpack 配置](https://www.jianshu.com/p/0e01ca947e50)
+- [带你深度解锁Webpack系列(基础篇)](https://juejin.im/post/5e5c65fc6fb9a07cd00d8838)
+- [带你深度解锁Webpack系列(进阶篇)](https://juejin.im/post/5e6518946fb9a07c820fbaaf)
+- [带你深度解锁Webpack系列(优化篇)](https://juejin.im/post/5e6cfdc85188254913107c1f)
 
 _PS：_ 文章结尾有完整实例启动方法：[Github 地址](https://github.com/yangtao2o/happymmall/tree/webpack%403-react)
 
