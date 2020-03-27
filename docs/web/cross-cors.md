@@ -134,7 +134,7 @@ const myHeaders = new Headers({
   "X-Custom-Header": "xxx"
 });
 fetch(url, {
-  method: "PUT",   // 改成 PUT
+  method: "PUT", // 改成 PUT
   headers: myHeaders,
   body: JSON.stringify(data),
   mode: "cors"
@@ -196,10 +196,33 @@ Transfer-Encoding: chunked
 
 **CORS 请求的响应**：现在它和简单请求的情况是一样的。浏览器自动加上 Origin 字段，服务端响应头返回 `Access-Control-Allow-Origin`。在设置的`Access-Control-Max-Age: 2000`里是不会再次发送预检请求的，除非时间过期。
 
+## document.domain
+
+该方式只能用于二级域名相同的情况下，比如 `a.test.com` 和 `b.test.com` 适用于该方式。
+
+只需要给页面添加 `document.domain = 'test.com'` 表示二级域名都相同就可以实现跨域
+
+## postMessage
+
+这种方式通常用于获取嵌入页面中的第三方页面数据。一个页面发送消息，另一个页面判断来源并接收消息
+
+```js
+// 发送消息端
+window.parent.postMessage("message", "http://test.com");
+// 接收消息端
+var mc = new MessageChannel();
+mc.addEventListener("message", event => {
+  var origin = event.origin || event.originalEvent.origin;
+  if (origin === "http://test.com") {
+    console.log("验证通过");
+  }
+});
+```
+
 ## 参考资料
 
 - [什么是跨域？浏览器如何拦截响应？如何解决](https://juejin.im/post/5e76bd516fb9a07cce750746#heading-67)
 - 阮一峰 [跨域资源共享 CORS 详解](http://www.ruanyifeng.com/blog/2016/04/cors.html)
 - MDN [HTTP 访问控制（CORS）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)
 - [使用 Fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
-- [HTTP协议原理+实践Web开发工程师必学](https://coding.imooc.com/learn/list/225.html) - 慕课网付费课程
+- [HTTP 协议原理+实践 Web 开发工程师必学](https://coding.imooc.com/learn/list/225.html) - 慕课网付费课程
