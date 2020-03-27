@@ -9,6 +9,8 @@ module.exports = [
       "websocket",
       "http-url",
       "web-cache",
+      "cross-jsonp",
+      "cross-cors",
       "storage",
       "web-xss",
       "header-response"
