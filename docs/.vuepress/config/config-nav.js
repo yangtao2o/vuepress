@@ -33,7 +33,7 @@ module.exports = [
         link: "/node/" + sidebar["/node/"][0]["children"][0]
       },
       {
-        text: "前端开发",
+        text: "网络协议",
         link: "/web/" + sidebar["/web/"][0]["children"][0]
       },
       {
@@ -71,6 +71,14 @@ module.exports = [
           {
             text: "冴羽的博客",
             link: "https://github.com/mqyqingfeng/Blog"
+          },
+          {
+            text: "Chenng 的主页 - Tencent",
+            link: "https://www.chenng.cn/"
+          },
+          {
+            text: "神三元的博客",
+            link: "http://47.98.159.95/my_blog/nav/"
           }
         ]
       },

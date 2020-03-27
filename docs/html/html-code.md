@@ -50,6 +50,22 @@
 4. 遍历渲染树开始布局，计算每个节点的位置大小信息。
 5. 将渲染树每个节点绘制到屏幕。
 
+## User-Agent 是什么
+
+User-Agent 是一个特征字符串，用来标识发起请求的用户代理软件的应用类型、操作系统、软件开发商和版本号的信息。
+
+Chrome 浏览器，输入`window.navigator.userAgent`：
+
+```bash
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
+```
+
+网景 (Netscape) 浏览器曾经是世界浏览器市场的霸主，网景浏览器把 User-Agent 中自己的标识名定位：Mozilla。
+
+所以那时候的程序员就利用 `User-Agent` 来判断浏览器的特性，比如是否支持 frame，对于不符合要求的浏览器直接显示不兼容内容。就像现在程序员不喜欢IE一样。
+
+所以后来微软推出 IE 浏览器的时候，为了能够兼容那些用来兼容 Netscape 的网页，就在自己的 `User-Agent` 中也加入了 Mozilla 用来伪装成 Netscape。后来渐渐地这种作法就成为事实标准了。
+
 ## Reflow 和 Repaint
 
 ### Reflow

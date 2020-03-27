@@ -1,4 +1,4 @@
-# Cookie、Session、LocalStorage、SessionStorage
+# Cookie、Session、LocalStorage 以及 SessionStorage
 
 ## 前言
 

@@ -7,12 +7,14 @@ module.exports = [
       "tcp",
       "http",
       "event",
+      "node-stream",
+      "node-5-util",
       "express-init",
       "express-spider",
       "express-spider-more",
       "node-event",
       "middleware",
-      "nginx"
+      "nginx",
     ]
   },
   {

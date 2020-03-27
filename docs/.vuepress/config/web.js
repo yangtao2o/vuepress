@@ -1,11 +1,22 @@
 module.exports = [
   {
-    title: "前端开发",
-    children: ["article", "web", "web-xss", "storage", "header-response"]
+    title: "网络协议基础理论",
+    children: [
+      "http",
+      "https",
+      "http2",
+      "tcp-ip",
+      "websocket",
+      "http-url",
+      "web-cache",
+      "storage",
+      "web-xss",
+      "header-response"
+    ]
   },
   {
-    title: "网络基础",
-    children: ["http", "tcp-ip"]
+    title: "前端开发",
+    children: ["article", "web"]
   },
   {
     title: "开发工具",
