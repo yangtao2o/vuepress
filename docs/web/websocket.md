@@ -21,11 +21,11 @@
 1. 没有同源限制，客户端可以与任意服务器通信。
 1. 协议标识符是 ws（如果加密，则为 wss），服务器网址就是 URL。
 
-```code
+```text
 ws://example.com:80/some/path
 ```
 
-## 客户端示例
+## 举个栗子
 
 ```js
 var ws = new WebSocket("wss://echo.websocket.org");
@@ -45,6 +45,89 @@ ws.onclose = function(evt) {
 };
 ```
 
+## Client-Server 通信
+
+### Client
+
+```js
+const socket = new WebSocket("ws://localhost:8080");
+
+socket.addEventListener("open", function(event) {
+  console.log("Connection open ...");
+  socket.send("Hello Server!");
+});
+
+socket.addEventListener("message", function(event) {
+  console.log("Message from server: ", event.data);
+  socket.close();
+});
+
+socket.addEventListener("close", function(event) {
+  console.log("Connection closed.");
+});
+```
+
+### Server
+
+```shell
+npm install ws
+```
+
+```js
+const WebSocket = require("ws");
+
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on("connection", function connection(ws) {
+  ws.on("message", function incoming(message) {
+    console.log("received: %s", message);
+  });
+
+  ws.send("something");
+});
+```
+
+### HTTP server
+
+```js
+const http = require("http");
+const WebSocket = require("ws");
+const url = require("url");
+
+const server = http.createServer();
+const wss1 = new WebSocket.Server({ noServer: true });
+const wss2 = new WebSocket.Server({ noServer: true });
+
+wss1.on("connection", function connection(ws) {
+  // ...
+});
+
+wss2.on("connection", function connection(ws) {
+  // ...
+});
+
+server.on("upgrade", function upgrade(request, socket, head) {
+  const pathname = url.parse(request.url).pathname;
+
+  if (pathname === "/foo") {
+    wss1.handleUpgrade(request, socket, head, function done(ws) {
+      wss1.emit("connection", ws, request);
+    });
+  } else if (pathname === "/bar") {
+    wss2.handleUpgrade(request, socket, head, function done(ws) {
+      wss2.emit("connection", ws, request);
+    });
+  } else {
+    socket.destroy();
+  }
+});
+
+server.listen(8080);
+```
+
 ## 参考资料
 
 - 阮一峰[WebSocket 教程](http://www.ruanyifeng.com/blog/2017/05/websocket.html)
+- MDN [WebSocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
+- [Node ws](https://github.com/websockets/ws)
+- [WebSocket-Node](https://github.com/theturtle32/WebSocket-Node)

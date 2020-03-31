@@ -318,9 +318,9 @@ x-frame-options: DENY
 
 体现在了`Content-Encoding`字段和`Accept-Encoding`字段上。这个字段的取值有下面几种：
 
-- gzip: 当今最流行的压缩格式
-- deflate: 另外一种著名的压缩格式
-- br: 一种专门为 HTTP 发明的压缩算法
+- **gzip**: 当今最流行的压缩格式
+- **deflate**: 另外一种著名的压缩格式
+- **br**: 一种专门为 HTTP 发明的压缩算法
 
 ### 支持语言
 

@@ -1,4 +1,4 @@
-# 学习冴羽的 JavaScript 系列总结
+# 学习冴羽的 JavaScript 系列目录
 
 ## [JavaScirpt 深入系列·上篇](js-series-1.md)
 

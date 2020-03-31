@@ -7,13 +7,15 @@ module.exports = [
       "http2",
       "tcp-ip",
       "websocket",
+      "http-use",
       "http-url",
       "web-cache",
       "cross-jsonp",
       "cross-cors",
       "storage",
       "web-xss",
-      "header-response"
+      "header-response",
+      "http-tool"
     ]
   },
   {

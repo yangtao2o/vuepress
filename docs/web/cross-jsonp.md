@@ -232,3 +232,4 @@ function getAjaxData() {
 
 - [什么是跨域？浏览器如何拦截响应？如何解决](https://juejin.im/post/5e76bd516fb9a07cce750746#heading-67)
 - [jsonp 跨域原理分析](https://segmentfault.com/a/1190000009773724) - 分析了 Ajax 和 jsonp 之间的关系
+- [前端必须懂的计算机网络知识—(跨域、代理、本地存储)](https://juejin.im/post/5bb1cc2af265da0ae5052496)
