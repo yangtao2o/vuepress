@@ -31,7 +31,7 @@ module.exports = [
   },
   {
     title: "面试总结",
-    children: ["interview"]
+    children: ["interview-2020", "interview"]
   },
   {
     title: "插件等资源",

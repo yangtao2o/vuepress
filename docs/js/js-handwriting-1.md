@@ -585,8 +585,11 @@ const me = new Child({ name: "Yang", age: 28 });
 
 ```js
 function _extends(child, parent) {
-  child.prototype = Object.create(parent.prototype);
+  child.prototype = Object.create(parent && parent.prototype);
   child.prototype.constructor = child;
+  Object.setPrototypeOf
+    ? Object.setPrototypeOf(child, parent)
+    : (child.__proto__ = parent);
 }
 
 function _classCallCheck(instance, Constructor) {
