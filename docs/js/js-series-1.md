@@ -363,7 +363,53 @@ ECStack = [globalContext];
 
 > 作者曰：在写文章之初，我就面临着这些问题，最后还是放弃从多个情形下给大家讲解 this 指向的思路，而是追根溯源的从 ECMASciript 规范讲解 this 的指向，尽管从这个角度写起来和读起来都比较吃力，但是一旦多读几遍，明白原理，绝对会给你一个全新的视角看待 this 。
 
+```js
+var value = 1;
+
+var foo = {
+  value: 2,
+  bar: function() {
+    return this.value;
+  }
+};
+
+//示例1
+console.log(foo.bar());
+//示例2
+console.log(foo.bar());
+//示例3
+console.log((foo.bar = foo.bar)());
+//示例4
+console.log((false || foo.bar)());
+//示例5
+console.log((foo.bar, foo.bar)());
+```
+
+作者主要从 ECMASciript 规范讲解 **this 的指向**，讲解了**示例 3** 中是如何获取 this 指向的，每次阅读都会有不同的收获，也正如作者所说，希望能打开 this 新世界的大门。
+
 原文链接：[JavaScript 深入之从 ECMAScript 规范解读 this](https://github.com/mqyqingfeng/Blog/issues/7)
+
+补充下我们使用场景下的 this 指向，如：
+
+```js
+var object = {};
+var obj = {
+  a: 1,
+  b: function() {
+    console.log(this);
+  }
+};
+```
+
+- 作为**对象**调用时，指向该对象 `obj.b();` ，this 指向 obj
+- 作为**函数**调用，`var b = obj.b; b();` ，this 指向全局 window
+- 作为**构造函数**调用， `var b = new Fun();` ，this 指向当前实例对象
+- 作为 **call、apply** 调用， `obj.b.apply(object, []);` ，this 指向当前的 object
+- 作为 **bind** 调用，`var foo = obj.b.bind(object);foo()`，this 永久被绑定到了 object
+- 作为**箭头函数**使用，this 与封闭词法环境的 this 保持一致
+- 作为**DOM 事件处理函数**，this 指向触发事件的元素
+
+在**严格模式**下，如果 this 没有被执行环境（execution context）定义，那它将保持为 **undefined**。
 
 ## 执行上下文
 
@@ -373,9 +419,219 @@ ECStack = [globalContext];
 - 作用域链(Scope chain)
 - this
 
+### 分析第一段代码
+
+```js
+var scope = "global scope";
+function checkscope() {
+  var scope = "local scope";
+  function f() {
+    return scope;
+  }
+  return f();
+}
+checkscope();
+```
+
+1.执行全局代码，创建全局执行上下文，全局上下文被压入执行上下文栈
+
+```js
+ECStack = [globalContext];
+```
+
+2.全局上下文初始化
+
+```js
+globalContext = {
+  VO: [global],
+  Scope: [globalContext.VO],
+  this: globalContext.VO
+};
+```
+
+初始化的同时，checkscope 函数被创建，保存作用域链到函数的内部属性`[[scope]]`
+
+```js
+checkscope.[[scope]] = [globalContext.VO]
+```
+
+3.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈
+
+```js
+ECStack = [checkscope, globalContext];
+```
+
+4.checkscope 函数执行上下文初始化：
+
+1. 复制函数 `[[scope]]` 属性创建作用域链，
+2. 用 arguments 创建活动对象，
+3. 初始化活动对象，即加入形参、函数声明、变量声明，
+4. 将活动对象压入 checkscope 作用域链顶端。
+
+同时 f 函数被创建，保存作用域链到 f 函数的内部属性`[[scope]]`.
+
+```js
+checkscopeContext = {
+  AO: {
+    arguments: {
+      length: 0
+    },
+    scope: undefined,
+    f: reference to function f(){}
+  },
+  Scope: [AO, globalContext.VO],
+  this: undefined
+}
+```
+
+5.执行 f 函数，创建 f 函数执行上下文，f 函数执行上下文被压入执行上下文栈
+
+```js
+ECStack = [fContext, checkscope, globalContext];
+```
+
+6.f 函数执行上下文初始化
+
+```js
+fContext = {
+  AO: {
+    arguments: {
+      length: 0
+    }
+  },
+  Scope: [AO, checkscopeContext.AO, globalContext.VO],
+  this: undefined
+};
+```
+
+7.f 函数执行，沿着作用域链查找 scope 值，返回 scope 值，这里之所以能够访问到scope
+
+8.f 函数执行完毕，f 函数上下文从执行上下文栈中弹出
+
+9.checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出
+
+```js
+ECStack = [globalContext];
+```
+
+### 分析第二段代码
+
+```js
+var scope = "global scope";
+function checkscope() {
+  var scope = "local scope";
+  function f() {
+    return scope;
+  }
+  return f;
+}
+checkscope()();
+```
+
+1.执行全局代码，创建全局执行上下文，全局上下文被压入执行上下文栈，并初始化全局上下文
+
+```js
+ECStack = [globalContext];
+globalContext = {
+  VO: [global],
+  Scope: [globalContext.VO],
+  this: globalContext.VO
+};
+```
+
+初始化的同时，checkscope 函数被创建，保存作用域链到函数的内部属性`[[scope]]`：
+
+```js
+checkscope.[[scope]] = [globalContext.VO];
+```
+
+2.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈，并初始化函数上下文
+
+```js
+ECStack = [checkscopeContext, globalContext];
+checkscopeContext = {
+  AO: {
+    arguments: {
+      length: 0
+    },
+    scope: undefined,
+    f: reference to function f(){}
+  },
+  Scope: [AO, globalContext.VO],
+  this: undefined
+}
+```
+
+同时 f 函数被创建，保存作用域链到 f 函数的内部属性`[[scope]]`：
+
+```js
+f.[[scope]] = [AO, checkscopeContext.AO, globalContext.VO];
+```
+
+3.checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出
+
+```js
+ECStack = [globalContext];
+```
+
+4.执行 f 函数，创建 f 函数执行上下文，并压入执行上下文栈，将其初始化
+
+```js
+ECStack = [fContext;, globalContext];
+fContext = {
+  AO: {
+    arguments: {
+      length: 0
+    }
+  },
+  Scope: [AO, checkscopeContext.AO, globalContext.VO],
+  this: undefined
+};
+```
+
+5.f 函数执行，沿着作用域链查找 scope 值，返回 scope 值。正是因为 checkscope 函数执行上下文初始化时，f 函数同时被创建，保存作用域链到 f 函数的内部属性`[[scope]]`，所以即使checkscope函数执行完毕，被弹出执行上下文栈，但是`checkscopeContext.AO` 依然存在于 f 函数维护的`[scope]]`：
+
+```js
+fContext = {
+    Scope: [AO, checkscopeContext.AO, globalContext.VO],
+}
+```
+
+所以，闭包的概念产生了，定义：
+
+- 即使创建它的上下文已经销毁，它仍然存在（比如，内部函数从父函数中返回）
+- 在代码中引用了自由变量
+
+6.f 函数执行完毕，f 函数上下文从执行上下文栈中弹出
+
+```js
+ECStack = [globalContext];
+```
+
 原文链接：[JavaScript 深入之执行上下文](https://github.com/mqyqingfeng/Blog/issues/8)
 
 ## 闭包
+
+MDN 对闭包的定义为：
+
+> 闭包是指那些能够访问自由变量的函数。
+
+那什么是自由变量呢？
+
+> 自由变量是指在函数中使用的，但既不是函数参数也不是函数的局部变量的变量。
+
+由此，我们可以看出闭包共有两部分组成：
+
+> 闭包 = 函数 + 函数能够访问的自由变量
+
+ECMAScript中，闭包指的是：
+
+从理论角度：所有的函数。因为它们都在创建的时候就将上层上下文的数据保存起来了。哪怕是简单的全局变量也是如此，因为函数中访问全局变量就相当于是在访问自由变量，这个时候使用最外层的作用域。
+
+从实践角度：以下函数才算是闭包：
+
+- 即使创建它的上下文已经销毁，它仍然存在（比如，内部函数从父函数中返回）
+- 在代码中引用了自由变量
 
 闭包是指那些能够访问自由变量的函数。
 
@@ -399,20 +655,6 @@ data[1]();
 data[2]();
 ```
 
-循环结束后
-
-```js
-data[0] = function() {
-  console.log(i);
-};
-data[1] = function() {
-  console.log(i);
-};
-data[2] = function() {
-  console.log(i);
-};
-```
-
 执行`data[0]()，data[1]()，data[2]()`时，i=3,所以都打印 3
 
 让我们改成闭包看看：
@@ -427,10 +669,6 @@ for (var i = 0; i < 3; i++) {
     };
   })(i);
 }
-
-data[0]();
-data[1]();
-data[2]();
 ```
 
 原文链接：[JavaScript 深入之闭包](https://github.com/mqyqingfeng/Blog/issues/9)
@@ -461,45 +699,17 @@ console.log(value); // 1
 
 改变前：
 
-<table>
-  <tr>
-    <td colspan="2"  align="center">栈内存</td>
-    <td colspan="2"  align="center">堆内存</td>
-  </tr>
-  <tr>
-    <td>value</td>
-    <td>1</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>v</td>
-    <td>1</td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
+|  栈内存 | 栈内存 | 堆内存 |
+| ------- | ------ | ------ |
+| value   | 1      |        |
+| v       | 1      |        |
 
 改变后：
 
-<table>
-  <tr>
-    <td colspan="2"  align="center">栈内存</td>
-    <td colspan="2"  align="center">堆内存</td>
-  </tr>
-  <tr>
-    <td>value</td>
-    <td>1</td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>v</td>
-    <td>2</td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
+|  栈内存 | 栈内存 | 堆内存 |
+| ------- | ------ | ------ |
+| value   | 1      |        |
+| v       | 2      |        |
 
 例子二：
 
@@ -519,31 +729,15 @@ console.log(obj.value); // 2
 
 改变前：
 
-<table>
-  <tr>
-    <td colspan="2"  align="center">栈内存</td>
-    <td  align="center">堆内存</td>
-  </tr>
-  <tr>
-    <td>obj，o</td>
-    <td>指针地址</td>
-    <td>{value: 1}</td>
-  </tr>
-</table>
+|  栈内存 | 栈内存   | 堆内存     |
+| ------- | -------- | ---------- |
+| obj，o  | 指针地址 | {value: 1} |
 
 改变后：
 
-<table>
-  <tr>
-    <td colspan="2"  align="center">栈内存</td>
-    <td  align="center">堆内存</td>
-  </tr>
-  <tr>
-    <td>obj，o</td>
-    <td>指针地址</td>
-    <td>{value: 2}</td>
-  </tr>
-</table>
+|  栈内存 | 栈内存   | 堆内存     |
+| ------- | -------- | ---------- |
+| obj，o  | 指针地址 | {value: 2} |
 
 例子三：
 
@@ -563,36 +757,16 @@ console.log(obj.value); // 1
 
 改变前：
 
-<table>
-  <tr>
-    <td colspan="2"  align="center">栈内存</td>
-    <td  align="center">堆内存</td>
-  </tr>
-  <tr>
-    <td>obj，o</td>
-    <td>指针地址</td>
-    <td>{value: 1}</td>
-  </tr>
-</table>
+|  栈内存 | 栈内存   | 堆内存     |
+| ------- | -------- | ---------- |
+| obj，o  | 指针地址 | {value: 1} |
 
 改变后：
 
-<table>
-  <tr>
-    <td colspan="2"  align="center">栈内存</td>
-    <td  align="center">堆内存</td>
-  </tr>
-  <tr>
-    <td>obj</td>
-    <td>指针地址</td>
-    <td>{value: 1}</td>
-  </tr>
-  <tr>
-    <td>o</td>
-    <td>2</td>
-    <td></td>
-  </tr>
-</table>
+|  栈内存 | 栈内存   | 堆内存     |
+| ------- | -------- | ---------- |
+| obj     | 指针地址 | {value: 1} |
+| o       | 2        |            |
 
 以上解释来自：[sunsl516 commented](https://github.com/mqyqingfeng/Blog/issues/10#issuecomment-305645497) on 2 Jun 2017.
 

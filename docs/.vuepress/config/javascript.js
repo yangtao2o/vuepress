@@ -2,8 +2,9 @@ module.exports = [
   {
     title: "基础修炼",
     children: [
-      "js-code-handwriting",
-      "js-series-summary",
+      "js-handwriting-1",
+      "js-handwriting-2",
+      "js-handwriting-polyfill",
       "js-series-1",
       "js-series-2",
       "js-series-3",
@@ -11,6 +12,7 @@ module.exports = [
       "js-theme-2",
       "js-theme-3",
       "es6-series",
+      "js-series-summary",
       "js-var",
       "js-prototype",
       "js-this-apply-call",
