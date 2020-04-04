@@ -139,7 +139,7 @@ function throttle(func, wait, options) {
 
 详细解析见：[JavaScript 专题之跟着 underscore 学节流](https://github.com/mqyqingfeng/Blog/issues/26)
 
-## 数组去重的几种方式
+## 数组去重
 
 ### 双层循环
 
@@ -271,6 +271,238 @@ function type(obj) {
   return typeof obj === "object" || typeof obj === "function"
     ? class2type[Object.prototype.toString.call(obj)] || "object"
     : typeof obj;
+}
+```
+
+## 深浅拷贝
+
+如果数组元素是基本类型，就会拷贝一份，互不影响，而如果是对象或者数组，就会只拷贝对象和数组的引用，这样我们无论在新旧数组进行了修改，两者都会发生变化。
+
+我们把这种复制引用的拷贝方法称之为浅拷贝，与之对应的就是深拷贝，深拷贝就是指完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。
+
+比如，数组的一些方法：**concat**、**slice**，对象的一些方法：**Object.assign**
+
+```js
+// 浅拷贝
+function copy(arr) {
+  return [].concat(arr);
+}
+
+// 赋值一个对象
+const obj = { a: 1 };
+const copy = Object.assign({}, obj);
+console.log(copy); // { a: 1 }
+```
+
+使用 `JSON.stringify()`和`JSON.parse()`，不管是数组还是对象，都可以实现深拷贝，但是不能拷贝函数，会返回一个 null
+
+```js
+function copy(arr) {
+  var res = JSON.parse(JSON.stringify(arr));
+  return res;
+}
+```
+
+**浅拷贝**的实现：既然是浅拷贝，那就只需要遍历，把对应的属性及属性值添加到新的对象，并返回
+
+```js
+function shallowCopy(obj) {
+  if (typeof obj !== "object") return;
+  const newObj = Array.isArray(obj) ? [] : {};
+
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = obj[key];
+    }
+  }
+  return newObj;
+}
+```
+
+**深拷贝**的实现：如果是对象，通过递归调用拷贝函数
+
+```js
+function deepCopy(obj) {
+  if (typeof obj !== "object") return;
+  const newObj = Array.isArray(obj) ? [] : {};
+  for (let key in obj) {
+    const current = obj[key];
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = typeof current === "object" ? deepCopy(current) : current;
+    }
+  }
+  return newObj;
+}
+```
+
+## 求数组的最大值
+
+JavaScript 提供了 Math.max 函数返回一组数中的最大值，用法是：
+
+```js
+Math.max([value1[,value2, ...]])
+```
+
+值得注意的是：
+
+- 如果有任一参数不能被转换为数值，则结果为 NaN。
+- max 是 Math 的静态方法，所以应该像这样使用：`Math.max()`，而不是作为 Math 实例的方法 (简单的来说，就是不使用 new )
+- 如果没有参数，则结果为 **-Infinity** (注意是负无穷大)
+
+**循环**：
+
+```js
+function max(arr) {
+  var res = arr[0];
+  for (var i = 1, len = arr.length; i < length; i++) {
+    res = Math.max(res, arr[i]);
+  }
+  return res;
+}
+```
+
+**reduce**：
+
+```js
+let getMax = arr => arr.reduce((prev, next) => Math.max(prev, next));
+```
+
+**排序 sort**：
+
+```js
+// a > b, a 和 b 交换位置，数组原地以升序排列
+var getMax = arr => arr.sort((a, b) => a - b)[arr.length - 1];
+```
+
+**eval**：
+
+```js
+var max = eval("Math.max(" + arr + ")");
+// arr + "" <= 这里隐式转换，一般要先转换成基本数据类型
+console.log([1, 2, 3] + ""); // "1,2,3"
+console.log("Math.max(" + [1, 2, 3] + ")"); // "Math.max(1,2,3)"
+```
+
+**apply**：
+
+```js
+var getMax = arr => Math.max.apply(null, arr);
+```
+
+**ES6**：
+
+```js
+var getMax = arr => Math.max(...arr);
+```
+
+## 数组扁平化
+
+**数组的扁平化**，就是将一个嵌套多层的数组 array (嵌套可以是任何层数)转换为只有一层的数组。
+
+1.递归循环：
+
+```js
+function flatten(arr) {
+  var result = [];
+  for (var i = 0, len = arr.length; i < len; i++) {
+    if (Array.isArray(arr[i])) {
+      result = result.concat(flatten(arr[i]));
+    } else {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+```
+
+2.forEach 遍历数组会自动跳过空元素：
+
+```js
+const eachFlat = (arr = [], depth = 1) => {
+  const result = [];
+  (function flat(arr, depth) {
+    arr.forEach(item => {
+      if (Array.isArray(item) && depth > 0) {
+        flat(item, depth - 1);
+      } else {
+        result.push(item);
+      }
+    });
+  })(arr, depth);
+  return result;
+};
+
+eachFlat([1, 2, [3, [4, [5]]]], Infinity); //[1, 2, 3, 4, 5]
+```
+
+3.for...of：
+
+```js
+const forFlat = (arr = [], depth = 1) => {
+  const result = [];
+  (function flat(arr, depth) {
+    for (let item of arr) {
+      if (Array.isArray(item) && depth > 0) {
+        flat(item, depth - 1);
+      } else {
+        // 去除空元素，添加非undefined元素
+        item !== void 0 && result.push(item);
+      }
+    }
+  })(arr, depth);
+  return result;
+};
+```
+
+4.如果数组的元素都是数字，那么我们可以考虑使用 toString 方法：
+
+```js
+function flatten(arr) {
+  return arr
+    .toString()
+    .split(",")
+    .map(function(item) {
+      return +item;
+    });
+}
+```
+
+5.既然是对数组进行处理，最终返回一个值，我们就可以考虑使用 reduce 来简化代码：
+
+```js
+function flatDeep(arr, d = 1) {
+  return d > 0
+    ? arr.reduce(
+        (acc, val) =>
+          acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
+        []
+      )
+    : arr.slice();
+}
+```
+
+6.`Array.prototype.flat`方法：
+
+```js
+var arr = [1, 2, [3, 4]];
+
+// 展开一层数组
+arr.flat();
+// 等效于
+arr.reduce((acc, val) => acc.concat(val), []);
+// [1, 2, 3, 4]
+```
+
+7.使用 ES6 扩展运算符：
+
+```js
+const flattened = arr => [].concat(...arr);
+
+function flatten(arr) {
+  while (arr.some(item => Array.isArray(item))) {
+    arr = [].concat(...arr);
+  }
+  return arr;
 }
 ```
 

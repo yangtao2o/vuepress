@@ -1,6 +1,8 @@
 ---
 home: true
 heroImage: /bookmark.svg
+actionText: Let's Go →
+actionLink: /react/learn.html
 features:
 - title: JUST DO IT
   details: I will do my best to keep my knowledge current.
@@ -11,4 +13,5 @@ features:
 footer: 苏ICP备19070147号-1 | MIT Licensed | Copyright © 2019 Yang Tao
 ---
 
+#### 留言板
 <Valine></Valine>

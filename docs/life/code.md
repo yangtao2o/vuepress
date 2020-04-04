@@ -1,6 +1,13 @@
-# 文章
+# 其实，生活远远不止 Coding
 
+## Coding
+
+- [怎样系统地自学前端？](https://www.zhihu.com/question/67467219/answer/253992931) - 冴羽知乎回答
 - [那些改变过世界的代码都是怎么写的？](https://mp.weixin.qq.com/s/gf0O9EiMv6Ew8eIAeUAgAw)
+
+## Github 大神
+
+- [冴羽](https://github.com/mqyqingfeng/)，前端工程师，深入系列、专题系列、underscore 系列、ES6 系列已完结，正在准备新的系列文章中。
 
 ## 软件工具
 
