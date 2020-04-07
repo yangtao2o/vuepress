@@ -506,6 +506,304 @@ function flatten(arr) {
 }
 ```
 
+## 函数柯里化
+
+在数学和计算机科学中，**柯里化**是一种将使用多个参数的一个函数转换成一系列使用一个参数的函数的技术。关于函数式编程文档：[函数式编程指北](https://llh911001.gitbooks.io/mostly-adequate-guide-chinese/content/)。
+
+先来个高颜值写法：
+
+```js
+var curry = fn =>
+  (judge = (...args) =>
+    args.length === fn.length
+      ? fn(...args)
+      : (...arg) => judge(...args, ...arg));
+```
+
+第一种方式：
+
+```js
+function curry(fn, args) {
+  const len = fn.length;
+  args = args || [];
+  return function() {
+    let newArgs = [].slice.call(arguments, 0);
+    let _args = args.concat(newArgs);
+    if (_args.length < len) {
+      return curry(fn, _args);
+    } else {
+      return fn.apply(this, _args);
+    }
+  };
+}
+```
+
+调用：
+
+```js
+var fn = curry(function(a, b, c) {
+  return [a, b, c];
+});
+
+console.log(fn(1, 2, 3));  // [1, 2, 3]
+console.log(fn(1)(2, 3));  // [1, 2, 3]
+console.log(fn(1, 2), 3));  // [1, 2, 3]
+```
+
+第二种方式：
+
+```js
+function sub_curry(fn) {
+  var args = [].slice.call(arguments, 1);
+  return function() {
+    // 执行 fn(1, 2)
+    return fn.apply(this, args.concat([].slice.call(arguments)));
+  };
+}
+
+function curry(fn, length) {
+  length = length || fn.length;
+  var slice = Array.prototype.slice;
+  return function() {
+    var argsLen = arguments.length;
+    // 如：combined = [fn, 1, 2]
+    var combined = [fn].concat(slice.call(arguments, 0));
+    if (argsLen < length) {
+      // 如：fn = sub_curry(fn, 1, 2)
+      // curry(fn, length)
+      return curry(sub_curry.apply(this, combined), length - argsLen);
+    } else {
+      // 执行 fn(1, 2, 3)
+      return fn.apply(this, arguments);
+    }
+  };
+}
+
+fn(1, 2), 3);
+
+// 类似于
+// (function(a, b) {
+//   return function(c) {
+//     console.log(a, b, c);
+//   };
+// })(1, 2)(3);
+```
+
+`sub_curry` 的作用就是用函数包裹原函数，然后给原函数传入之前的参数，当执行 `fn0()()`的时候，执行包裹函数，**返回原函数**，然后再调用 `sub_curry` 再**包裹原函数**，然后将新的参数混合旧的参数**再传入原函数**，直到函数参数的数目达到要求为止。
+
+## 偏函数
+
+对偏函数 (Partial application) 的定义：在计算机科学中，局部应用是指固定一个函数的一些参数，然后产生另一个更小元的函数。
+
+什么是元？元是指函数参数的个数，比如一个带有两个参数的函数被称为二元函数。
+
+我们希望 partial 函数也使用占位符：
+
+```js
+var _ = {};
+
+function partial(fn) {
+  var args = [].slice.call(arguments, 1);
+  return function() {
+    var position = 0,
+      len = args.length;
+    for (var i = 0; i < len; i++) {
+      args[i] = args[i] === _ ? arguments[position++] : args[i];
+    }
+    while (position < arguments.length) args.push(arguments[position++]);
+    return fn.apply(this, args);
+  };
+}
+
+var subtract = function(a, b) {
+  return b - a;
+};
+subFrom20 = partial(subtract, _, 20);
+var res = subFrom20(5);
+console.log(res); //15
+```
+
+## 惰性函数
+
+惰性函数就是解决每次都要进行判断的这个问题，解决原理很简单，重写函数。
+
+```js
+var foo = function() {
+  var t = new Date();
+  foo = function() {
+    return t;
+  };
+  return foo();
+};
+```
+
+再比如 DOM 事件兼容 IE，每次都需要判断：
+
+```js
+function addEvent(type, el, fn) {
+  if (window.addEventListener) {
+    el.addEventListener(type, fn, false);
+  } else if (window.attachEvent) {
+    el.attachEvent("on" + type, fn);
+  }
+}
+```
+
+利用惰性函数，我们可以这样做：
+
+```js
+function addEvent(type, el, fn) {
+  if (window.addEventListener) {
+    el.addEventListener(type, fn, false);
+    addEvent = function(type, el, fn) {
+      el.addEventListener(type, fn, false);
+    };
+  } else if (window.attachEvent) {
+    el.attachEvent("on" + type, fn);
+    addEvent = function(type, el, fn) {
+      el.attachEvent("on" + type, fn);
+    };
+  }
+}
+```
+
+使用闭包，初始化就完成对应事件，不会每次都做判断了：
+
+```js
+var addEvent = (function(type, el, fn) {
+  if (window.addEventListener) {
+    return function(type, el, fn) {
+      el.addEventListener(type, fn, false);
+    };
+  } else if (window.attachEvent) {
+    return function(type, el, fn) {
+      el.attachEvent("on" + type, fn);
+    };
+  }
+})();
+
+// 初始化： ƒ (type, el, fn) {
+//       el.addEventListener(type, fn, false);
+//     }
+// 被触发了
+// 之后： ƒ (type, el, fn) {
+//       el.addEventListener(type, fn, false);
+//     }
+```
+
+- 练习完整过程：[惰性函数](https://github.com/yangtao2o/learn/issues/60)
+- 学习资料：[JavaScript 专题之惰性函数](https://github.com/mqyqingfeng/Blog/issues/44)
+
+## 递归
+
+练习完整过程：[递归](https://github.com/yangtao2o/learn/issues/63)
+
+### 阶乘
+
+方式一：迭代
+
+```js
+function factorialIterative(number) {
+  if (number < 0) return undefined;
+  let total = 1;
+  for (let n = number; n > 1; n--) {
+    total = total * n;
+  }
+  return total;
+}
+```
+
+方式一：递归
+
+```js
+function factorial(n) {
+  if (n <= 1) return n;
+  return n * factorial(n - 1);
+}
+```
+
+方式三：尾递归
+
+```js
+function factorial(n, res = 1) {
+  if (n <= 1) return res;
+  return factorial(n - 1, n * res);
+}
+```
+
+### 斐波拉契数
+
+用文字来说，就是由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出，如：0、1、1、2、3、5、8、13、21。
+
+传入参数为斐波那契数列的下标，而返回值为斐波那契数列对应下标的值。
+
+方式一：迭代
+
+```js
+function fibonacciIterative(n) {
+  if (n < 1) return 0;
+  if (n <= 2) return 1;
+  let fibNMinus2 = 0;
+  let fibNMinus1 = 1;
+  let fibN = n;
+  // n >= 2
+  for (let i = 2; i <= n; i++) {
+    fibN = fibNMinus1 + fibNMinus2; // f(n-1) + f(n-2)
+    fibNMinus2 = fibNMinus1;
+    fibNMinus1 = fibN;
+  }
+  return fibN;
+}
+```
+
+方式二：递归
+
+```js
+function fibonacci(n) {
+  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(5)); // 1 1 2 3 5
+```
+
+方式二：尾递归
+
+```js
+function fibonacci(n, sum1 = 1, sum2 = 1) {
+  if (n <= 2) return sum2;
+  return fibonacci(n - 1, sum2, sum1 + sum2);
+}
+fibonacci(5); // 5
+```
+
+### 求和
+
+```js
+// 迭代
+function sum(n) {
+  if (n <= 1) return n;
+  var res = 0;
+  for (var i = n; i > 0; i--) {
+    res += i;
+  }
+  return res;
+}
+
+// 递归
+function sum(n) {
+  if (n <= 1) return n;
+  return n + sum(n - 1);
+}
+
+// 尾递归
+function sum(n, res = 0) {
+  if (n < 1) return res;
+  return sum(n - 1, n + res);
+}
+
+sum(5); // 15
+```
+
 ## 参考资料
 
 - [前端面试常考的手写代码不是背出来的！](https://juejin.im/post/5e57048b6fb9a07cc845a9ef)

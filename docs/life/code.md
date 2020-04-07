@@ -12,6 +12,7 @@
 ## 软件工具
 
 - [未来 Mac 下载](https://mac.orsoon.com/) - 围绕 Mac 平台的破解软件、教程等
+- [Valine](https://valine.js.org/) - 一款快速、简洁且高效的无后端评论系统。我的[博客](https://www.yangtao.site)就使用的这款
 
 ## 互联网帝国
 

@@ -44,7 +44,7 @@ module.exports = [
   },
   {
     text: "博文",
-    link: "http://www.yangtao.site"
+    link: "https://www.yangtao.site"
   },
   {
     text: "秘籍",
@@ -150,7 +150,7 @@ module.exports = [
     items: [
       {
         text: "Hexo博客",
-        link: "http://www.yangtao.site"
+        link: "https://www.yangtao.site"
       },
       {
         text: "牛客网博客",
