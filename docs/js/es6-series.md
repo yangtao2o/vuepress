@@ -830,9 +830,229 @@ Promise 一旦新建它就会立即执行，无法中途取消。
 
 原文链接：[ES6 系列之我们来聊聊 Promise](https://github.com/mqyqingfeng/Blog/issues/98)
 
+## ES6 系列之 Generator 的自动执行
+
+```js
+function run(gen) {
+  return new Promise(function(resolve, reject) {
+    if (typeof gen == "function") gen = gen();
+
+    // 如果 gen 不是一个迭代器
+    if (!gen || typeof gen.next !== "function") return resolve(gen);
+
+    onFulfilled();
+
+    function onFulfilled(res) {
+      var ret;
+      try {
+        ret = gen.next(res);
+      } catch (e) {
+        return reject(e);
+      }
+      next(ret);
+    }
+
+    function onRejected(err) {
+      var ret;
+      try {
+        ret = gen.throw(err);
+      } catch (e) {
+        return reject(e);
+      }
+      next(ret);
+    }
+
+    function next(ret) {
+      if (ret.done) return resolve(ret.value);
+      var value = toPromise(ret.value);
+      if (value && isPromise(value)) return value.then(onFulfilled, onRejected);
+      return onRejected(
+        new TypeError(
+          "You may only yield a function, promise " +
+            'but the following object was passed: "' +
+            String(ret.value) +
+            '"'
+        )
+      );
+    }
+  });
+}
+
+function isPromise(obj) {
+  return "function" == typeof obj.then;
+}
+
+function toPromise(obj) {
+  if (isPromise(obj)) return obj;
+  if ("function" == typeof obj) return thunkToPromise(obj);
+  return obj;
+}
+
+function thunkToPromise(fn) {
+  return new Promise(function(resolve, reject) {
+    fn(function(err, res) {
+      if (err) return reject(err);
+      resolve(res);
+    });
+  });
+}
+
+module.exports = run;
+```
+
 原文链接：[ES6 系列之 Generator 的自动执行](https://github.com/mqyqingfeng/Blog/issues/99)
 
+## ES6 系列之 Async
+
+ES2017 标准引入了 **async** 函数，使得异步操作变得更加方便。在异步处理上，async 函数就是 Generator 函数的语法糖。
+
+其实 async 函数的实现原理，就是将 Generator 函数和自动执行器，包装在一个函数里。
+
+```js
+async function fn(args) {
+  // ...
+}
+
+// 等同于
+function fn(args) {
+  // spawn 函数指的是自动执行器，就比如说 co
+  return spawn(function*() {
+    // ...
+  });
+}
+```
+
+使用 async 会比使用 Promise 更优雅的处理异步流程。
+
+1. 代码更加简洁
+
+```js
+function fetch() {
+  return (
+    fetchData()
+    .then(() => {
+      return "done"
+    });
+  )
+}
+
+async function fetch() {
+  await fetchData()
+  return "done"
+};
+```
+
+2. 错误处理
+
+```js
+function fetch() {
+  try {
+    fetchData()
+      .then(result => {
+        const data = JSON.parse(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  } catch (err) {
+    console.log(err);
+  }
+}
+```
+
+`try/catch` 能捕获 fetchData() 中的一些 Promise 构造错误，但是不能捕获 JSON.parse 抛出的异常，如果要处理 JSON.parse 抛出的异常，需要添加 catch 函数重复一遍异常处理的逻辑。
+
+`async/await` 的出现使得 `try/catch` 就可以捕获同步和异步的错误。
+
+```js
+async function fetch() {
+  try {
+    const data = JSON.parse(await fetchData());
+  } catch (err) {
+    console.log(err);
+  }
+}
+```
+
+3. 调试
+
+因为 then 中的代码是异步执行，所以当你打断点的时候，代码不会顺序执行。而使用 async 的时候，则可以像调试同步代码一样调试。
+
+**问题：给定一个 URL 数组，如何实现接口的继发和并发？**
+
+async 继发实现：
+
+```js
+// 继发一
+async function loadData() {
+  var res1 = await fetch(url1);
+  var res2 = await fetch(url2);
+  var res3 = await fetch(url3);
+  return "whew all done";
+}
+// 继发二
+async function loadData(urls) {
+  for (const url of urls) {
+    const response = await fetch(url);
+    console.log(await response.text());
+  }
+}
+```
+
+async 并发实现：
+
+```js
+// 并发一
+async function loadData() {
+  var res = await Promise.all([fetch(url1), fetch(url2), fetch(url3)]);
+  return "whew all done";
+}
+// 并发二
+async function loadData(urls) {
+  // 并发读取 url
+  const textPromises = urls.map(async url => {
+    const response = await fetch(url);
+    return response.text();
+  });
+
+  // 按次序输出
+  for (const textPromise of textPromises) {
+    console.log(await textPromise);
+  }
+}
+```
+
+**async 错误捕获**：为了简化比较复杂的捕获，我们可以给 await 后的 promise 对象添加 catch 函数:
+
+```js
+// to.js
+export default function to(promise) {
+  return promise
+    .then(data => {
+      return [null, data];
+    })
+    .catch(err => [err]);
+}
+// 使用
+[err, user] = await to(UserModel.findById(1));
+```
+
+**async 会取代 Generator 吗？**
+
+Generator 本来是用作生成器，使用 Generator 处理异步请求只是一个比较 hack 的用法，在异步方面，async 可以取代 Generator，但是 async 和 Generator 两个语法本身是用来解决不同的问题的。
+
+**async 会取代 Promise 吗？**
+
+- async 函数返回一个 Promise 对象
+- 面对复杂的异步流程，Promise 提供的 all 和 race 会更加好用
+- Promise 本身是一个对象，所以可以在代码中任意传递
+- async 的支持率还很低，即使有 Babel，编译后也要增加 1000 行左右。
+
+## ES6 系列之我们来聊聊 Async
+
 原文链接：[ES6 系列之我们来聊聊 Async](https://github.com/mqyqingfeng/Blog/issues/100)
+
+## ES6 系列之异步处理实战
 
 原文链接：[ES6 系列之异步处理实战](https://github.com/mqyqingfeng/Blog/issues/101)
 
@@ -840,9 +1060,177 @@ Promise 一旦新建它就会立即执行，无法中途取消。
 
 原文链接：[ES6 系列之 Babel 将 Async 编译成了什么样子](https://github.com/mqyqingfeng/Blog/issues/103)
 
-原文链接：[ES6 系列之 Babel 是如何编译 Class 的(上)](https://github.com/mqyqingfeng/Blog/issues/105)
+## ES6 系列之 Class
 
-原文链接：[ES6 系列之 Babel 是如何编译 Class 的(下)](https://github.com/mqyqingfeng/Blog/issues/106)
+### class
+
+ES6 的 class 可以看作一个语法糖，它的绝大部分功能，ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。
+
+```js
+class Person {
+  // 类的内部所有定义的方法，都是不可枚举的
+  constructor(name) {
+    // 实例属性
+    this.name = name;
+  }
+
+  // 实例方法
+  sayHello() {
+    return "hello, I am " + this.name;
+  }
+
+  // 静态属性
+  static _name = "ming";
+
+  // 静态方法
+  static _getName() {
+    return "my name is " + this._name;
+  }
+
+  // getter 和 setter
+  get age() {
+    return "20 years old";
+  }
+  set age(newAge) {
+    console.log("new age 为：" + newAge);
+  }
+}
+// 静态属性
+// Person._name = "ming";
+
+var me = new Person("tao");
+
+me.age = 28;
+// new age 为：28
+
+console.log(me.age); // 20 years old
+console.log(me.name); // tao
+console.log(me._name); // undefined
+console.log(me._getName()); // Uncaught TypeError: me.getName is not a function
+
+console.log(Person._name); // ming
+console.log(Person._getName()); // my name is ming
+
+Person(); // Uncaught TypeError: Class constructor Person cannot be invoked without 'new'
+```
+
+转换成 ES5：
+
+```js
+function Person(name) {
+  // 实例属性
+  this.name = name;
+}
+
+// 静态属性、方法
+Person._name = "ming";
+Person._getName = function() {
+  return "my name " + this._name;
+};
+
+Person.prototype = {
+  constructor: Person,
+  // getter 和 setter
+  get age() {
+    return "20 years old";
+  },
+  set age(newAge) {
+    console.log("new age 为：" + newAge);
+  },
+  // 实例方法
+  sayHello() {
+    return "hello, I am " + this.name;
+  }
+};
+
+var me = new Person("tao");
+
+me.age = 28;
+// new age 为：28
+
+console.log(me.age); // 20 years old
+console.log(me.name); // tao
+console.log(me._name); // undefined
+// console.log(me._getName()); // Uncaught TypeError: me.getName is not a function
+
+console.log(Person._name); // ming
+console.log(Person._getName()); // my name is ming
+
+Person(); // 无报错
+```
+
+Babel 编译结果：[地址](https://babel.docschina.org/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=MYGwhgzhAEAKCmAnCB7AdtA3gKGtA9PtIN4-gIW6ChioBcJgAkaCQ5oFnagknKmCdpoKs2gMP-C_CYPRmgsHKB75UBZ5oD45UrmjB0EAC6IArsBkpEACjRgAtvACUWCXkLRAedqBo-UB6OoHIDA9BkALAJYQAdBu3QAvNDfwA3DfsnZzAAc3hPaAAmAAZ_PABfbAkjM3YJCDAATwAJeBAQFFU9HDw8RHgZeUQMACI7PIKAGmgASWgtaBroAGpbRxcfOOhE5KJATXTAQAMrUehZMBkHYGgAfR8Ims0HNBCa_xnJtLw5haXlsJkAOS14Iv1S6HLK6ugAck1M72voJ1eevqDVtchiNDERzjIkNBADEqswqEMQEnO7TCtxKpUeVQwLxi0Ey8DAyGgKBAABMXsD0hVkTc0PAAO4AQTCxRsUjQqBA8GcBRCqhetLp1OggC45QBY_y8_gKmboJIkRkZJtMEMh0M5Ae4vG8tiFyUA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Ces2016%2Ces2017%2Cstage-0%2Cstage-1%2Cstage-2%2Cstage-3%2Ces2015-loose&prettier=true&targets=&version=6.26.0&envVersion=)。
+
+### ES6 extend
+
+Class 通过 **extends** 关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。
+
+```js
+class Parent {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+class Child extends Parent {
+  constructor(name, age) {
+    // super 关键字表示父类的构造函数，相当于 ES5 的 Parent.call(this)
+    super(name);
+    this.age = age;
+  }
+}
+
+var child1 = new Child("kevin", "18");
+
+console.log(child1);
+```
+
+对应 ES5 寄生组合式继承：
+
+```js
+function Parent(name) {
+  this.name = name;
+}
+
+Parent.prototype.getName = function() {
+  console.log(this.name);
+};
+
+function Child(name, age) {
+  Parent.call(this, name);
+  this.age = age;
+}
+
+Child.prototype = Object.create(Parent.prototype);
+Child.prototype.constructor = Child;
+
+var child1 = new Child("kevin", "18");
+console.log(child1);
+```
+
+### 子类的 **proto**
+
+在 ES6 中，父类的静态方法，可以被子类继承。
+
+这是因为 Class 作为构造函数的语法糖，同时有 prototype 属性和 `__proto__` 属性，因此同时存在两条继承链。
+
+1. 子类的 `__proto__` 属性，表示构造函数的继承，总是指向父类。
+1. 子类 prototype 属性的 `__proto__`属性，表示方法的继承，总是指向父类的 prototype 属性。
+
+```js
+class Parent {}
+
+class Child extends Parent {}
+
+// 相比寄生组合式继承，ES6 的 class 多了一个 Object.setPrototypeOf(Child, Parent) 的步骤。
+console.log(Child.__proto__ === Parent); // true
+console.log(Child.prototype.__proto__ === Parent.prototype); // true
+```
+
+原文链接：
+
+- [ES6 系列之 Babel 是如何编译 Class 的(上)](https://github.com/mqyqingfeng/Blog/issues/105)
+- [ES6 系列之 Babel 是如何编译 Class 的(下)](https://github.com/mqyqingfeng/Blog/issues/106)
 
 ## ES6 系列之 defineProperty 与 proxy
 
@@ -1019,10 +1407,350 @@ document.getElementById("button").addEventListener("click", function() {
 
 原文链接：[ES6 系列之 defineProperty 与 proxy](https://github.com/mqyqingfeng/Blog/issues/107)
 
+## ES6 系列之模块加载方案
+
+### AMD 与 CMD 的区别
+
+- CMD 推崇**依赖就近**，AMD 推崇**依赖前置**。
+
+require.js:
+
+```js
+// main.js
+// 依赖必须一开始就写好
+require(["./add", "./square"], function(addModule, squareModule) {
+  console.log(addModule.add(1, 1));
+  console.log(squareModule.square(3));
+});
+
+// square.js
+define(["./multiply"], function(multiplyModule) {
+  console.log("加载了 square 模块");
+  return {
+    square: function(num) {
+      return multiplyModule.multiply(num, num);
+    }
+  };
+});
+```
+
+sea.js 例子中的 main.js
+
+```js
+define(function(require, exports, module) {
+  var addModule = require("./add");
+  console.log(addModule.add(1, 1));
+
+  // 依赖可以就近书写
+  var squareModule = require("./square");
+  console.log(squareModule.square(3));
+});
+
+// square.js
+define(function(require, exports, module) {
+  console.log("加载了 square 模块");
+  var multiplyModule = require("./multiply");
+  module.exports = {
+    square: function(num) {
+      return multiplyModule.multiply(num, num);
+    }
+  };
+});
+```
+
+- 对于依赖的模块，**AMD 是提前执行，CMD 是延迟执行**。打印顺序：
+
+```js
+// require.js
+加载了 add 模块
+加载了 multiply 模块
+加载了 square 模块
+2
+9
+
+// sea.js
+加载了 add 模块
+2
+加载了 square 模块
+加载了 multiply 模块
+9
+```
+
+AMD 是将需要使用的模块先加载完再执行代码，而 CMD 是在 require 的时候才去加载模块文件，加载完再接着执行。
+
+### CommonJS
+
+AMD 和 CMD 都是用于浏览器端的模块规范，而在服务器端比如 node，采用的则是 CommonJS 规范。
+
+跟 sea.js 的执行结果一致，也是在 require 的时候才去加载模块文件，加载完再接着执行。
+
+导出模块的方式：
+
+```js
+var add = function(x, y) {
+  return x + y;
+};
+
+module.exports.add = add;
+```
+
+引入模块的方式：
+
+```js
+var add = require("./add.js");
+```
+
+### CommonJS 与 AMD
+
+引用**阮一峰**老师的《JavaScript 标准参考教程（alpha）》:
+
+CommonJS 规范加载模块是**同步**的，也就是说，只有加载完成，才能执行后面的操作。
+
+AMD 规范则是**非同步**加载模块，允许指定回调函数。
+
+由于 Node.js 主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以 CommonJS 规范比较适用。
+
+但是，如果是浏览器环境，要从服务器端加载模块，这时就**必须采用非同步模式**，因此浏览器端一般采用 AMD 规范。
+
+### ES6
+
+导出模块的方式：
+
+```js
+// profile.js
+var firstName = "Michael";
+var lastName = "Jackson";
+var year = 1958;
+
+export { firstName, lastName, year };
+```
+
+引入模块的方式：
+
+```js
+import { firstName, lastName, year } from "./profile";
+```
+
+跟 require.js 的执行结果是一致的，也就是将需要使用的模块先加载完再执行代码。
+
+### ES6 与 CommonJS
+
+引用阮一峰老师的 《ECMAScript 6 入门》：
+
+它们有**两个重大差异**。
+
+1. CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+1. CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+
+第一个差异：
+
+ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。
+
+换句话说，ES6 的 import 有点像 Unix 系统的“符号连接”，原始值变了，import 加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。
+
+第二个差异可以从两个项目的打印结果看出，导致这种差别的原因是：
+
+因为 CommonJS 加载的是一个**对象**（即 module.exports 属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种**静态定义**，在代码静态解析阶段就会生成。
+
+### Babel
+
+鉴于浏览器支持度的问题，如果要使用 ES6 的语法，一般都会借助 Babel。
+
+不过 Babel 只是把 ES6 模块语法转为 CommonJS 模块语法，然而浏览器是不支持这种模块语法的，所以直接跑在浏览器会报错的，如果想要在浏览器中运行，还是需要使用打包工具将代码打包，如 webpack。
+
+但是 webpack 又是怎么做的打包的呢？它该如何将这些文件打包在一起，从而能保证正确的处理依赖，以及能在浏览器中运行呢？
+
+首先为什么浏览器中不支持 CommonJS 语法呢？
+
+这是因为浏览器环境中并没有 module、 exports、 require 等环境变量。
+
+换句话说，webpack 打包后的文件之所以在浏览器中能运行，就是靠模拟了这些变量的行为。比如：
+
+```js
+console.log("加载了 square 模块");
+
+var multiply = require("./multiply.js");
+
+var square = function(num) {
+  return multiply.multiply(num, num);
+};
+
+module.exports.square = square;
+```
+
+webpack 会将其包裹一层，注入这些变量：
+
+```js
+(function(module, exports, require) {
+  console.log("加载了 square 模块");
+
+  var multiply = require("./multiply");
+  module.exports = {
+    square: function(num) {
+      return multiply.multiply(num, num);
+    }
+  };
+})();
+```
+
 原文链接：[ES6 系列之模块加载方案](https://github.com/mqyqingfeng/Blog/issues/108)
 
 原文链接：[ES6 系列之我们来聊聊装饰器](https://github.com/mqyqingfeng/Blog/issues/109)
 
+## ES6 系列之私有变量的实现
+
+1. 约定
+
+实现
+
+```js
+class Example {
+  constructor() {
+    this._private = "private";
+  }
+  getName() {
+    return this._private;
+  }
+}
+
+var ex = new Example();
+
+console.log(ex.getName()); // private
+console.log(ex._private); // private
+```
+
+优点
+
+- 写法简单
+- 调试方便
+- 兼容性好
+
+缺点
+
+- 外部可以访问和修改
+- 语言没有配合的机制，如 for in 语句会将所有属性枚举出来
+- 命名冲突
+
+2. 闭包
+
+```js
+class Example {
+  constructor() {
+    var _private = "";
+    _private = "private";
+    this.getName = function() {
+      return _private;
+    };
+  }
+}
+
+var ex = new Example();
+
+console.log(ex.getName()); // private
+console.log(ex._private); // undefined
+```
+
+优点
+
+- 无命名冲突
+- 外部无法访问和修改
+
+缺点
+
+- constructor 的逻辑变得复杂。构造函数应该只做对象初始化的事情，现在为了实现私有变量，必须包含部分方法的实现，代码组织上略不清晰。
+- 方法存在于实例，而非原型上，子类也无法使用 super 调用
+- 构建增加一点点开销
+
+1. Symbol
+
+```js
+const Example = (function() {
+  var _private = Symbol("private");
+
+  class Example {
+    constructor() {
+      this[_private] = "private";
+    }
+    getName() {
+      return this[_private];
+    }
+  }
+
+  return Example;
+})();
+
+var ex = new Example();
+
+console.log(ex.getName()); // private
+console.log(ex._private); // undefined
+```
+
+优点
+
+- 无命名冲突
+- 外部无法访问和修改
+- 无性能损失
+
+缺点
+
+- 写法稍微复杂
+- 兼容性也还好
+
+4. WeakMap
+
+```js
+const Example = (function() {
+  var _private = new WeakMap(); // 私有成员存储容器
+
+  class Example {
+    constructor() {
+      _private.set(this, "private");
+    }
+    getName() {
+      return _private.get(this);
+    }
+  }
+
+  return Example;
+})();
+
+var ex = new Example();
+
+console.log(ex.getName()); // private
+console.log(ex._private); // undefined
+```
+
+优点
+
+- 无命名冲突
+- 外部无法访问和修改
+
+缺点
+
+- 写法比较麻烦
+- 兼容性有点问题
+- 有一定性能代价
+
+5. 最新提案
+
+```js
+class Point {
+  #x;
+  #y;
+
+  constructor(x, y) {
+    this.#x = x;
+    this.#y = y;
+  }
+
+  equals(point) {
+    return this.#x === point.#x && this.#y === point.#y;
+  }
+}
+```
+
 原文链接：[ES6 系列之私有变量的实现](https://github.com/mqyqingfeng/Blog/issues/110)
 
-综合：[ES6 完全使用手册](https://github.com/mqyqingfeng/Blog/issues/111)
+## ES6 完全使用手册
+
+原文链接：[ES6 完全使用手册](https://github.com/mqyqingfeng/Blog/issues/111)
