@@ -1595,6 +1595,8 @@ webpack 会将其包裹一层，注入这些变量：
 
 原文链接：[ES6 系列之模块加载方案](https://github.com/mqyqingfeng/Blog/issues/108)
 
+## ES6 系列之我们来聊聊装饰器
+
 原文链接：[ES6 系列之我们来聊聊装饰器](https://github.com/mqyqingfeng/Blog/issues/109)
 
 ## ES6 系列之私有变量的实现

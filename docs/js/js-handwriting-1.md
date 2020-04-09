@@ -1,5 +1,9 @@
 # JavaScript 各种手写源码实现·上篇
 
+## 前言
+
+[前端面试常考的手写代码不是背出来的！](https://juejin.im/post/5e57048b6fb9a07cc845a9ef#heading-41)
+
 ## call、apply 以及 bind 实现
 
 ### call 实现

@@ -109,6 +109,14 @@ sub.notify("Event Fire");
 
 ## 实现一个简易版 Promise
 
+学习资料
+
+- [手写一个Promise/A+,完美通过官方872个测试用例](https://juejin.im/post/5e8bec156fb9a03c4d40f4bc)
+
+## async/await 实现
+
+## 双向绑定实现
+
 ## 参考资料
 
 - [前端面试常考的手写代码不是背出来的！](https://juejin.im/post/5e57048b6fb9a07cc845a9ef)

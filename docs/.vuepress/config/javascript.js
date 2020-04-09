@@ -6,6 +6,7 @@ module.exports = [
       "js-handwriting-2",
       "js-handwriting-3",
       "js-handwriting-polyfill",
+      "es6",
       "es6-series",
       "js-series-1",
       "js-series-2",
@@ -18,7 +19,6 @@ module.exports = [
       "js-prototype",
       "js-this-apply-call",
       "es6-class",
-      "js算法",
       "mode-单例模式",
       "js-chapter-1",
       "js-chapter-2",
@@ -27,12 +27,18 @@ module.exports = [
     ]
   },
   {
-    title: "日常杂记",
-    children: ["js-code", "js-code-big", "throttle-debounce"]
+    title: "学习总结",
+    children: [
+      "interview-2020",
+      "interview",
+      "js-code",
+      "js-code-big",
+      "throttle-debounce"
+    ]
   },
   {
-    title: "面试总结",
-    children: ["interview-2020", "interview"]
+    title: "数据结构与算法",
+    children: ["js算法"]
   },
   {
     title: "插件等资源",

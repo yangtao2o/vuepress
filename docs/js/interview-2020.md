@@ -1,5 +1,62 @@
 # 前端面试梳理疑难杂症
 
+## 事件循环
+
+### 浏览器端
+
+每次循环会先后执行两类任务，**task**和**microtask**，每一类任务都由一个队列组成，其中 task 主要包括如下几类任务：
+
+- index.js(entry)
+- setTimeout
+- setInterval
+- 网络 I/O
+
+而 microtask 主要包括：
+
+- promise
+- MutationObserver
+
+因此 microtask 的执行事件结点是在两次 task 执行间隙。
+
+总结一下**浏览器端的事件队列**，共包括四个事件队列：
+
+- task 队列
+- requestAnimationFrame 队列
+- requestIdleCallback 队列
+- microtask 队列
+
+![web](https://user-images.githubusercontent.com/19526072/78853148-c63bc680-7a50-11ea-8035-c932a48b6b3f.png)
+
+javascript 脚本加载完成后首先执行第一个 task 队列任务，即初始化任务，然后执行所有 microtask 队列任务，接着再次执行第二个 task 队列任务，以此类推，这其中穿插着 60HZ 的渲染过程。
+
+先执行谁后执行谁现在了解清楚了，可是到每个事件队列执行的轮次时，分别会有多少个事件出队执行呢？
+
+在一次事件循环中：
+
+- 普通 task 每次出队一项回调函数去执行
+- requestAnimationFrame 每次出队所有当前队列的回调函数去执行（requestIdleCallback 一样）
+- microtask 每次出队所有当前队列的回调函数以及自己轮次执行过程中又新增到队尾的回调函数。
+
+这三种不同的调度方式正好覆盖了所有场景。
+
+### node 端
+
+node 端的 task 可以分为 4 类任务队列：
+
+- index.js(entry)、setTimeout、setInterval
+- 网络 I/O、fs(disk)、child_process
+- setImmediate
+- close 事件
+
+而 microtask 包括：
+
+- process.nextTick
+- promise
+
+![node](https://user-images.githubusercontent.com/19526072/78853190-dce21d80-7a50-11ea-8370-0c88813e0fda.png)
+
+[javascript 事件循环(浏览器/node)](https://juejin.im/post/5c0cb3acf265da61362248f3)
+
 ## var、let 及 const 区别
 
 - **函数提升**优先于**变量提升**，函数提升会把整个函数挪到作用域顶部，变量提升只会把声明挪到作用域顶部
@@ -488,6 +545,138 @@ enum AllocationSpace {
 但在 2018 年，GC 技术又有了一个重大突破，这项技术名为并发标记。该技术可以让 GC 扫描和标记对象时，同时允许 JS 运行。
 
 清除对象后会造成堆内存出现碎片的情况，当碎片超过一定限制后会启动**压缩算法**。在压缩过程中，将活的对象像一端移动，直到所有对象都移动完成然后清理掉不需要的内存。
+
+## Git 相关知识
+
+### 概念
+
+Git 是**分布式版本控制系统**（DVCS）。它可以跟踪文件的更改，并允许你恢复到任何特定版本的更改。还有一个中央云存储库（远程存储库），开发人员可以向其提交更改，并与其他团队成员进行共享。
+
+Git 使用 C 语言编写。 GIT 很快，C 语言通过减少运行时的开销来做到这一点。
+
+### 如何还原已经 push 并公开的提交
+
+删除或修复新提交中的错误文件，并将其推送到远程存储库。这是修复错误的最自然方式。对文件进行必要的修改后，将其提交到我将使用的远程存储库
+
+```sh
+git commit -m "commit message"
+```
+
+创建一个新的提交，撤消在错误提交中所做的所有更改。可以使用命令：
+
+```sh
+git revert <name of bad commit>
+```
+
+## 怎样将 N 次提交压缩成一次提交
+
+**git reset**命令用于将当前 HEAD 复位到指定状态。一般用于撤消之前的一些操作(如：git add,git commit 等)。
+
+如果要从头开始编写新的提交消息，请使用以下命令：
+
+```sh
+git reset –soft HEAD~3
+git commit
+```
+
+如果你想在新的提交消息中串联现有的提交消息，那么需要提取这些消息并将它们传给 git commit，可以这样：
+
+```sh
+git reset –soft HEAD~3
+git commit –edit -m"$(git log –format=%B –reverse .HEAD@{3})"
+```
+
+永久删除最后几个提交：
+
+```sh
+git commit ## 执行一些提交
+# 最后三个提交(即HEAD, HEAD^和HEAD~2)提交有问题，想永久删除这三个提交
+git reset --hard HEAD~3
+```
+
+### git pull 和 git fetch
+
+- git pull 命令从中央存储库中提取特定分支的新更改或提交，并更新本地存储库中的目标分支。
+- git fetch 也用于相同的目的，但它的工作方式略有不同。如果要在目标分支中反映这些更改，还需要 `git merge`
+
+### 什么是 git stash
+
+stash 会将你的工作目录，即修改后的跟踪文件和暂存的更改保存在一堆未完成的更改中，你可以随时重新应用这些更改。
+
+`git stash drop` 命令用于删除隐藏的项目。默认情况下，它将删除最后添加的存储项，如果提供参数的话，它还可以删除特定项。
+
+如果要从隐藏项目列表中删除特定的存储项目，可以使用以下命令：
+
+`git stash list`：它将显示隐藏项目列表，如：
+
+```sh
+stash@{0}: WIP on master: 049d078 added the index file
+stash@{1}: WIP on master: c264051 Revert “added file_size”
+stash@{2}: WIP on master: 21d80a5 added number to log
+```
+
+如果要删除名为 `stash@{0}` 的项目，请使用命令 `git stash drop stash@{0}`。
+
+### 如何找到特定提交中已更改的文件列表
+
+要获取特定提交中已更改的列表文件，请使用以下命令：
+
+```sh
+git diff-tree -r {hash}
+```
+
+给定提交哈希，这将列出在该提交中更改或添加的所有文件。 **-r** 标志使命令列出单个文件，而不是仅将它们折叠到根目录名称中。
+
+输出还将包含一些额外信息，可以通过包含两个标志把它们轻松的屏蔽掉：
+
+```sh
+git diff-tree –no-commit-id –name-only -r {hash}
+```
+
+这里 `-no-commit-id` 将禁止提交哈希值出现在输出中，而 `-name-only` 只会打印文件名而不是它们的路径。
+
+### git config 的功能是什么
+
+git config 命令可用来更改你的 git 配置，包括你的用户名。
+
+```sh
+# 获取当前用户的配置信息
+git config --list
+# 设置用户名
+git config –global user.name "tao"
+# 设置邮箱
+git config –global user.email "istaotao@aliyun.com"
+```
+
+### 如何知道分支是否已合并为master
+
+```sh
+# 列出了已合并到当前分支的分支
+git branch –merged
+
+# 列出了尚未合并的分支
+git branch –no-merged
+```
+
+### 描述一下你所使用的分支策略
+
+可以参考以下提到的要点：
+
+- **功能分支**（Feature branching）
+  要素分支模型将特定要素的所有更改保留在分支内。当通过自动化测试对功能进行全面测试和验证时，该分支将合并到主服务器中。
+
+- **任务分支**（Task branching）
+  在此模型中，每个任务都在其自己的分支上实现，任务键包含在分支名称中。很容易看出哪个代码实现了哪个任务，只需在分支名称中查找任务键。
+
+- **发布分支**（Release branching）
+  一旦开发分支获得了足够的发布功能，你就可以克隆该分支来形成发布分支。创建该分支将会启动下一个发布周期，所以在此之后不能再添加任何新功能，只有错误修复，文档生成和其他面向发布的任务应该包含在此分支中。一旦准备好发布，该版本将合并到主服务器并标记版本号。此外，它还应该再将自发布以来已经取得的进展合并回开发分支。
+
+分支策略因团队而异，记住基本的分支操作，如删除、合并、检查分支等。
+
+### 学习资料
+
+- [关于 Git 的 20 个面试题](https://segmentfault.com/a/1190000019315509)
+- [Git 教程](https://www.yiibai.com/git)
 
 ## 参考资料
 

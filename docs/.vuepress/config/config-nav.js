@@ -38,7 +38,7 @@ module.exports = [
       },
       {
         text: "生活与代码",
-        link: "/life/" + sidebar["/life/"][0]["children"][0]
+        link: "/codelife/" + sidebar["/codelife/"][0]["children"][0]
       }
     ]
   },

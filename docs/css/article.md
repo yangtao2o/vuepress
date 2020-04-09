@@ -3,6 +3,7 @@
 ## 基础篇
 
 - [前端基础篇之 CSS 世界](https://juejin.im/post/5ce607a7e51d454f6f16eb3d)
+- [CSS 常见布局方式](https://juejin.im/post/599970f4518825243a78b9d5) - 作者整理非常详细
 - [flex - CSS（层叠样式表）| MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex)
 - [Aligning Items in a Flex Container](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container)
 - [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html) - 阮一峰

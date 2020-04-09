@@ -43,8 +43,6 @@ Node.js 事件驱动机制 + 异步 IO + 高性能 V8 引擎 ,也让它成为编
 - [两小时学会 Node.js stream](https://www.imooc.com/read/8) - 慕课网专栏
 - [《一起学 Node.js》](https://github.com/nswbmw/N-blog) - 从 Node 开始，使用 Express 构建博客过程
 - [Node.js 从零开发 Web Server 博客项目 前端晋升全栈工程师必备](https://coding.imooc.com/class/320.html) - 视频
-- [一篇文章构建你的 NodeJS 知识体系](https://juejin.im/post/5c4c0ee8f265da61117aa527)
-- [「万字整理 」这里有一份 Node.js 入门指南和实践,请注意查收](https://juejin.im/post/5e0006c251882512795675f9)
 - [Nodejs 研究苑](https://juejin.im/collection/5d5bb5d7e51d4524392600c3) - 个人掘金收藏集
 - 《了不起的 Node.js：将 JavaScript 进行到底》- 书籍
 - 《新时期的 Node.js 入门》- 书籍
