@@ -364,6 +364,276 @@ vertical-align 的属性值：
 }
 ```
 
+## 流的破坏
+
+### float 特性
+
+float 属性的特性：
+
+- **包裹性**：即此时元素 width 会像 height 一样由子元素决定，而不是默认撑满父元素
+- **块状化并格式化上下文**：`display:block`，会创建一个 BFC
+- **没有任何 margin 合并**
+- **脱离文档流**
+
+float 设计的初衷就是为了“文字环绕”效果，为了让文字环绕图片，就需要具备两个条件：
+
+- 元素高度坍塌
+- 行框盒子不可与浮动元素重叠
+
+而元素高度坍塌就导致元素后面的非浮动块状元素会和其重叠，于是他就像脱离文档流了。这时候要用到 clear 来清除浮动。
+
+### clear 的作用和不足
+
+clear 的定义是：元素盒子的边不能与前面的浮动元素相邻。
+
+也就是虽然浮动元素高度坍塌，但是设置了`clear: both`的元素却将其高度视为仍然占据位置。
+
+clear 只能作用于**块级元素**，并且其并不能解决后面元素可能发生的文字环绕问题。
+
+### 块级格式化上下文 BFC
+
+**块格式化上下文**（Block Formatting Context，BFC） 是 Web 页面的可视化 CSS 渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域。 - MDN
+
+BFC 就好像一个结界，结界里面的东西不能影响外面的布局，也就是说，BFC 的子元素再翻江倒海，都不会影响外面的元素。 所以：
+
+- BFC 本身不会发生 margin 重叠。
+- BFC 可以彻底解决子元素浮动带来的的高度坍塌和文字环绕问题。
+
+**创建块格式化上下文**：
+
+- 根元素(`<html>`)
+- 浮动元素（元素的 float 不是 none）
+- 绝对定位元素（元素的 position 为 absolute 或 fixed）
+- 行内块元素（元素的 display 为 inline-block）
+- 表格单元格（元素的 display 为 table-cell，HTML 表格单元格默认为该值）
+- overflow 值不为 visible 的块元素
+- display 值为 flow-root 的元素
+- contain 值为 layout、content 或 paint 的元素
+- 弹性元素（display 为 flex 或 inline-flex 元素的直接子元素）
+- 网格元素（display 为 grid 或 inline-grid 元素的直接子元素）
+- 多列容器（元素的 column-count 或 column-width 不为 auto，包括 column-count 为 1）
+- column-span 为 all 的元素始终会创建一个新的 BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。
+
+注意：BFC 包含创建该上下文元素的所有子元素，但不包括创建了新 BFC 的子元素的内部元素。
+
+**特性**：
+
+- 内部的盒会在垂直方向一个接一个排列（可以看作 BFC 中有一个的常规流）；
+- Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠；
+- 每一个盒子的左外边距应该和包含块的左边缘相接触。即使存在浮动也是如此，除非子盒子形成了一个新的 BFC。
+- BFC 就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然；
+- 计算 BFC 的高度时，考虑 BFC 所包含的所有元素，连浮动元素也参与计算；
+- BFC 的区域不会与 float box 重叠；
+
+### position
+
+CSS position 属性用于指定一个元素在文档中的定位方式。top，right，bottom 和 left 属性则决定了该元素的最终位置。
+
+**定位类型**：
+
+定位元素是其计算后位置属性为 **relative, absolute, fixed 或 sticky** 的一个元素（换句话说，除 static 以外的任何东西）。
+
+**绝对定位**：
+
+和浮动元素一样，绝对定位也具有块状化、BFC、包裹性、脱离文档流、没有 margin 合并的特性。
+
+但和浮动不同的是，绝对定位是完全的脱离文档流。
+
+当`overflow: hidden`元素在绝对定位元素和其包含块之间的时候，绝对定位元素不会被剪裁。
+
+以下两种绝对定位元素不会被剪裁:
+
+```html
+<div style="overflow: hidden;">
+  <img src="big.jpg" style="position: absolute;" />
+</div>
+<div style="position: relative;">
+  <div style="overflow: hidden;">
+    <img src="big.jpg" style="position: absolute;" />
+  </div>
+</div>
+```
+
+以下两种绝对定位元素会被剪裁：
+
+```html
+<div style="overflow: hidden; position: relative;">
+  <img src="big.jpg" style="position: absolute;" />
+</div>
+<div style="overflow: hidden;">
+  <div style="position: relative;">
+    <img src="big.jpg" style="position: absolute;" />
+  </div>
+</div>
+```
+
+**position: absolute 的流体特性**：
+
+当绝对定位元素的水平方向(left/right)或垂直方向(top/bottom)的两个定位属性同时存在的时候，绝对元素在该方向上便具有了流体特性。此时的 width/height 属性具有自动撑满的特性，和一个正常流的 div 元素的 width 属性别无二致。
+
+`position: fixed` 是相对于屏幕视口的位置来指定元素位置，祖先元素设置 `position: relative` 并不会对其产生影响。
+
+粘性定位 `position: sticky`:
+
+```css
+#one {
+  position: sticky;
+  top: 10px;
+}
+```
+
+在 viewport 视口滚动到元素 top 距离小于 10px 之前，元素为相对定位。之后，元素将固定在与顶部距离 10px 的位置，直到 viewport 视口回滚到阈值以下。
+
+需注意当 `position: sticky` 的父元素的 overflow 属性设置了默认值 visible 以外的值时，`position: sticky` 将失效。
+
+## 层叠规则
+
+层叠规则是指当网页中的元素发生层叠时侯的遵循的规则。
+
+z-index 属性设定了一个定位元素及其后代元素或 flex 项目的 z-order。
+
+对于一个已经定位的盒子（即其 position 属性值不是 static，这里要注意的是 CSS 把元素看作盒子），z-index 属性指定：
+
+- 盒子在当前堆叠上下文中的堆叠层级。
+- 盒子是否创建一个本地堆叠上下文。
+
+### 层叠上下文
+
+层叠上下文好像是一个结界，层叠上下文内的元素如果跟层叠上下文外的元素发生层叠，则比较该层叠上下文和外部元素的层叠上下文的层叠水平高低。
+
+![z-index](https://user-images.githubusercontent.com/19526072/78873436-76272900-7a7d-11ea-91cd-c427db6000ae.png)
+
+创建一个层叠上下文的方法就是给 position 值为 relative/aboslute/fixed 的元素设置 z-index 不为 auto 的值。
+
+1. 最底层 border/background 是当前层叠上下文元素的边框和背景色（注意不包括文字，文字相当于内联盒子）。z-index 为负值的元素在其之上。
+
+2. 当块级元素和内联元素发生层叠，内联元素居于块级元素之上。
+
+3. 普通定位元素层叠水平在普通元素之上。普通定位元素是指 z-index 为 auto 的定位元素。
+
+### CSS3 新增层叠上下文
+
+CSS3 带来了很多新属性，增加了很多会自动创建层叠上下文的属性：
+
+- 元素的 opacity 值不为 1，也就是透明元素；
+- 元素的 transform 值不为 none；
+- 元素的 filter 值不为 none；
+- 元素的设置-webkit-overflow-scrolling: touch；
+- z-index 不为 auto 的弹性盒子的子元素；
+- 元素的 isolation 值为 isolate；
+- 元素的 mix-blend-mode 值不为 normal；
+- 元素的 will-change 值为 opacity/transform/filter/isolation/mix-blend-mode 中的一个。
+
+这些属性大都不支持 z-index，所以他们都默认`z-index: auto`，跟普通定位元素层叠水平一样，所以如果发生层叠会后来居上。
+
+但是弹性盒子`display: flex`不同，弹性盒子的子元素支持设置 z-index，且设置了数值的 z-index 也会自动创建层叠上下文。
+
+## 文本控制
+
+### `::first-letter`选中首个字符
+
+```css
+p {
+  font-weight: bold;
+  font-size: 22px;
+}
+p::first-letter {
+  font-size: 44px;
+  color: red;
+}
+```
+
+### text-transform 应用
+
+假设有个输入框只能输入大写字母，那么如下设置，输入小写字母出现的却是大写字母，可用于身份证输入框或验证码输入框等：
+
+```css
+input {
+  text-transform: uppercase;
+}
+```
+
+### word-spacing 空格间隙
+
+word-spacing 指的是**字符“空格”**的间隙。如果一段文字中没有空格，则该属性无效。
+
+下面代码设定空格间隙是 20px，也就是说空格现在占据的宽度是原有的空格宽度+20px 的宽度：
+
+```html
+<p>我有空 格，我该死......</p>
+<style>
+  p {
+    word-spacing: 20px;
+  }
+</style>
+```
+
+### white-space 空白处理
+
+在 html 中输入多个空白符，默认会被当成一个空白符处理，实际上就是这个属性控制的：
+
+- normal：合并空白符和换行符；
+- nowrap：合并空白符，但不许换行；
+- pre：不合并空白符，并且只在有换行符的地方换行；
+- pre-wrap：不合并空白符，允许换行符换行和文本自动换行；
+
+### text-align: justify
+
+`text-align: justify`为两端对齐。除了实现文字的两端对齐，还能用来做一些两端对齐的布局。
+
+## 元素的显示与隐藏
+
+`display: none`与`visibility: hidden`的区别：
+
+- display: none 的元素不占据任何空间，visibility: hidden 的元素空间保留；
+- display: none 会影响 css3 的 transition 过渡效果，visibility: hidden 不会；
+- display: none 隐藏产生重绘 ( repaint ) 和回流 ( relfow )，visibility: hidden 只会触发重绘；
+- 株连性：display: none 的节点和子孙节点元素全都不可见，visibility: hidden 的节点的子孙节点元素可以设置 visibility: visible 显示。visibility: hidden 属性值具有继承性，所以子孙元素默认继承了 hidden 而隐藏，但是当子孙元素重置为 visibility: visible 就不会被隐藏。
+
+**元素隐藏方法总结**：
+
+- 不占据空间、资源会加载、DOM 可访问： display: none；
+- 不能点击、但占据空间、资源会加载，可以使用： visibility: hidden；
+- 可以点击、占据空间，可以使用： opacity: 0；
+- 可以点击、不占据空间，可以使用： opacity: 0; position: absolute;；
+- 不能点击、占据空间，可以使用： position: relative; z-index: -1;；
+- 不能点击、不占据空间，可以使用： position: absolute ; z-index: -1;；
+- 不占据空间、显隐时可以又 transition 淡入淡出效果
+
+```css
+div {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+  background: cyan;
+}
+div.active {
+  visibility: visible;
+  opacity: 1;
+}
+```
+
+这里使用 visibility: hidden 而不是 display: none，是因为 display: none 会影响 css3 的 transition 过渡效果。
+但是 display: none 并不会影响 cssanimation 动画的效果。
+
+## 弹性布局
+
+弹性布局是指`display: flex`或`display: inline-flex`的布局。注意，设为弹性布局以后，**子元素的 float、clear、vertical-align 属性都会失效**。
+
+阮一峰老师的 Flex 布局教程：
+
+- [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html) - 阮一峰
+- [Flex 布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html) - 阮一峰
+- [30 分钟彻底弄懂 flex 布局](https://cloud.tencent.com/developer/article/1354252) --- 可以直接读这篇总结文章，讲的很详细
+
+## 网格布局
+
+网格布局是目前最强大的 CSS 布局方案。
+
+- [CSS Grid 网格布局教程](http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html) - 阮一峰
+- [Grid 网格布局实例](https://juejin.im/post/5da1749cf265da5b86013198)
+
 ## 学习资料
 
 - [我的掘金收藏集](https://juejin.im/collection/5bc456df6fb9a040cff4649d)

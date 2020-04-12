@@ -1,5 +1,7 @@
 # 前端知识体系精品文章
 
+更多知识可以看这里[Github 地址](https://github.com/yangtao2o/learn)。
+
 ## Coding
 
 - [怎样系统地自学前端？](https://www.zhihu.com/question/67467219/answer/253992931) - 冴羽知乎回答
@@ -62,9 +64,13 @@
 - [Node 入门](https://www.nodebeginner.org/index-zh-cn.html) - 很好的入门文档，尤其适合其他后端语言转过来的童鞋
 - [一篇文章构建你的 NodeJS 知识体系](https://juejin.im/post/5c4c0ee8f265da61117aa527)
 - [「万字整理 」这里有一份 Node.js 入门指南和实践,请注意查收](https://juejin.im/post/5e0006c251882512795675f9)
+- [一个开箱即用，功能完善的 Express 项目](https://juejin.im/post/5df80e7de51d45584b5859d8)
+- [Express.js 解析 Post 数据类型的正确姿势](https://juejin.im/post/5cee6e146fb9a07ea712f37f)
+- [pm2 实践指南](https://juejin.im/post/5e1fa941e51d451c774dcc18)
 
 ## Webpack
 
+- [Webpack 再深入再总结](https://juejin.im/post/5e17c1dd6fb9a02fd67e9990)
 - [webpack 指南](https://webpack.docschina.org/guides/)
 - [Webpack 中文指南](https://zhaoda.net/webpack-handbook/index.html)
 - [Webpack 傻瓜式指南（一）](https://zhuanlan.zhihu.com/p/20367175) - 入门学习 webpack 的基本知识
@@ -73,10 +79,6 @@
 - [带你深度解锁 Webpack 系列(基础篇)](https://juejin.im/post/5e5c65fc6fb9a07cd00d8838)
 - [带你深度解锁 Webpack 系列(进阶篇)](https://juejin.im/post/5e6518946fb9a07c820fbaaf)
 - [带你深度解锁 Webpack 系列(优化篇)](https://juejin.im/post/5e6cfdc85188254913107c1f)
-
-## 综合
-
-- [2 万字 | 前端基础拾遗 90 问](https://juejin.im/post/5e8b261ae51d4546c0382ab4#heading-66)
 
 ## 浏览器
 
@@ -87,9 +89,18 @@
 - [面试带你飞：这是一份全面的 计算机网络基础 总结攻略](https://juejin.im/post/5ad7e6c35188252ebd06acfa)
 - [前端基础篇之 HTTP 协议](https://juejin.im/post/5cd0438c6fb9a031ec6d3ab2)
 
-## Github 大神
+## 综合
+
+- [2 万字 | 前端基础拾遗 90 问](https://juejin.im/post/5e8b261ae51d4546c0382ab4#heading-66)
+- [前端团队代码评审 CheckList 清单](https://juejin.im/post/5d1c6550518825330a3bfa01)
+- [团队 React 代码规范制定](https://juejin.im/post/5dd1d80cf265da0bf350d1fa)
+
+
+## 大神
 
 - [冴羽](https://github.com/mqyqingfeng/)，前端工程师，深入系列、专题系列、underscore 系列、ES6 系列已完结，正在准备新的系列文章中。
+- [我是你的超级英雄](https://juejin.im/user/5bc7de8e5188255c6c626f96/posts) - 成为前端领域有影响力的人
+- [晨曦时梦见兮](https://juejin.im/user/5b13f11d5188257da1245183/posts) - Vue、React、JavaScript、TypeScript
 
 ## 软件工具
 
@@ -99,3 +110,4 @@
 ## 其他
 
 - [我的掘金收藏集](https://juejin.im/user/58b67dd58fd9c50061238e38/collections)
+- [前端进阶之道](https://yuchengkai.cn/) - 不容错过的前端进阶资料，有解读 React 源码
