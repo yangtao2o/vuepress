@@ -1,5 +1,22 @@
 # React 理论知识点
 
+## 声明式编程 vs 命令式编程
+
+**声明式编程**是一种编程范式，它关注的是你要做什么，而不是如何做。它表达逻辑而不显式地定义步骤。这意味着我们需要根据逻辑的计算来声明要显示的组件。它没有描述控制流步骤。声明式编程的例子有 HTML、SQL 等。
+
+声明式编程的编写方式描述了应该做什么，而**命令式编程**描述了如何做。在声明式编程中，让编译器决定如何做事情。声明性程序很容易推理，因为代码本身描述了它在做什么。
+
+**函数式编程**是声明式编程的一部分。javascript 中的函数是第一类公民，这意味着函数是数据，你可以像保存变量一样在应用程序中保存、检索和传递这些函数。
+
+函数式编程有些核心的概念，如下：
+
+- 不可变性(Immutability)
+- 纯函数(Pure Functions)
+- 数据转换(Data Transformations)
+- 高阶函数 (Higher-Order Functions)
+- 递归
+- 组合
+
 ## React 生命周期
 
 [生命周期图谱](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)速查表。
@@ -134,23 +151,30 @@ React 16 之后有三个生命周期被废弃(但并未删除)
 挂载阶段:
 
 - constructor: 构造函数，最先被执行,我们通常在构造函数里初始化 state 对象或者给自定义方法绑定 this
+
 - getDerivedStateFromProps: `static getDerivedStateFromProps(nextProps, prevState)`,这是个静态方法,当我们接收到新的属性想去修改我们 state，可以使用 getDerivedStateFromProps
+
 - render: render 函数是纯函数，只返回需要渲染的东西，不应该包含其它的业务逻辑,可以返回原生的 DOM、React 组件、Fragment、Portals、字符串和数字、Boolean 和 null 等内容
+
 - componentDidMount: 组件装载之后调用，此时我们可以获取到 DOM 节点并操作，比如对 canvas，svg 的操作，服务器请求，订阅都可以写在这个里面，但是记得在 componentWillUnmount 中取消订阅
 
 更新阶段:
 
-- getDerivedStateFromProps: 此方法在更新个挂载阶段都可能会调用
-  `shouldComponentUpdate: shouldComponentUpdate(nextProps, nextState)`,有两个参数 nextProps 和 nextState，表示新的属性和变化之后的 state，返回一个布尔值，true 表示会触发重新渲染，false 表示不会触发重新渲染，默认返回 true,我们通常利用此生命周期来优化 React 程序性能
+- getDerivedStateFromProps: 此方法在更新个挂载阶段都可能会调用`shouldComponentUpdate`
+
+- `shouldComponentUpdate(nextProps, nextState)`,有两个参数 nextProps 和 nextState，表示新的属性和变化之后的 state，返回一个布尔值，true 表示会触发重新渲染，false 表示不会触发重新渲染，默认返回 true,我们通常利用此生命周期来优化 React 程序性能
+
 - render: 更新阶段也会触发此生命周期
+
 - getSnapshotBeforeUpdate: `getSnapshotBeforeUpdate(prevProps, prevState)`,这个方法在 render 之后，componentDidUpdate 之前调用，有两个参数 prevProps 和 prevState，表示之前的属性和之前的 state，这个函数有一个返回值，会作为第三个参数传给 componentDidUpdate，如果你不想要返回值，可以返回 null，此生命周期必须与 componentDidUpdate 搭配使用
+
 - componentDidUpdate: `componentDidUpdate(prevProps, prevState, snapshot)`,该方法在 getSnapshotBeforeUpdate 方法之后被调用，有三个参数 prevProps，prevState，snapshot，表示之前的 props，之前的 state，和 snapshot。第三个参数是 getSnapshotBeforeUpdate 返回的,如果触发某些回调函数时需要用到 DOM 元素的状态，则将对比或计算的过程迁移至 getSnapshotBeforeUpdate，然后在 componentDidUpdate 中统一触发回调或更新状态。
 
 卸载阶段:
 
 - componentWillUnmount: 当我们的组件被卸载或者销毁了就会调用，我们可以在这个函数里去清除一些定时器，取消网络请求，清理无效的 DOM 元素等垃圾清理工作
 
-参考：
+学习资料：
 
 - [React 的生命周期](https://www.yuque.com/ant-design/course/lifemethods) - 语雀
 - [2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
@@ -208,7 +232,89 @@ return React.createElement("div", { className: "greeting" }, "hello world");
 
 参考：[JSX 简介](https://zh-hans.reactjs.org/docs/introducing-jsx.html)
 
-## 受控组件与非受控组件
+## 组件和不同类型
+
+React 中一切都是组件。 我们通常将应用程序的整个逻辑分解为小的单个部分。 我们将每个单独的部分称为组件。 通常，组件是一个 javascript 函数，它接受输入，处理它并返回在 UI 中呈现的 React 元素。
+
+### 函数/无状态/展示组件
+
+函数或无状态组件是一个纯函数，它可接受接受参数，并返回 react 元素。这些都是没有任何副作用的纯函数。这些组件没有状态或生命周期方法，比如：
+
+```js
+import React from "react";
+
+export const Header = () => {
+  return (
+    <div style={{ backgroundColor: "orange" }}>
+      <h1>TODO App</h1>
+    </div>
+  );
+};
+```
+
+### 类/有状态组件
+
+类或有状态组件具有状态和生命周期方可能通过`setState()`方法更改组件的状态。类组件是通过扩展 React 创建的。它在构造函数中初始化，也可能有子组件，比如：
+
+```js
+import React from "react";
+
+export class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <div style={{ backgroundColor: "orange" }}>
+        <h1>TODO App</h1>
+      </div>
+    );
+  }
+}
+```
+
+### 受控组件与非受控组件
+
+- 受控组件
+
+受控组件是在 React 中处理输入表单的一种技术。表单元素通常维护它们自己的状态，而 react 则在组件的状态属性中维护状态。我们可以将两者结合起来控制输入表单。这称为受控组件。因此，在受控组件表单中，数据由 React 组件处理。
+
+- 非受控组件
+
+在非受控组件中，Ref 用于直接从 DOM 访问表单值，而不是事件处理程序。
+
+我们使用 Ref 构建了相同的表单，而不是使用 React 状态。使用`React.createRef()`定义 Ref 并传递该输入表单，并直接从 handleSubmit 方法中的 `this.input.current.value` 访问表单值。
+
+```js
+import React from "react";
+
+export default class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "Hi" };
+    this.input = React.createRef();
+  }
+
+  handleSubmit(e) {
+    this.setState({
+      value: this.input.current.value
+    });
+    e.preventDefault();
+  }
+
+  render() {
+    return (
+      <>
+        <input ref={this.input} onChange={e => this.handleSubmit(e)} />
+        <p>{this.state.value}</p>
+      </>
+    );
+  }
+}
+```
+
+总结：
 
 | 受控组件                                       | 非受控组件               |
 | ---------------------------------------------- | ------------------------ |
@@ -216,13 +322,24 @@ return React.createElement("div", { className: "greeting" }, "hello world");
 | 2.数据由父组件控制                             | 2.数据由 DOM 控制        |
 | 3. 通过 props 获取当前值，然后通过回调通知更改 | 3. Refs 用于获取其当前值 |
 
-参考：[受控组件与非受控组件](https://www.yuque.com/ant-design/course/goozth)
+### 容器组件
+
+容器组件是处理获取数据、订阅 redux 存储等的组件。它们包含展示组件和其他容器组件，但是里面从来没有 html。
+
+### 高阶组件
+
+高阶组件是将组件作为参数并生成另一个组件的组件。 Redux connect 是高阶组件的示例。 这是一种用于生成可重用组件的强大技术。
+
+学习资料：
+
+- [受控组件与非受控组件](https://www.yuque.com/ant-design/course/goozth)
+- [你要的 React 面试知识点，都在这了](https://juejin.im/post/5cf0733de51d4510803ce34e)
 
 ## React 是如何处理事件的
 
 React 的事件是合成事件， 内部原理非常复杂，我这里只把关键性，可以用来解答这个问题的原理部分进行介绍即可。
 
-jsx 实际上是 React.createElement(component, props, …children) 函数提供的语法糖，那么这段 jsx 代码：
+jsx 实际上是 `React.createElement(component, props, …children)` 函数提供的语法糖，那么这段 jsx 代码：
 
 ```js
 <button onClick={this.handleClick}>Click me</button>
@@ -326,7 +443,31 @@ class Foo extends React.Component {
 
 缺点：没有明显缺点，如果硬要说可能就是要多装一个 babel 插件来支持这种语法。
 
-原文：[新手学习 react 迷惑的点(二)](https://juejin.im/post/5d6f127bf265da03cf7aab6d)
+学习资料：[新手学习 react 迷惑的点(二)](https://juejin.im/post/5d6f127bf265da03cf7aab6d)
+
+## React 中应用样式的三种方式
+
+- 外部样式表，使用 className 而不是 class 来为 React 元素应用样式
+- 内联样式，将 javascript 对象传递给 style，如
+
+```jsx
+<div style={{ backgroundColor: "orange" }} />
+```
+
+- 定义样式对象并使用它，如：
+
+```js
+import React from "react";
+
+const footerStyle = {
+  width: "100%",
+  backgroundColor: "green"
+};
+
+export const Footer = () => {
+  return <div style={footerStyle}>All Rights Reserved 2020</div>;
+};
+```
 
 ## setState 是同步还是异步相关问题
 
@@ -704,49 +845,56 @@ React Redux 将组件区分为 容器组件 和 UI 组件：
   - mapStateToProps - 把 Redux 中的数据映射到 React 中的 props 中去
   - mapDispatchToProps - 把各种 dispatch 变成了 props 让你可以直接使用
 
+DEMO：实现计数器，完整 Demo 可以看[这里](https://github.com/yangtao2o/myreact/tree/master/myredux/react-redux-counter)。
+
+学习资料：
+
 - [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html) - 阮一峰
 - [一篇文章总结 redux、react-redux、redux-saga](https://juejin.im/post/5ce0ae0c5188252f5e019c2c#heading-4)
 - [让 react 用起来更得心应手——（react-redux）](https://juejin.im/post/5bcfce9ff265da0aa5294a25让react用起来更得心应手——（react-redux）)
 
 ## Redux 中间件
 
+我们使用 redux-thunk 在 React 中调用 API。因为 reduce 是纯函数，所以没有副作用，比如调用 API。
+
+因此，我们必须使用 redux-thunk 从 Action creators 那里进行 API 调用。Action creator 派发一个 action，将来自 API 的数据放入 action 的 payload 中。Reducers 接收数据，其余的过程也是相同的。
+
+redux-thunk 是一个中间件。一旦它被引入到项目中，每次派发一个 action 时，都会通过 thunk 传递。如果它是一个函数，它只是等待函数处理并返回响应。如果它不是一个函数，它只是正常处理。
+
+举个栗子：sendEmailAPI 是从组件中调用的函数，它接受一个数据并返回一个函数，其中 dispatch 作为参数。我们使用 redux-thunk 调用 API apiservice，并等待收到响应。一旦接收到响应，我们就使用 payload 派发一个 action。
+
+```js
+import apiservice from "../services/apiservice";
+
+export function sendEmail(data) {
+  return { type: "SEND_EMAIL", payload: data };
+}
+
+export function sendEmailAPI(email) {
+  return function(dispatch) {
+    return apiservice.callAPI(email).then(data => {
+      dispatch(sendEmail(data));
+    });
+  };
+}
+```
+
+其他中间件：
+
 - redux-saga
-
-在实际中，组件中发生的 action 后，在进入 reducer 之前需要完成如发送 ajax 请求之后，再进入 reducer,reducer 又是一个纯函数，不能在 reducer 中进行异步操作。所以目前使用 `redux-saga` 中间件来处理这种业务场景。
-
 - redux-thunk
-
 - redux-promise
 
-详细操作方法：[Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html) - 阮一峰
+学习资料：
+
+- [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html) - 阮一峰
+- [你要的 React 面试知识点，都在这了](https://juejin.im/post/5cf0733de51d4510803ce34e)
 
 ## MobX
 
-[MobX 中文文档](https://cn.mobx.js.org/)
+学习资料：
 
-## React Hooks
-
-> Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
-
-动机：
-
-- 在组件之间复用状态逻辑很难
-- 复杂组件变得难以理解
-- 难以理解的 class
-
-React Hooks 的设计目的，就是加强版函数组件，完全不使用"类"，就能写出一个全功能的组件。
-
-React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功能和副作用，就用钩子把外部代码"钩"进来。 React Hooks 就是那些钩子。
-
-常用钩子：
-
-- useState() 状态钩子
-- useContext() 共享钩子
-- useReducer() action 钩子
-- useEffect() 副作用钩子
-
-- [Hook 简介](https://zh-hans.reactjs.org/docs/hooks-intro.html) - 官方文档
-- [React Hooks 入门教程](http://www.ruanyifeng.com/blog/2019/09/react-hooks.html) - 阮一峰
+- [MobX 中文文档](https://cn.mobx.js.org/)
 
 ## React Router
 
@@ -766,7 +914,7 @@ React Router 中有三类组件:
 npm install react-router-dom
 ```
 
-复制代码安装完成后，上面所列出的这些组件，我们可以通过 react-router-dom 得到。
+安装完成后，上面所列出的这些组件，我们可以通过 react-router-dom 得到。
 
 ```jsx
 import { BrowserRouter, Route, Link } from "react-router-dom";
@@ -832,22 +980,253 @@ function User({ match }) {
 - [React Router 中文文档](http://react-guide.github.io/react-router-cn/)
 - [让 react 用起来更得心应手——（react-router 原理简析）](https://juejin.im/post/5bcdb66251882577102a3b21)
 
+## 什么是错误边界
+
+在 React 中，我们通常有一个组件树。如果任何一个组件发生错误，它将破坏整个组件树。没有办法捕捉这些错误，我们可以用错误边界优雅地处理这些错误。错误边界有两个作用：
+
+- 如果发生错误，显示回退 UI
+- 记录错误
+
+下面是 ErrorBoundary 类的一个例子。如果类实现了 getDerivedStateFromError 或 componentDidCatch 这两个生命周期方法的任何一个，那么这个类就会成为 ErrorBoundary。前者返回`{hasError: true}`来呈现回退 UI，后者用于记录错误。
+
+```js
+import React from "react";
+
+export class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    // You can also log the error to an error reporting service
+    console.log("Error::::", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>OOPS!. WE ARE LOOKING INTO IT.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+```
+
+以下是我们如何在其中一个组件中使用 ErrorBoundary。使用 ErrorBoundary 类包裹 ToDoForm 和 ToDoList。 如果这些组件中发生任何错误，我们会记录错误并显示回退 UI。
+
+```js
+export class Dashboard extends React.Component {
+  render() {
+    return (
+      <div className="dashboard">
+        <ErrorBoundary>
+          <ToDoForm />
+          <ToDolist />
+        </ErrorBoundary>
+      </div>
+    );
+  }
+}
+```
+
+## 什么是 Fragments
+
+React 中的一个常见模式是一个组件返回多个元素。Fragments 允许你将子列表分组，而无需向 DOM 添加额外节点。我们只需要用 `React.Fragment` 或才简写 `<>` 来包裹内容就行了。
+
+```js
+// Without Fragments
+return (
+  <div>
+    <CompoentA />
+    <CompoentB />
+  </div>
+);
+
+// With Fragments
+return (
+  <React.Fragment>
+    <CompoentA />
+    <CompoentB />
+  </React.Fragment>
+);
+
+// shorthand notation Fragments
+return (
+  <>
+    <CompoentA />
+    <CompoentB />
+  </>
+);
+```
+
+## 什么是 Portals
+
+Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。
+
+```js
+ReactDOM.createPortal(child, container);
+```
+
+第一个参数（child）是任何可渲染的 React 子元素，例如一个元素，字符串或 fragment。第二个参数（container）是一个 DOM 元素。
+
+首先，先获取 id 为 someid DOM 元素，接着在构造函数中创建一个元素 div，在 componentDidMount 方法中将 someRoot 放到 div 中。最后，通过`ReactDOM.createPortal(this.props.childen, domnode)`将 children 传递到对应的节点下。
+
+```js
+const someRoot = document.getElementById("someid");
+
+class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.el = document.createElement("div");
+  }
+
+  componentDidMount() {
+    someRoot.appendChild(this.el);
+  }
+
+  componentWillUnmount() {
+    someRoot.removeChild(this.el);
+  }
+
+  render() {
+    return ReactDOM.createPortal(this.props.children, this.el);
+  }
+}
+```
+
+使用的时候：
+
+```js
+<div>
+  <Modal>
+    <Child />
+  </Modal>
+</div>;
+
+function Child() {
+  return (
+    <div className="modal">
+      <button>Click</button>
+    </div>
+  );
+}
+```
+
+## 什么是 Context
+
+Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。使用 context, 我们可以避免通过中间元素传递 props：
+
+```js
+// Context 可以让我们无须明确地传遍每一个组件，就能将值深入传递进组件树。
+const ThemeContext = React.createContext("light");
+class App extends React.Component {
+  render() {
+    // 使用一个 Provider 来将当前的 theme 传递给以下的组件树。
+    // 无论多深，任何组件都能读取这个值。
+    return (
+      <ThemeContext.Provider value="dark">
+        <Toolbar />
+      </ThemeContext.Provider>
+    );
+  }
+}
+
+// 中间的组件再也不必指明往下传递 theme 了。
+function Toolbar() {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+class ThemedButton extends React.Component {
+  // 指定 contextType 读取当前的 theme context。
+  // React 会往上找到最近的 theme Provider，然后使用它的值。
+  static contextType = ThemeContext;
+  render() {
+    return <Button theme={this.context} />;
+  }
+}
+```
+
+## 什么是 Hooks
+
+> Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
+
+动机：
+
+- 在组件之间复用状态逻辑很难
+- 复杂组件变得难以理解
+- 难以理解的 class
+
+React Hooks 的设计目的，就是加强版函数组件，完全不使用"类"，就能写出一个全功能的组件。
+
+React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功能和副作用，就用钩子把外部代码"钩"进来。 React Hooks 就是那些钩子。
+
+常用钩子：
+
+- useState() 状态钩子
+- useContext() 共享钩子
+- useReducer() action 钩子
+- useEffect() 副作用钩子
+
+学习资料：
+
+- [Hook 简介](https://zh-hans.reactjs.org/docs/hooks-intro.html) - 官方文档
+- [React Hooks 入门教程](http://www.ruanyifeng.com/blog/2019/09/react-hooks.html) - 阮一峰
+- [你要的 React 面试知识点，都在这了](https://juejin.im/post/5cf0733de51d4510803ce34e)
+
+## 如何提高性能
+
+我们可以通过多种方式提高应用性能，以下这些比较重要：
+
+- 适当地使用 **shouldComponentUpdate** 生命周期方法。它避免了子组件的不必要的渲染。如果树中有 100 个组件，则不重新渲染整个组件树来提高应用程序性能。
+- 使用 **create-react-app** 来构建项目，这会创建整个项目结构，并进行大量优化。
+- **不可变性**是提高性能的关键。不要对数据进行修改，而是始终在现有集合的基础上创建新的集合，以保持尽可能少的复制，从而提高性能。
+- 在显示列表或表格时**始终使用 Keys**，这会让 React 的更新速度更快
+- **代码分离**是将代码插入到单独的文件中，只加载模块或部分所需的文件的技术。
+
+## 如何在重新加载页面时保留数据
+
+单页应用程序首先在 DOM 中加载 index.html，然后在用户浏览页面时加载内容，或者从同一 index.html 中的后端 API 获取任何数据。
+
+如果通过点击浏览器中的重新加载按钮重新加载页面 index.html，整个 React 应用程序将重新加载，我们将丢失应用程序的状态。如何保留应用状态？
+
+每当重新加载应用程序时，我们使用浏览器**localstorage 来保存应用程序的状态**。我们将整个存储数据保存在 localstorage 中，每当有页面刷新或重新加载时，我们从 localstorage 加载状态。
+
 ## 学习资料
+
+### React
 
 - [React 精髓！一篇全概括(急速)](https://juejin.im/post/5cd9752f6fb9a03247157b6d)
 - [新手学习 react 迷惑的点(一)](https://juejin.im/post/5d6be5c95188255aee7aa4e0)
 - [新手学习 react 迷惑的点(二)](https://juejin.im/post/5d6f127bf265da03cf7aab6d)
+- [理解 MVVM 在 react、vue 中的使用](https://www.cnblogs.com/momozjm/p/11542635.html)
 - [必须要会的 50 个 React 面试题](https://segmentfault.com/a/1190000018604138)
 - [2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
+- [你要的 React 面试知识点，都在这了](https://juejin.im/post/5cf0733de51d4510803ce34e)
+
+### Redux Mbox
+
 - [Redux 中文文档](https://www.redux.org.cn/)
 - [Redux 入门教程（一）：基本用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html) - 阮一峰
 - [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html) - 阮一峰
 - [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html) - 阮一峰
+- [一篇文章总结 redux、react-redux、redux-saga](https://juejin.im/post/5ce0ae0c5188252f5e019c2c)
 - [React Hooks 入门教程](http://www.ruanyifeng.com/blog/2019/09/react-hooks.html) - 阮一峰
+- [MobX 中文文档](https://cn.mobx.js.org/)
+
+### Router
+
 - [React Router 使用教程](http://www.ruanyifeng.com/blog/2016/05/react_router.html) - 阮一峰
 - [React-Router 的基本使用](https://juejin.im/post/5be2993df265da611e4d220c)
 - [React-Router 文档](https://reacttraining.com/react-router/web/guides/quick-start)
 - [React Router 中文文档](http://react-guide.github.io/react-router-cn/)
-- [一篇文章总结 redux、react-redux、redux-saga](https://juejin.im/post/5ce0ae0c5188252f5e019c2c)
-- [MobX 中文文档](https://cn.mobx.js.org/)
-- [理解 MVVM 在 react、vue 中的使用](https://www.cnblogs.com/momozjm/p/11542635.html)

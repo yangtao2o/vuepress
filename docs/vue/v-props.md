@@ -659,6 +659,110 @@ Mutation 同时提供了订阅者模式供外部插件调用获取 State 数据�
 
 而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走 Action，但 Action 也是无法直接修改 State 的，还是需要通过 Mutation 来修改 State 的数据。最后，根据 State 的变化，渲染到视图上。
 
+### 举个例子
+
+index.js:
+
+```js
+import Vue from "vue";
+import Vuex from "vuex";
+import { INCREMENT } from "./mutations"; // export const INCREMENT = "INCREMENT";
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  // 初始 state 对象
+  state: {
+    count: 0,
+    todos: [
+      { id: 1, text: "11111", done: true },
+      { id: 2, text: "2222", done: false }
+    ]
+  },
+  // Vuex 允许我们在 store 中定义“getter”（可以认为是 store 的计算属性）。就像计算属性一样，getter 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。
+  getters: {
+    doneTodos: state => {
+      return state.todos.filter(todo => todo.done);
+    }
+  },
+  // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
+  // 当触发一个 mutation 时，需要以相应的 type 调用 store.commit 方法，调用此函数
+  // mutation 必须同步执行
+  mutations: {
+    incrementBy(state) {
+      state.count++;
+    },
+    [INCREMENT](state, payload) {
+      state.count += payload.amount;
+    }
+  },
+  // Action 类似于 mutation，不同在于：
+  // - Action 提交的是 mutation，而不是直接变更状态
+  // - Action 可以包含任意异步操作
+  actions: {
+    incrementAsnyc({ commit }) {
+      setTimeout(() => {
+        commit("incrementBy");
+      }, 1000);
+    }
+  }
+});
+```
+
+Counter.vue:
+
+```html
+<template>
+  <div>
+    <h1>{{ count }}</h1>
+    <button @click="increment">Add1</button>
+    <button @click="add">Add2</button>
+    <p>{{ doneTodos }}</p>
+  </div>
+</template>
+
+<script>
+  import store from "./../store/index";
+  import { mapState, mapGetters, mapActions } from "vuex";
+
+  export default {
+    name: "Counter",
+    computed: {
+      // 由于 Vuex 的状态存储是响应式的，
+      // 从 store 实例中读取状态最简单的方法就是在计算属性中返回某个状态
+      // count () {
+      //   return this.$store.state.count
+      // },
+      ...mapState({
+        count: state => state.count
+      }),
+      // doneTodos() {
+      //   return this.$store.getters.doneTodos;
+      // }
+      ...mapGetters(["doneTodos"])
+    },
+    methods: {
+      increment() {
+        // this.$store.commit('increment', {
+        //   amount: 5
+        // })
+        // 对象风格
+        // store.commit({
+        //   type: 'INCREMENT',
+        //   amount: 5
+        // })
+
+        // actions
+        store.dispatch("incrementAsnyc");
+      },
+      ...mapActions({
+        add: "incrementAsnyc"
+      })
+    }
+  };
+</script>
+```
+
 ### 各模块在流程中的功能
 
 ![vuex](https://user-gold-cdn.xitu.io/2020/4/7/17153cee622785f3?w=701&h=551&f=png&s=8112)
@@ -681,7 +785,7 @@ Mutation 同时提供了订阅者模式供外部插件调用获取 State 数据�
 
 页面显示所需的数据从该对象中进行读取，利用 Vue 的细粒度数据响应机制来进行高效的状态更新。
 
-**getters**：state 对象读取方法。图中没有单独列出该模块，应该被包含在了 render 中，Vue Components 通过该方法读取全局 state 对象。
+**getters**：state 对象读取方法。Getter 会暴露为 store.getters 对象，你可以以属性的形式访问这些值。
 
 ## 学习资料
 
