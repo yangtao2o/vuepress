@@ -93,15 +93,16 @@
 ## 综合
 
 - [2 万字 | 前端基础拾遗 90 问](https://juejin.im/post/5e8b261ae51d4546c0382ab4#heading-66)
+- [看完跳槽少说涨 5 K，前端面试从准备到谈薪完全指南（近万字精华）](https://juejin.im/post/5dfef50751882512444027eb)
 - [前端团队代码评审 CheckList 清单](https://juejin.im/post/5d1c6550518825330a3bfa01)
 - [团队 React 代码规范制定](https://juejin.im/post/5dd1d80cf265da0bf350d1fa)
-
 
 ## 大神
 
 - [冴羽](https://github.com/mqyqingfeng/)，前端工程师，深入系列、专题系列、underscore 系列、ES6 系列已完结，正在准备新的系列文章中。
 - [我是你的超级英雄](https://juejin.im/user/5bc7de8e5188255c6c626f96/posts) - 成为前端领域有影响力的人
 - [晨曦时梦见兮](https://juejin.im/user/5b13f11d5188257da1245183/posts) - Vue、React、JavaScript、TypeScript
+- [小锁君少](https://juejin.im/user/59a3e1de51882524401237cf/posts) - 原创作者，计算机/前端 领域 微小的贡献者
 
 ## 软件工具
 

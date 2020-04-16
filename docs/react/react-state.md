@@ -2,6 +2,11 @@
 
 > 题目：实现一个计数器，可以加一，减一，置零。
 
+Demo 地址：
+
+- [React 状态管理的几种方式](https://github.com/yangtao2o/myreact/tree/master/myredux/redux-counter)
+- [计数器 react-redux](https://github.com/yangtao2o/myreact/tree/master/myredux/react-redux-counter)
+
 ## React state
 
 ```js
@@ -44,8 +49,6 @@ export default class Counter extends React.Component {
   }
 }
 ```
-
-## Flux
 
 ## Redux
 
@@ -273,7 +276,10 @@ const mapDispatchToProps = dispatch => ({
   onResetHandle: () => dispatch(resetAction)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
 ```
 
 Action 的 type 属性：
@@ -316,12 +322,49 @@ export default App;
 前期做了许多工作，这里如同从父组件里获取 props 属性般获取、触发等行为，所有 store 里的 state 都通过 connect 方法给处理了：
 
 ```js
-connect(mapStateToProps, mapDispatchToProps)(App);
+connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
 ```
 
 到这里，计数器基本的功能都好了，我的 [Demo](https://github.com/yangtao2o/myreact/tree/master/myredux/react-redux-counter)，阮一峰老师的 [Demo](https://github.com/jackielii/simplest-redux-example/blob/master/index.js)，以及讲解的文章，[Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html)，[让 react 用起来更得心应手——（react-redux）](https://juejin.im/post/5bcfce9ff265da0aa5294a25)。
 
 ## React Hooks
+
+> Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
+
+动机：
+
+- 在组件之间复用状态逻辑很难
+- 复杂组件变得难以理解
+- 难以理解的 class
+
+React Hooks 的设计目的，就是加强版函数组件，完全不使用"类"，就能写出一个全功能的组件。
+
+React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功能和副作用，就用钩子把外部代码"钩"进来。 React Hooks 就是那些钩子。
+
+```js
+import React, { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>+1</button>
+      <button onClick={() => setCount(count - 1)}>-1</button>
+      <button onClick={() => setCount(0)}>0</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+对比 Class Component 中将组件状态放在 state 属性中维持的做法，React Hook 使用 useState 方法来在 Function Component 中创建状态变量、创建改变状态的方法、传入初始状态。这样就实现了一个拥有自己的状态的 Function Component。
+
+显而易见，无论是简洁程度还是优雅程度，Function Component 都要远远优于 Class Component。
 
 ## 参考资料
 

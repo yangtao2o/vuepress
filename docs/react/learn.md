@@ -146,6 +146,31 @@ React 16 之后有三个生命周期被废弃(但并未删除)
 
 官方计划在 17 版本完全删除这三个函数，只保留 UNSAVE\_前缀的三个函数，目的是为了向下兼容，但是对于开发者而言应该尽量避免使用他们，而是使用新增的生命周期函数替代它们。
 
+### 父子组件生命周期变化
+
+初次装载期间：
+
+```log
+Parent constructor {}
+Parent getDerivedStateFromProps {} {name: "tao"}
+Parent render
+Child constructor  {}
+Child getDerivedStateFromProps {} {value: 0}
+Child render
+Child componentDidMount
+Parent componentDidMount
+```
+
+更新子组件：
+
+```log
+Child getDerivedStateFromProps {} {value: 1}
+Child shouldComponentUpdate(nextProps, nextState) {} {value: 1}
+Child render
+Child getSnapshotBeforeUpdate {} {value: 1}
+Child componentDidUpdate {} {value: 1} null
+```
+
 ### 总结
 
 挂载阶段:
@@ -178,6 +203,50 @@ React 16 之后有三个生命周期被废弃(但并未删除)
 
 - [React 的生命周期](https://www.yuque.com/ant-design/course/lifemethods) - 语雀
 - [2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
+
+## React 中的 props 是什么
+
+React 中的组件 (包括 Class Component 和 Functional Component) 对应于 JavaScript 的函数，而 props 就相当于这个构造函数的入参。其目的是为了实现数据从父组件到子组件的流动和组件的复用。
+在 Class Component 中这样使用 props：
+
+```js
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+```
+
+在 Functional Component 中这样使用：
+
+```js
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+```
+
+React 中所有的组件都应该是 “纯函数”，也就是说，入参 props 是不可以在组件内部被直接更改的。
+
+props 不仅仅可以传递数据，还可以传递回调函数：
+
+```js
+function Welcome(props) {
+  return <button onClick={props.callback}>Hello, {props.name}</button>;
+}
+```
+
+props 与解构赋值，其主要应用于给组件的子组件直传 props：
+
+```js
+function Button2({ keyword, ...propsForButton }) {
+  return (
+    <div>
+      keyword:{props.keyword}
+      <button {...propsForButton} class="sub-button" />
+    </div>
+  );
+}
+```
 
 ## JSX 语法
 
@@ -503,7 +572,7 @@ setState  的批量更新优化也是建立在“异步”（合成事件、钩
 
 这样你就可以理解为什么原生事件和 `setTimeout/setinterval` 里面调用 `this.state` 会同步更新了吧，因为通过这些函数调用的 React 没办法去调用 `batchedUpdate` 函数将 `isBatchingUpdates` 设置为 true，那么这个时候 setState 的时候默认就是 false，那么就会同步更新。
 
-原文：[新手学习 react 迷惑的点(二)](https://juejin.im/post/5d6f127bf265da03cf7aab6d)
+学习资料：[新手学习 react 迷惑的点(二)](https://juejin.im/post/5d6f127bf265da03cf7aab6d)
 
 ## Virtual DOM
 
@@ -679,7 +748,7 @@ const MyContext = React.createContext(defaultValue);
 
 ![Redux](https://user-gold-cdn.xitu.io/2019/8/23/16cbc24e6fd6847c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
-原文：[2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
+学习资料：[2019 年 17 道高频 React 面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4)
 
 ## MVC VS MVVM
 
@@ -980,6 +1049,27 @@ function User({ match }) {
 - [React Router 中文文档](http://react-guide.github.io/react-router-cn/)
 - [让 react 用起来更得心应手——（react-router 原理简析）](https://juejin.im/post/5bcdb66251882577102a3b21)
 
+## React 事件机制
+
+React 其实自己实现了一套事件机制，首先我们考虑一下以下代码：
+
+```js
+const Test = ({ list, handleClick }) => ({
+    list.map((item, index) => (
+        <span onClick={handleClick} key={index}>{index}</span>
+    ))
+})
+```
+
+点击事件是否绑定在了每一个标签上？事实当然不是，JSX 上写的事件并没有绑定在对应的真实 DOM 上，而是通过事件代理的方式，将所有的事件都统一绑定在了 document 上。这样的方式不仅减少了内存消耗，还能在组件挂载销毁时统一订阅和移除事件。
+
+另外冒泡到 document 上的事件也不是原生浏览器事件，而是 React 自己实现的合成事件（SyntheticEvent）。因此我们如果不想要事件冒泡的话，调用 `event.stopPropagation` 是无效的，而应该调用 `event.preventDefault`。
+
+那么实现合成事件的目的是什么呢？总的来说在我看来好处有两点，分别是：
+
+- **合成事件**首先抹平了浏览器之间的兼容问题，另外这是一个跨浏览器原生事件包装器，赋予了跨浏览器开发的能力
+- 对于原生浏览器事件来说，浏览器会给监听器创建一个事件对象。如果你有很多的事件监听，那么就需要分配很多的事件对象，造成高额的内存分配问题。但是对于合成事件来说，有一个事件池专门来管理它们的创建和销毁，当事件需要被使用时，就会从池子中复用对象，事件回调结束后，就会销毁事件对象上的属性，从而便于下次复用事件对象。
+
 ## 什么是错误边界
 
 在 React 中，我们通常有一个组件树。如果任何一个组件发生错误，它将破坏整个组件树。没有办法捕捉这些错误，我们可以用错误边界优雅地处理这些错误。错误边界有两个作用：
@@ -1178,11 +1268,61 @@ React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功�
 - useReducer() action 钩子
 - useEffect() 副作用钩子
 
+```js
+// 引入 React 中的 useState, useEffect Hook。
+// 它让我们在函数组件中存储内部 state。
+import React, { useState, useEffect } from "react";
+
+function Counter() {
+  // 调用 useState Hook 声明了一个新的 state 变量。
+  // 它返回一对值给到我们命名的变量上。
+  // [count, setCount] 使用的数组解构
+  const [count, setCount] = useState(0);
+  // 相当于 componentDidMount 和 componentDidUpdate:
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+  return (
+    <div>
+      <p>You clicked {count} times.</p>
+      <button onClick={() => setCount(count + 1)}>Click</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+对比 Class Component 中将组件状态放在 state 属性中维持的做法，React Hook 使用 useState 方法来在 Function Component 中创建状态变量、创建改变状态的方法、传入初始状态。这样就实现了一个拥有自己的状态的 Function Component。显而易见，无论是简洁程度还是优雅程度，Function Component 都要远远优于 Class Component。
+
+**useEffect**是用来处理组件状态变化引起的副作用的，而副作用的含义是：和真实世界进行交互的作用，都是副作用，包括页面跳转、Ajax 请求、DOM 操作等等。
+
+在传统的 Class Component 中，副作用是在 componentDidMount 和 componentDidUpdate 两个生命周期中结合处理的。因为初次渲染，并不会执行 componentDidUpdate，而更新的时候，又需要通过 componentDidUpdate 更新。
+
+在 useEffect 结合了这两个生命周期，其含义是：无论组件状态是第 1 次更新还是第 n 次更新，其中的回调函数都会被调用。
+
+**React 何时清除 effect**？React 会在组件卸载的时候执行清除操作。
+
+由于添加和删除订阅的代码的紧密性，所以 useEffect 的设计是在同一个地方执行。如果你的 effect 返回一个函数，React 将会在执行清除操作时调用它：
+
+```js
+useEffect(() => {
+  function handleStatusChange(status) {
+    setIsOnline(status.isOnline);
+  }
+  ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+  // Specify how to clean up after this effect:
+  return function cleanup() {
+    ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+  };
+});
+```
+
 学习资料：
 
-- [Hook 简介](https://zh-hans.reactjs.org/docs/hooks-intro.html) - 官方文档
+- [Hook 简介](https://zh-hans.reactjs.org/docs/hooks-intro.html) - 官方文档讲解的非常详细，也非常易于理解
 - [React Hooks 入门教程](http://www.ruanyifeng.com/blog/2019/09/react-hooks.html) - 阮一峰
-- [你要的 React 面试知识点，都在这了](https://juejin.im/post/5cf0733de51d4510803ce34e)
+- [30 分钟精通 React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
 
 ## 如何提高性能
 
@@ -1202,10 +1342,23 @@ React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功�
 
 每当重新加载应用程序时，我们使用浏览器**localstorage 来保存应用程序的状态**。我们将整个存储数据保存在 localstorage 中，每当有页面刷新或重新加载时，我们从 localstorage 加载状态。
 
+## React 性能优化
+
+- [React 性能优化的 8 种方式了解一下](https://juejin.im/post/5d63311be51d45620821ced8)
+- [浅谈 React 性能优化的方向](https://juejin.im/post/5d045350f265da1b695d5bf2)
+- [[译] React 性能优化-虚拟 Dom 原理浅析](https://juejin.im/post/5b2e06bde51d4558892ed786)
+
+## React 源码解析
+
+- [React 源码解析](https://www.bilibili.com/video/BV1cE411B7by) - 小马哥_老师 视频，可以先睹为快了解下
+- [《React源码解析》系列完结！](https://juejin.im/post/5a84682ef265da4e83266cc4)
+- [剖析 React 源码：先热个身](https://juejin.im/post/5cbae9a8e51d456e2809fba3)
+
 ## 学习资料
 
 ### React
 
+- [React.js 小书](http://huziketang.mangojuice.top/books/react/)
 - [React 精髓！一篇全概括(急速)](https://juejin.im/post/5cd9752f6fb9a03247157b6d)
 - [新手学习 react 迷惑的点(一)](https://juejin.im/post/5d6be5c95188255aee7aa4e0)
 - [新手学习 react 迷惑的点(二)](https://juejin.im/post/5d6f127bf265da03cf7aab6d)

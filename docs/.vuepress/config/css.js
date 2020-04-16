@@ -1,6 +1,14 @@
 module.exports = [
   {
     title: "CSS",
-    children: ["css-fragment", "css-learn", "css-code", "css3", "css-rem", "sass", "article"]
+    children: [
+      "css-learn",
+      "css-code",
+      "css-fragment",
+      "css3",
+      "css-rem",
+      "sass",
+      "article"
+    ]
   }
 ];

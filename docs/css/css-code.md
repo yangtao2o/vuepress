@@ -518,7 +518,7 @@ img {
 
 ### CSS3 的 calc 函数
 
-思路非常容易理解，就是中间三块区域加float浮动起来，从左到右依次按顺序排列，因为左右两侧宽度已知，而中间块宽度需要自适应，所以只要在屏幕宽度变化的时候，通过css3的方法实时计算出中间内容块自适应的宽度即可，非常符合人们的思维习惯。
+思路非常容易理解，就是中间三块区域加 float 浮动起来，从左到右依次按顺序排列，因为左右两侧宽度已知，而中间块宽度需要自适应，所以只要在屏幕宽度变化的时候，通过 css3 的方法实时计算出中间内容块自适应的宽度即可，非常符合人们的思维习惯。
 
 ```html
 <style>
@@ -557,6 +557,7 @@ img {
     background: rgb(131, 124, 104);
   }
 </style>
+<header class="header">头部</header>
 <div class="content">
   <div class="left">左侧栏</div>
   <div class="main">主要内容</div>
@@ -568,8 +569,8 @@ img {
 calc() 的使用注意点：
 
 - 运算符前后都需要保留一个空格，例如：width: calc(100% - 400px)；
-- 任何长度值都可以使用calc()函数进行计算；
-- calc()函数支持 "+", "-", "*", "/" 运算；
+- 任何长度值都可以使用 calc()函数进行计算；
+- calc()函数支持 "+", "-", "\*", "/" 运算；
 - calc()函数使用标准的数学运算优先级规则；
 
 ### 绝对定位布局
@@ -607,48 +608,10 @@ calc() 的使用注意点：
 </style>
 
 <div class="container">
-  <div class="left">1</div>
   <div class="main">2</div>
+  <div class="left">1</div>
   <div class="right">3</div>
 </div>
-```
-
-### 双飞翼布局
-
-双飞翼布局解决问题的方案在前一半和圣杯布局是相同的，也就是三栏全部 float 浮动，但左右两栏加上负 margin 让其跟中间栏 div 并排，以形成三栏布局。
-
-```html
-<style>
-  .content {
-    float: left;
-    width: 100%;
-  }
-  .main {
-    height: 200px;
-    margin-left: 110px;
-    margin-right: 220px;
-    background-color: yellow;
-  }
-  .left {
-    float: left;
-    height: 200px;
-    width: 100px;
-    margin-left: -100%;
-    background-color: red;
-  }
-  .right {
-    width: 200px;
-    height: 200px;
-    float: right;
-    margin-left: -200px;
-    background-color: green;
-  }
-</style>
-<div class="content">
-  <div class="main"></div>
-</div>
-<div class="left"></div>
-<div class="right"></div>
 ```
 
 ### 圣杯布局
@@ -691,6 +654,123 @@ calc() 的使用注意点：
 </div>
 ```
 
+### 双飞翼布局
+
+双飞翼布局解决问题的方案在前一半和圣杯布局是相同的，也就是三栏全部 float 浮动，但左右两栏加上负 margin 让其跟中间栏 div 并排，以形成三栏布局。
+
+```html
+<style>
+  .content {
+    float: left;
+    width: 100%;
+  }
+  .main {
+    height: 200px;
+    margin-left: 110px;
+    margin-right: 220px;
+    background-color: yellow;
+  }
+  .left {
+    float: left;
+    height: 200px;
+    width: 100px;
+    margin-left: -100%;
+    background-color: red;
+  }
+  .right {
+    width: 200px;
+    height: 200px;
+    float: right;
+    margin-left: -200px;
+    background-color: green;
+  }
+</style>
+
+<div>
+  <div class="content">
+    <div class="main"></div>
+  </div>
+  <div class="left"></div>
+  <div class="right"></div>
+  <div></div>
+</div>
+```
+
+### 双飞翼和圣杯布局区别
+
+圣杯布局和双飞翼布局解决问题的方案在前一半是相同的，也就是三栏全部 float 浮动，但左右两栏加上负 margin 让其跟中间栏 div 并排，以形成三栏布局。
+
+```html
+<style>
+  .layout {
+    margin: 20px auto;
+    box-sizing: border-box;
+  }
+  .layout-1 .middle {
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    padding-left: 100px;
+    padding-right: 200px;
+    background: #f10;
+  }
+  .layout-1 .left,
+  .layout-2 .left {
+    float: left;
+    width: 100px;
+    margin-left: -100%;
+    background-color: #999;
+  }
+  .layout-1 .right,
+  .layout-2 .right {
+    float: left;
+    width: 200px;
+    margin-left: -200px;
+    background-color: #999;
+  }
+</style>
+<div class="layout layout-1">
+  <div class="middle">middle</div>
+  <div class="left">left</div>
+  <div class="right">right</div>
+</div>
+<hr />
+<style>
+  .layout-2 .middle {
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    background: #f10;
+  }
+
+  .layout-2 .middle-content {
+    margin-left: 100px;
+    margin-right: 200px;
+  }
+</style>
+<div class="layout layout-2">
+  <div class="middle">
+    <div class="middle-content">middle</div>
+  </div>
+  <div class="left">left</div>
+  <div class="right">right</div>
+</div>
+```
+
+双飞翼布局与圣杯布局相同点：
+
+1. 三者都设置向左浮动。
+2. 设置 middle 宽度为 100%。
+3. 设置 负边距，left 设置负左边距为 100%，right 设置负左边距为负的自身宽度
+4. 设置 middle-content 的 margin 值给左右两个子面板留出空间。
+
+双飞翼布局与圣杯布局的主要差别：
+
+1. 双飞翼布局给主面板（中间元素）添加了一个父标签用来通过 margin 给子面板腾出空间
+2. 圣杯布局采用的是 padding,而双飞翼布局采用的 margin, 解决了圣杯布局的问题
+3. 双飞翼布局不用设置相对布局，以及对应的 left 和 right 值
+
+- [sunshine 小小倩](https://juejin.im/post/599970f4518825243a78b9d5)
 - [面试必考点：前端布局知识](https://mp.weixin.qq.com/s?__biz=MzA4ODUzNTE2Nw==&mid=2451046552&idx=1&sn=b0be51400f8b742ddef6ccb470d06d72&chksm=87c41988b0b3909e7b308c6163cc86ecfd322a9047d3bb95693626ab9aed406b6d4de169ab80&mpshare=1&scene=23&srcid&sharer_sharetime=1574820784872&sharer_shareid=73865875704bcba3caa8b09c62f6bd7a%23rd) - 详细介绍
 
 ## 学习资料
@@ -699,3 +779,4 @@ calc() 的使用注意点：
 - [web 前端面试中 10 个关于 css 高频面试题,你都会吗?](https://mp.weixin.qq.com/s?__biz=MzI4NDYxNTM0OQ==&mid=2247484312&idx=1&sn=f4c51d7c3b7dc49f234d119ca0983bb4&chksm=ebf9f442dc8e7d54e2c29761fe9b8c9909a475aca434543759ddd5c1a6e2e8ac10e406bb99ef&mpshare=1&scene=23&srcid=1121SGoxE9Vgb66UMridQbbF&sharer_sharetime=1574331417826&sharer_shareid=73865875704bcba3caa8b09c62f6bd7a%23rd)
 - [2019 前端最全面试题](https://zhuanlan.zhihu.com/p/63962882) - 基础理论超详细，可以做自检预备
 - [面试必考点：前端布局知识](https://mp.weixin.qq.com/s?__biz=MzA4ODUzNTE2Nw==&mid=2451046552&idx=1&sn=b0be51400f8b742ddef6ccb470d06d72&chksm=87c41988b0b3909e7b308c6163cc86ecfd322a9047d3bb95693626ab9aed406b6d4de169ab80&mpshare=1&scene=23&srcid&sharer_sharetime=1574820784872&sharer_shareid=73865875704bcba3caa8b09c62f6bd7a%23rd)
+- [【面试题】CSS知识点整理(附答案)](https://juejin.im/post/5e8d5268f265da480f0f9c6e)

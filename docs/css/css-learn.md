@@ -621,11 +621,129 @@ div.active {
 
 弹性布局是指`display: flex`或`display: inline-flex`的布局。注意，设为弹性布局以后，**子元素的 float、clear、vertical-align 属性都会失效**。
 
-阮一峰老师的 Flex 布局教程：
+父容器上有六个属性：
+
+- flex-direction：主轴的方向。
+- flex-wrap：超出父容器子容器的排列样式。
+- flex-flow：flex-direction 属性和 flex-wrap 属性的简写形式。
+- justify-content：子容器在主轴的排列方向。
+- align-items：子容器在交叉轴的排列方向。
+- align-content：多根轴线的对齐方式。
+
+子容器也有 6 个属性：
+
+- order：子容器的排列顺序
+- flex-grow：子容器剩余空间的拉伸比例
+- flex-shrink：子容器超出空间的压缩比例
+- flex-basis：子容器在不伸缩情况下的原始尺寸
+- flex：子元素的 flex 属性是 flex-grow,flex-shrink 和 flex-basis 的简写
+- align-self
+
+### flex 弹性盒模型
+
+对于某个元素只要声明了`display: flex;`，那么这个元素就成为了弹性容器，具有 flex 弹性布局的特性。
+
+1. 每个弹性容器都有两根轴：**主轴和交叉轴**，两轴之间成**90 度关系**。注意：水平的不一定就是主轴。
+1. 每根轴都有**起点和终点**，这对于元素的对齐非常重要。
+1. 弹性容器中的所有子元素称为**弹性元素**，弹性元素永远沿主轴排列。
+1. 弹性元素也可以通过`display:flex`设置为另一个弹性容器，形成**嵌套关系**。因此一个元素既可以是弹性容器也可以是弹性元素。
+
+### 主轴
+
+flex 布局大部分的属性都是作用于主轴的，在交叉轴上很多时候只能被动地变化。
+
+主轴的方向：`flex-direction: row | row-reverse | column | column-reverse`。如果主轴方向修改了，那么：
+
+- 交叉轴就会相应地旋转 90 度。
+- 弹性元素的排列方式也会发生改变，因为**弹性元素永远沿主轴排列**。
+
+那么如果主轴排不下，该如何处理？
+
+通过设置`flex-wrap: nowrap | wrap | wrap-reverse`可使得主轴上的元素不折行、折行、反向折行。
+
+默认是 nowrap 不折行，难道任由元素直接溢出容器吗？当然不会，那么这里就涉及到元素的**弹性伸缩应对**。
+
+复合属性：`flex-flow = flex-drection + flex-wrap`。flex-flow 相当于规定了 flex 布局的“工作流(flow)”
+
+```css
+flex-flow: row nowrap;
+```
+
+### 元素如何弹性伸缩应对
+
+当`flex-wrap: nowrap;`不折行时，容器宽度有剩余/不够分，弹性元素们该怎么“弹性”地伸缩应对？
+
+这里针对上面两种场景，引入两个属性(需应用在弹性元素上)
+
+- flex-grow：**放大比例**（容器宽度>元素总宽度时如何伸展）
+- flex-shrink：**缩小比例**（容器宽度<元素总宽度时如何收缩）
+
+### 弹性处理与刚性尺寸
+
+在进行弹性处理之余，其实有些场景我们更希望元素尺寸固定，不需要进行弹性调整。设置元素尺寸除了 width 和 height 以外，flex 还提供了一个`flex-basis`属性。
+
+`flex-basis`设置的是元素在主轴上的初始尺寸，所谓的初始尺寸就是元素在`flex-grow`和`flex-shrink`生效前的尺寸。
+
+**与 width/height 的区别**：
+
+- 两者都为 0：`width: 0` —— 完全没显示；`flex-basis: 0` —— 根据内容撑开宽度
+- 两者非 0：数值相同时两者等效；同时设置，`flex-basis`优先级高
+- flex-basis 为 auto：如设置了 width 则元素尺寸由 width 决定；没有设置则由内容决定
+- **flex-basis == 主轴上的尺寸 != width**
+
+### 常用的复合属性 flex
+
+`flex = flex-grow + flex-shrink + flex-basis`
+
+一些简写:
+
+- flex: 1 = flex: 1 1 0%
+- flex: 2 = flex: 2 1 0%
+- flex: auto = flex: 1 1 auto;
+- flex: none = flex: 0 0 auto; // 常用于固定尺寸 不伸缩
+
+`flex:1` 和 `flex:auto` 的区别：其实可以归结于`flex-basis: 0`和`flex-basis: auto`的区别。
+
+flex-basis 是指定初始尺寸，当设置为 0 时（绝对弹性元素），此时相当于告诉 flex-grow 和 flex-shrink 在伸缩的时候不需要考虑我的尺寸；相反当设置为 auto 时（相对弹性元素），此时则需要在伸缩时将元素尺寸纳入考虑。
+
+### 容器内如何对齐
+
+主轴上的对齐方式：
+
+```css
+justify-content: flex-start | flex-end | center | space-between | space-around;
+```
+
+交叉轴上的对齐方式：
+
+```css
+/* 交叉轴上的单行对齐 */
+align-items: stretch | flex-start | flex-end | center | baseline;
+
+/* 交叉轴上的多行对齐 */
+align-content: stretch | flex-start | flex-end | center | baseline |
+  space-between | space-around;
+```
+
+除了在容器上设置交叉轴对齐，还可以通过**align-self**单独对某个元素设置交叉轴对齐方式。
+
+- 值与 align-items 相同
+- 可覆盖容器的 align-items 属性
+- 默认值为 auto，表示继承父元素的 align-items 属性
+
+### order
+
+order：可设置元素之间的排列顺序
+
+- 数值越小，越靠前，默认为 0
+- 值相同时，以 dom 中元素排列为准
+
+学习资料：
 
 - [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html) - 阮一峰
 - [Flex 布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html) - 阮一峰
 - [30 分钟彻底弄懂 flex 布局](https://cloud.tencent.com/developer/article/1354252) --- 可以直接读这篇总结文章，讲的很详细
+- [CSS 常见布局方式](https://juejin.im/post/599970f4518825243a78b9d5#heading-5)
 
 ## 网格布局
 

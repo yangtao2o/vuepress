@@ -32,6 +32,15 @@
 
 另，viewport 可分为可见视口和视窗视口，可见视口是实际的设备大小，视窗视口是网页的实际宽度。
 
+## http-equive 属性的作用和参数
+
+- expires，指定过期时间
+- progma，设置no-cache可以禁止缓存
+- refresh，定时刷新
+- set-cookie，可以设置cookie
+- X-UA-Compatible，使用浏览器版本
+- apple-mobile-web-app-status-bar-style，针对WebApp全屏模式，隐藏状态栏/设置状态栏颜色
+
 ## 渲染引擎
 
 渲染引擎的作用是根据资源文件的内容渲染出用户可见的界面。目前市面上主要的浏览器和它们所对应的渲染引擎有：

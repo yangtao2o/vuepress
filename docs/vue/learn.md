@@ -793,6 +793,16 @@ SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进�
 - [为什么说 Vue 的响应式更新精确到组件级别？（原理深度解析）](https://juejin.im/post/5e854a32518825736c5b807f)
 - [Vue 项目性能优化 — 实践指南（网上最全 / 详细）](https://juejin.im/post/5d548b83f265da03ab42471d)
 
+## Vue 前端工程化开发技巧
+
+- [吃透 Vue 项目开发实践｜16个方面深入前端工程化开发技巧《上》](https://juejin.im/post/5e0202fc6fb9a0165721e39a)
+
+## Vue 源码解析
+
+- [Vue源码解析](https://www.bilibili.com/video/BV1qJ411W7YR) - 小马哥_老师 视频
+- [Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis/)
+- [Vue逐行级别的源码分析](https://github.com/HcySunYang/vue-design/tree/master) - HcySunYang大佬
+
 ## 学习资料
 
 - [Vue 官方文档 API](https://cn.vuejs.org/v2/api/)
