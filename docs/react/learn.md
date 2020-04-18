@@ -862,13 +862,16 @@ const actions = {
 const store = createStore(reducer);
 
 // 订阅
-store.subscribe(() => console.log(store.getState()));
+const unsubscribe = store.subscribe(() => console.log(store.getState()));
 
-// 发布
+// 发起一系列 action
 store.dispatch(actions.increase()); // {counter: 1}
 store.dispatch(actions.increase()); // {counter: 2}
 store.dispatch(actions.increase()); // {counter: 3}
 store.dispatch(actions.decrease()); // {counter: 2}
+
+// 停止监听 state 更新
+unsubscribe();
 ```
 
 Redux 与 Flux 有何不同?
@@ -920,7 +923,6 @@ DEMO：实现计数器，完整 Demo 可以看[这里](https://github.com/yangta
 
 - [Redux 入门教程（三）：React-Redux 的用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html) - 阮一峰
 - [一篇文章总结 redux、react-redux、redux-saga](https://juejin.im/post/5ce0ae0c5188252f5e019c2c#heading-4)
-- [让 react 用起来更得心应手——（react-redux）](https://juejin.im/post/5bcfce9ff265da0aa5294a25让react用起来更得心应手——（react-redux）)
 
 ## Redux 中间件
 

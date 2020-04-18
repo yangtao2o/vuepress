@@ -332,19 +332,153 @@ vw 相对于视窗宽度的单位，随宽度变化而变化。由此看来，�
 
 ```js
 function createPxReplace(opts, viewportUnit, viewportSize) {
-  return function (m, $1) {
+  return function(m, $1) {
     if (!$1) return m;
     var pixels = parseFloat($1);
     if (pixels <= opts.minPixelValue) return m;
-    var parsedVal = toFixed((pixels / viewportSize * 100), opts.unitPrecision);
-    return parsedVal === 0 ? '0' : parsedVal + viewportUnit;
+    var parsedVal = toFixed((pixels / viewportSize) * 100, opts.unitPrecision);
+    return parsedVal === 0 ? "0" : parsedVal + viewportUnit;
   };
 }
 ```
 
 学习资料：[吃透移动端 H5 响应式布局 ｜深入原理到目前最佳实践方案](https://juejin.im/post/5df59139518825123e7af459)
 
-## 移动端 H5 实践踩坑12种问题汇总
+## 使用 Viewport 单位及 rem
+
+### 方法 1 - 仅使用 vw 作为 CSS 长度单位
+
+在仅使用 vw 单位作为唯一 CSS 单位时，我们需遵守：
+
+利用 Sass 函数将设计稿元素尺寸的像素单位转换为 vw 单位
+
+```scss
+// iPhone 6尺寸作为设计稿基准
+$vw_base: 375;
+@function vw($px) {
+  @return ($px / $vm_base) * 100vw;
+}
+```
+
+无论是文本字号大小还是布局高宽、间距、留白等都使用 vw 作为 CSS 单位
+
+```scss
+.mod_nav {
+  background-color: #fff;
+  &_list {
+    display: flex;
+    padding: vw(15) vw(10) vw(10); // 内间距
+    &_item {
+      flex: 1;
+      text-align: center;
+      font-size: vw(10); // 字体大小
+      &_logo {
+        display: block;
+        margin: 0 auto;
+        width: vw(40); // 宽度
+        height: vw(40); // 高度
+        img {
+          display: block;
+          margin: 0 auto;
+          max-width: 100%;
+        }
+      }
+      &_name {
+        margin-top: vw(2);
+      }
+    }
+  }
+}
+```
+
+1 物理像素线（也就是普通屏幕下 1px ，高清屏幕下 0.5px 的情况）采用 transform 属性 scale 实现
+
+```scss
+.mod_grid {
+    position: relative;
+    &::after {
+        // 实现1物理像素的下边框线
+        content: '';
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+        background-color: #ddd;
+        height: 1px;
+        left: 0;
+        right: 0;
+        top: 0;
+        @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+            -webkit-transform: scaleY(0.5);
+            -webkit-transform-origin: 50% 0%;
+        }
+    }
+    ...
+}
+```
+
+对于需要保持高宽比的图，应改用 padding-top 实现
+
+```scss
+.mod_banner {
+  position: relative;
+  // 使用padding-top 实现宽高比为 100:750 的图片区域
+  padding-top: percentage(100/750);
+  height: 0;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+```
+
+由此，我们不需要增加其他任何额外的脚本代码就能够轻易实现一个常见布局的响应式页面，效果如：[体验地址](https://jdc.jd.com/demo/ting/vw_layout.html)
+
+### vw 搭配 rem，寻找最优解
+
+方法 1 实现的响应式页面虽然看起来适配得很好，但是你会发现由于它是利用 Viewport 单位实现的布局，依赖于视窗大小而自动缩放，无论视窗过大还是过小，它也随着视窗过大或者过小，失去了最大最小宽度的限制，有时候不一定是我们所期待的展示效果。试想一下一个 750px 宽的设计稿在 1920px 的大屏显示器上的糟糕样子。
+
+当然，你可以不在乎移动端页面在 PC 上的展现效果，但如果有低成本却有效的办法来修复这样的小瑕疵，是真切可以为部分用户提升体验的。
+
+我们可以结合 rem 单位来实现页面的布局。rem 弹性布局的核心在于根据视窗大小变化动态改变根元素的字体大小，那么我们可以通过以下步骤来进行优化：
+
+- 给根元素的字体大小设置随着视窗变化而变化的 vw 单位，这样就可以实现动态改变其大小
+- 其他元素的文本字号大小、布局高宽、间距、留白都使用 rem 单位
+- 限制根元素字体大小的最大最小值，配合 body 加上最大宽度和最小宽度，实现布局宽度的最大最小限制
+
+核心代码实现如下，[线上体验地址](https://jdc.jd.com/demo/ting/vw_rem_layout.html)
+
+```scss
+// rem 单位换算：定为 75px 只是方便运算，750px-75px、640-64px、1080px-108px，如此类推
+$vw_fontsize: 75; // iPhone 6尺寸的根元素大小基准值
+@function rem($px) {
+  @return ($px / $vw_fontsize) * 1rem;
+}
+// 根元素大小使用 vw 单位
+$vw_design: 750;
+html {
+  font-size: ($vw_fontsize / ($vw_design / 2)) * 100vw;
+  // 同时，通过Media Queries 限制根元素最大最小值
+  @media screen and (max-width: 320px) {
+    font-size: 64px;
+  }
+  @media screen and (min-width: 540px) {
+    font-size: 108px;
+  }
+}
+// body 也增加最大最小宽度限制，避免默认100%宽度的 block 元素跟随 body 而过大过小
+body {
+  max-width: 540px;
+  min-width: 320px;
+}
+```
+
+原文地址：大厂 H5 开发实战手册 [响应式页面开发](https://juejin.im/book/5a7bfe595188257a7349b52a/section/5a7c54335188257a666efdaf)
+
+## 移动端 H5 实践踩坑 12 种问题汇总
 
 移动端 H5 相关问题汇总：
 
@@ -361,7 +495,27 @@ function createPxReplace(opts, viewportUnit, viewportSize) {
 - H5 调用 SDK 相关问题及解决方案
 - H5 调试相关方案与策略
 
-原文地址：[吃透移动端 H5 与 Hybrid｜实践踩坑12种问题汇总](https://juejin.im/post/5dfadb91e51d45584006e486)
+原文地址：[吃透移动端 H5 与 Hybrid ｜实践踩坑 12 种问题汇总](https://juejin.im/post/5dfadb91e51d45584006e486)
+
+## 滑屏应用开发
+
+> 利用 JavaScript 和 CSS3 来实现单页面应用的滑屏效果，包括上下滑屏、左右滑屏，以及局部元素的滑动切换效果。
+
+在开发滑屏应用的时候，我们应该尽可能做到以下几点来保证页面的顺畅体验：
+
+- 做到延迟加载，避免浪费资源和并发加载资源数过高。
+- 做到预加载，预加载必要的资源，避免白屏。
+- 在滑屏动画过渡期间，不要做繁重的任务，避免因占用资源过高而导致卡顿。
+
+利器：
+
+- [Swiper](https://github.com/nolimits4web/Swiper)
+- 凹凸实验室自研开源的 [HTML5 构建工具 ELF](https://elf.aotu.io/)
+
+判断手势动作的插件：
+
+- [hammerjs](https://hammerjs.github.io/)
+- [zeptojs touch 模块](https://zeptojs.com/#touch)
 
 ## 参考资料
 

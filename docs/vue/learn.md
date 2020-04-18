@@ -800,10 +800,12 @@ SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进�
 ## Vue 源码解析
 
 - [Vue源码解析](https://www.bilibili.com/video/BV1qJ411W7YR) - 小马哥_老师 视频
+- [剖析 Vue.js 内部运行机制](https://juejin.im/book/5a36661851882538e2259c0f/section/5a37bbb35188257d167a4d64)
 - [Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis/)
 - [Vue逐行级别的源码分析](https://github.com/HcySunYang/vue-design/tree/master) - HcySunYang大佬
+- [Vuex 源码解析](https://github.com/answershuto/learnVue/blob/master/docs/Vuex%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.MarkDown)
 
-## 学习资料
+## Vue 学习资料
 
 - [Vue 官方文档 API](https://cn.vuejs.org/v2/api/)
 - [Vuex](https://vuex.vuejs.org/zh/)

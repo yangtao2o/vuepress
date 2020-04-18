@@ -1409,6 +1409,8 @@ document.getElementById("button").addEventListener("click", function() {
 
 ## ES6 系列之模块加载方案
 
+- Demo地址：[module-amd](https://github.com/yangtao2o/gulp-project/tree/master/src/js-native/es6/module-amd)、[module-cmd](https://github.com/yangtao2o/gulp-project/tree/master/src/js-native/es6/module-cmd)、[module-commonjs](https://github.com/yangtao2o/gulp-project/tree/master/src/js-native/es6/module-commonjs)、[module-es6](https://github.com/yangtao2o/gulp-project/tree/master/src/js-native/es6/module-es6)
+
 ### AMD 与 CMD 的区别
 
 - CMD 推崇**依赖就近**，AMD 推崇**依赖前置**。

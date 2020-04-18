@@ -82,6 +82,7 @@
 
 ## 浏览器
 
+- [浏览器的 Event Loop](https://mp.weixin.qq.com/s/DSaLOOF0yBe8mEP5zywXng)
 - [从浏览器多进程到 JS 单线程，JS 运行机制最全面的一次梳理](https://juejin.im/post/5a6547d0f265da3e283a1df7#heading-2)
 - [从 V8 中看 JS 性能优化](https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc72cbe51d450540286a9d)
 

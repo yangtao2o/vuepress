@@ -3,11 +3,11 @@ module.exports = [
     title: "基础修炼",
     children: [
       "es6",
+      "es6-series",
       "js-handwriting-1",
       "js-handwriting-2",
       "js-handwriting-3",
       "js-handwriting-polyfill",
-      "es6-series",
       "js-series-1",
       "js-series-2",
       "js-series-3",

@@ -19,6 +19,6 @@ module.exports = [
   },
   {
     title: "Webpack",
-    children: ["module", "webpack-thinking", "webpack-v3", "commonjs-amd"]
+    children: ["webpack-learn", "module", "webpack-thinking", "webpack-v3", "commonjs-amd"]
   }
 ];
