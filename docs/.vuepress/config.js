@@ -29,5 +29,7 @@ module.exports = {
     lastUpdated: "Last Updated",
     sidebar,
     nav
-  }
+  },
+  evergreen: true,
+  plugins: ['@vuepress/back-to-top']
 };

@@ -35,6 +35,7 @@
 ## React
 
 - [你要的 React 面试知识点，都在这了](https://juejin.im/post/5cf0733de51d4510803ce34e)
+- [[译] React Redux 完全指南](https://mp.weixin.qq.com/s/q8M-c3oGBTxURm7h6-sBUA)
 - [30 分钟精通 React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
 - [React 精髓！一篇全概括(急速)](https://juejin.im/post/5cd9752f6fb9a03247157b6d)
 - [新手学习 react 迷惑的点(一)](https://juejin.im/post/5d6be5c95188255aee7aa4e0)
@@ -104,6 +105,7 @@
 - [我是你的超级英雄](https://juejin.im/user/5bc7de8e5188255c6c626f96/posts) - 成为前端领域有影响力的人
 - [晨曦时梦见兮](https://juejin.im/user/5b13f11d5188257da1245183/posts) - Vue、React、JavaScript、TypeScript
 - [小锁君少](https://juejin.im/user/59a3e1de51882524401237cf/posts) - 原创作者，计算机/前端 领域 微小的贡献者
+- [神三元的博客](http://47.98.159.95/my_blog/) - 跟着前端万粉博主，一起构建完整知识体系
 
 ## 软件工具
 

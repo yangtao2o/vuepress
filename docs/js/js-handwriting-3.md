@@ -22,7 +22,8 @@ class EventEmitter {
     if (!listener) {
       callbacks.length = 0;
     } else {
-      this._events[type] = callbacks && callbacks.filter(cb => cb !== listener);
+      this._events[type] =
+        callbacks && callbacks.filter((cb) => cb !== listener);
     }
     return this;
   }
@@ -40,7 +41,7 @@ class EventEmitter {
   emit(type, ...args) {
     const callbacks = this._events[type];
     if (Array.isArray(callbacks)) {
-      callbacks.forEach(cb => cb.call(this, ...args));
+      callbacks.forEach((cb) => cb.call(this, ...args));
     }
   }
 }
@@ -81,7 +82,7 @@ class Subject {
   }
 
   notify(...args) {
-    this.observers.forEach(observer => observer.log(...args));
+    this.observers.forEach((observer) => observer.log(...args));
   }
 }
 
@@ -109,6 +110,8 @@ sub.notify("Event Fire");
 
 ## 实现一个简易版 Promise
 
+Promise 三大法宝: **回调函数延迟绑定**、**回调返回值穿透**和**错误冒泡**
+
 ```js
 function Promise(excutor) {
   var self = this;
@@ -116,14 +119,14 @@ function Promise(excutor) {
   function resolve(value) {
     setTimeout(() => {
       self.data = value;
-      self.onResolvedCallback.forEach(callback => callback(value));
+      self.onResolvedCallback.forEach((callback) => callback(value));
     });
   }
   excutor(resolve.bind(self));
 }
 Promise.prototype.then = function(onResolved) {
   var self = this;
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     self.onResolvedCallback.push(function() {
       var result = onResolved(self.data);
       if (result instanceof Promise) {
@@ -136,10 +139,70 @@ Promise.prototype.then = function(onResolved) {
 };
 ```
 
+Promise 的本质是一个有限状态机，存在三种状态:
+
+- PENDING(等待)
+- FULFILLED(成功)
+- REJECTED(失败)
+
+对于 Promise 而言，状态的改变不可逆，即由等待态变为其他的状态后，就无法再改变了。
+
+```js
+//定义三种状态
+const PENDING = "pending";
+const FULFILLED = "fulfilled";
+const REJECTED = "rejected";
+
+function MyPromise(executor) {
+  let self = this; // 缓存当前promise实例
+  self.value = null;
+  self.error = null;
+  self.status = PENDING;
+  self.onFulfilled = null; //成功的回调函数
+  self.onRejected = null; //失败的回调函数
+
+  const resolve = (value) => {
+    if (self.status !== PENDING) return;
+    setTimeout(() => {
+      self.status = FULFILLED;
+      self.value = value;
+      //resolve时执行成功回调
+      self.onFulfilledCallback.forEach((callback) => callback(self.value));
+    });
+  };
+
+  const reject = (error) => {
+    if (self.status !== PENDING) return;
+    setTimeout(() => {
+      self.status = REJECTED;
+      self.error = error;
+      //resolve时执行成功回调
+      self.onRejectedCallback.forEach((callback) => callback(self.error));
+    });
+  };
+  executor(resolve, reject);
+}
+
+MyPromise.prototype.then = function(onFulfilled, onRejected) {
+  if (this.status === PENDING) {
+    this.onFulfilledCallbacks.push(onFulfilled);
+    this.onRejectedCallbacks.push(onRejected);
+  } else if (this.status === FULFILLED) {
+    //如果状态是fulfilled，直接执行成功回调，并将成功值传入
+    onFulfilled(this.value);
+  } else {
+    //如果状态是rejected，直接执行失败回调，并将失败原因传入
+    onRejected(this.error);
+  }
+  return this;
+};
+```
+
 学习资料
 
 - [最简实现 Promise，支持异步链式调用（20 行）](https://juejin.im/post/5e6f4579f265da576429a907)
 - [手写一个 Promise/A+,完美通过官方 872 个测试用例](https://juejin.im/post/5e8bec156fb9a03c4d40f4bc)
+- [Promise 之问(三)——Promise 如何实现链式调用](http://47.98.159.95/my_blog/js-async/006.html#%E7%AE%80%E6%98%93%E7%89%88%E5%AE%9E%E7%8E%B0) - 神三元博客
 
 ## async/await 实现
 
@@ -218,6 +281,99 @@ function asyncToGenerator(generatorFunc) {
 ```
 
 ## 双向绑定实现
+
+- 首先在 observer 的过程中会注册 get 方法，该方法用来进行「依赖收集」。
+- 在它的闭包中会有一个 Dep 对象，这个对象用来存放 Watcher 对象的实例。
+- 其实「依赖收集」的过程就是把 Watcher 实例存放到对应的 Dep 对象中去。
+- get 方法可以让当前的 Watcher 对象（Dep.target）存放到它的 subs 中（addSub）方法，
+- 在数据变化时，set 会调用 Dep 对象的 notify 方法通知它内部所有的 Watcher 对象进行视图更新。
+
+```js
+class Dep {
+  constructor() {
+    /* 用来存放Watcher对象的数组 */
+    this.subs = [];
+  }
+
+  /* 在subs中添加一个Watcher对象 */
+  addSub(sub) {
+    this.subs.push(sub);
+  }
+
+  /* 通知所有Watcher对象更新视图 */
+  notify(val) {
+    this.subs.forEach((sub) => {
+      sub.update(val);
+    });
+  }
+}
+
+class Watcher {
+  constructor() {
+    /* 在new一个Watcher对象时将该对象赋值给Dep.target，在get中会用到 */
+    Dep.target = this;
+  }
+
+  /* 更新视图的方法 */
+  update(val) {
+    console.log("视图更新啦～", val);
+  }
+}
+
+Dep.target = null;
+
+function defineReactive(obj, key, val) {
+  /* 一个Dep类对象 */
+  const dep = new Dep();
+
+  Object.defineProperty(obj, key, {
+    enumerable: true,
+    configurable: true,
+    get: function reactiveGetter() {
+      /* 将Dep.target（即当前的Watcher对象存入dep的subs中） */
+      dep.addSub(Dep.target);
+      return val;
+    },
+    set: function reactiveSetter(newVal) {
+      if (newVal === val) return;
+      /* 在set的时候触发dep的notify来通知所有的Watcher对象更新视图 */
+      dep.notify(newVal);
+    },
+  });
+}
+
+// 实现 observer（可观察的）
+function observer(value) {
+  if (!value || typeof value !== "object") {
+    return;
+  }
+  Object.keys(value).forEach((key) => {
+    defineReactive(value, key, value[key]);
+  });
+}
+
+class Vue {
+  constructor(options) {
+    this._data = options.data;
+
+    observer(this._data);
+
+    /* 新建一个Watcher观察者对象，这时候Dep.target会指向这个Watcher对象 */
+    new Watcher();
+
+    /* 在这里模拟render的过程，为了触发test属性的get函数 */
+    console.log("render~", this._data.test);
+  }
+}
+
+let myvue = new Vue({
+  data: {
+    test: "I am test data.",
+  },
+});
+
+myvue._data.test = "TTTest";
+```
 
 ## 参考资料
 

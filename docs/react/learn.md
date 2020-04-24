@@ -56,7 +56,7 @@ getDerivedStateFromProps 配合 componentDidUpdate 的写法如下:
 class ExampleComponent extends React.Component {
   state = {
     isScrollingDown: false,
-    lastRow: null
+    lastRow: null,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -64,7 +64,7 @@ class ExampleComponent extends React.Component {
     if (nextProps.currentRow !== prevState.lastRow) {
       return {
         isScrollingDown: nextProps.currentRow > prevState.lastRow,
-        lastRow: nextProps.currentRow
+        lastRow: nextProps.currentRow,
       };
     }
 
@@ -284,8 +284,8 @@ const element = {
   type: "div",
   props: {
     className: "greeting",
-    children: "hello world"
-  }
+    children: "hello world",
+  },
 };
 ```
 
@@ -367,7 +367,7 @@ export default class Form extends React.Component {
 
   handleSubmit(e) {
     this.setState({
-      value: this.input.current.value
+      value: this.input.current.value,
     });
     e.preventDefault();
   }
@@ -375,7 +375,7 @@ export default class Form extends React.Component {
   render() {
     return (
       <>
-        <input ref={this.input} onChange={e => this.handleSubmit(e)} />
+        <input ref={this.input} onChange={(e) => this.handleSubmit(e)} />
         <p>{this.state.value}</p>
       </>
     );
@@ -420,7 +420,7 @@ jsx 实际上是 `React.createElement(component, props, …children)` 函数提�
 React.createElement(
   "button",
   {
-    onClick: this.handleClick
+    onClick: this.handleClick,
   },
   "Click me"
 );
@@ -485,7 +485,7 @@ class Foo extends React.Component {
   }
 
   render() {
-    return <button onClick={e => this.handleClick(e)}>Click me</button>;
+    return <button onClick={(e) => this.handleClick(e)}>Click me</button>;
   }
 }
 ```
@@ -530,7 +530,7 @@ import React from "react";
 
 const footerStyle = {
   width: "100%",
-  backgroundColor: "green"
+  backgroundColor: "green",
 };
 
 export const Footer = () => {
@@ -559,7 +559,7 @@ export const Footer = () => {
 或者可以通过给 setState 传递函数来表现出同步的情况：
 
 ```js
-this.setState(state => {
+this.setState((state) => {
   return { val: newVal };
 });
 ```
@@ -681,7 +681,7 @@ class Father extends React.Component {
     super(props);
     this.state = {
       fatherToSonText: "父组件传给子组件的内容",
-      sonToFatherText: "子组件传给父组件的内容"
+      sonToFatherText: "子组件传给父组件的内容",
     };
   }
   handleClick(text) {
@@ -691,7 +691,7 @@ class Father extends React.Component {
     return (
       <Son
         text={this.state.fatherToSonText}
-        onClick={e => this.handleClick(this.state.sonToFatherText, e)}
+        onClick={(e) => this.handleClick(this.state.sonToFatherText, e)}
       />
     );
   }
@@ -717,12 +717,12 @@ class Father extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: "#666"
+      color: "#666",
     };
   }
   handleClick() {
     this.setState({
-      color: "red"
+      color: "red",
     });
   }
   render() {
@@ -817,6 +817,39 @@ Redux 遵循的三个原则：
 
 **使用纯函数进行更改**：为了指定状态树如何通过操作进行转换，你需要纯函数。纯函数是那些返回值仅取决于其参数值的函数。
 
+```js
+// Reducer 函数必须是“纯”的 —— 不能修改它的参数，也不能有副作用
+const reducer = function(state = 0, action) {
+  // 每一次调用 dispatch 最终都会调用 reducer！
+
+  // State 是只读的，唯一修改它的方式是 actions
+  switch (action.type) {
+    case "INCREMENT":
+      return state + 1;
+    case "DECREMENT":
+      return state - 1;
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(reducer);
+
+const unsubscribe = store.subscribe(() => console.log(store.getState()))
+
+// 更新的唯一方式：dispatch(action) -> reducer -> new state。
+store.dispatch({
+  type: 'INCREMENT'
+})
+
+store.dispatch({
+  type: 'INCREMENT'
+})
+
+// 停止监听 state 更新
+unsubscribe();
+```
+
 简要描述：
 
 - redux 是的诞生是为了给 React 应用提供「可预测化的状态管理」机制。
@@ -826,7 +859,7 @@ Redux 遵循的三个原则：
 - 组件可以派发(dispatch)行为(action)给 store,而不是直接通知其它组件
 - 其它组件可以通过订阅 store 中的状态(state)来刷新自己的视图
 
-代码演示：
+Demo 演示：
 
 ```js
 import { createStore } from "redux";
@@ -852,7 +885,7 @@ const reducer = (state = { counter: 0 }, action) => {
  */
 const actions = {
   increase: () => ({ type: "INCREASE" }),
-  decrease: () => ({ type: "DECREASE" })
+  decrease: () => ({ type: "DECREASE" }),
 };
 
 /* 创建的store，使用createStore方法
@@ -897,6 +930,7 @@ Redux 的优点如下：
 
 关于 Redux 的资料：
 
+- [[译] React Redux 完全指南](https://mp.weixin.qq.com/s/q8M-c3oGBTxURm7h6-sBUA)
 - [Redux 中文文档](https://www.redux.org.cn/)
 - [Redux 入门教程（一）：基本用法](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html)
 - [Redux 入门教程（二）：中间件与异步操作](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html)
@@ -943,7 +977,7 @@ export function sendEmail(data) {
 
 export function sendEmailAPI(email) {
   return function(dispatch) {
-    return apiservice.callAPI(email).then(data => {
+    return apiservice.callAPI(email).then((data) => {
       dispatch(sendEmail(data));
     });
   };
@@ -1352,8 +1386,8 @@ useEffect(() => {
 
 ## React 源码解析
 
-- [React 源码解析](https://www.bilibili.com/video/BV1cE411B7by) - 小马哥_老师 视频，可以先睹为快了解下
-- [《React源码解析》系列完结！](https://juejin.im/post/5a84682ef265da4e83266cc4)
+- [React 源码解析](https://www.bilibili.com/video/BV1cE411B7by) - 小马哥\_老师 视频，可以先睹为快了解下
+- [《React 源码解析》系列完结！](https://juejin.im/post/5a84682ef265da4e83266cc4)
 - [剖析 React 源码：先热个身](https://juejin.im/post/5cbae9a8e51d456e2809fba3)
 
 ## 学习资料

@@ -276,7 +276,7 @@ mounted(){
 学习资料：
 
 - [Vue 的计算属性真的会缓存吗？（保姆级教学，原理深入揭秘）](https://juejin.im/post/5e8fd7a3f265da47c35d7d29)
-- [手把手带你实现一个最精简的响应式系统来学习Vue的data、computed、watch源码](https://juejin.im/post/5db6433b51882564912fc30f)
+- [手把手带你实现一个最精简的响应式系统来学习 Vue 的 data、computed、watch 源码](https://juejin.im/post/5db6433b51882564912fc30f)
 
 ## 双向数据绑定 v-model
 
@@ -349,14 +349,14 @@ var app = new Vue({
   el: "#app",
   data: {
     // 用于描述视图状态
-    message: "Hello Vue!"
+    message: "Hello Vue!",
   },
   methods: {
     // 用于描述视图行为
     showMessage() {
       let vm = this;
       alert(vm.message);
-    }
+    },
   },
   created() {
     let vm = this;
@@ -365,9 +365,9 @@ var app = new Vue({
       url: "/your/server/data/api",
       success(res) {
         vm.message = res;
-      }
+      },
     });
-  }
+  },
 });
 ```
 
@@ -426,8 +426,8 @@ new Vue({
         // `this` 绑定到当前实例
         this.doSomethingElse();
       });
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -513,8 +513,8 @@ Vue 允许你以一个工厂函数的方式定义你的组件，这个工厂函�
 new Vue({
   // ...
   components: {
-    "my-component": () => import("./my-async-component")
-  }
+    "my-component": () => import("./my-async-component"),
+  },
 });
 ```
 
@@ -531,13 +531,13 @@ var myMixin = {
   methods: {
     hello: function() {
       console.log("hello from mixin!");
-    }
-  }
+    },
+  },
 };
 
 // 定义一个使用混入对象的组件
 var Component = Vue.extend({
-  mixins: [myMixin]
+  mixins: [myMixin],
 });
 
 var component = new Component(); // => "hello from mixin!"
@@ -620,7 +620,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 - diff 算法 — 比较两棵虚拟 DOM 树的差异；
 - pach 算法 — 将两个虚拟 DOM 对象的差异应用到真正的 DOM 树。
 
-学习资料：[深入剖析：Vue核心之虚拟DOM](https://juejin.im/post/5d36cc575188257aea108a74)
+学习资料：[深入剖析：Vue 核心之虚拟 DOM](https://juejin.im/post/5d36cc575188257aea108a74)
 
 ## Vuex
 
@@ -667,9 +667,24 @@ Vuex 允许我们在 store 中定义“getter”（可以认为是 store 的计�
 
 ### Mutation
 
+更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。
+
+Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 事件类型 (type) 和 一个 回调函数 (handler)。
+
 ### Action
 
+Action 类似于 mutation，不同在于：
+
+- Action 提交的是 mutation，而不是直接变更状态。
+- Action 可以包含任意异步操作。
+
 ### Module
+
+由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。
+
+为了解决以上问题，Vuex 允许我们将 store 分割成模块（module）。
+
+每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割。
 
 学习资料：
 
@@ -677,6 +692,46 @@ Vuex 允许我们在 store 中定义“getter”（可以认为是 store 的计�
 - [Vue.js 技术揭秘之 Vuex](https://ustbhuangyi.github.io/vue-analysis/v2/vuex/#vuex)
 
 ## Vue Router
+
+例如，在 User 组件的模板添加一个 `<router-view>`：
+
+```js
+const User = {
+  template: `
+    <div class="user">
+      <h2>User {{ $route.params.id }}</h2>
+      <router-view></router-view>
+    </div>
+  `,
+};
+```
+
+要在嵌套的出口中渲染组件，需要在 VueRouter 的参数中使用 children 配置：
+
+```js
+const router = new VueRouter({
+  routes: [
+    {
+      path: "/user/:id",
+      component: User,
+      children: [
+        {
+          // 当 /user/:id/profile 匹配成功，
+          // UserProfile 会被渲染在 User 的 <router-view> 中
+          path: "profile",
+          component: UserProfile,
+        },
+        {
+          // 当 /user/:id/posts 匹配成功
+          // UserPosts 会被渲染在 User 的 <router-view> 中
+          path: "posts",
+          component: UserPosts,
+        },
+      ],
+    },
+  ],
+});
+```
 
 vue-router 有 3 种路由模式：hash、history、abstract，对应的源码如下所示：
 
@@ -795,14 +850,14 @@ SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进�
 
 ## Vue 前端工程化开发技巧
 
-- [吃透 Vue 项目开发实践｜16个方面深入前端工程化开发技巧《上》](https://juejin.im/post/5e0202fc6fb9a0165721e39a)
+- [吃透 Vue 项目开发实践｜ 16 个方面深入前端工程化开发技巧《上》](https://juejin.im/post/5e0202fc6fb9a0165721e39a)
 
 ## Vue 源码解析
 
-- [Vue源码解析](https://www.bilibili.com/video/BV1qJ411W7YR) - 小马哥_老师 视频
+- [Vue 源码解析](https://www.bilibili.com/video/BV1qJ411W7YR) - 小马哥\_老师 视频
 - [剖析 Vue.js 内部运行机制](https://juejin.im/book/5a36661851882538e2259c0f/section/5a37bbb35188257d167a4d64)
 - [Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis/)
-- [Vue逐行级别的源码分析](https://github.com/HcySunYang/vue-design/tree/master) - HcySunYang大佬
+- [Vue 逐行级别的源码分析](https://github.com/HcySunYang/vue-design/tree/master) - HcySunYang 大佬
 - [Vuex 源码解析](https://github.com/answershuto/learnVue/blob/master/docs/Vuex%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.MarkDown)
 
 ## Vue 学习资料

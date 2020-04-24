@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/yangtao2o/vuepress#readme",
   "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.4.1",
     "gh-pages": "^2.0.1",
     "vuepress": "^0.14.10"
   },
