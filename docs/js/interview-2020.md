@@ -64,6 +64,162 @@ node 端的 task 可以分为 4 类任务队列：
 - var 在全局作用域下声明变量会导致变量挂载在 **window** 上，其他两者不会
 - let 和 const 作用基本一致，但是后者声明的变量不能再次赋值
 
+## 在 ES5 环境下实现 let、const
+
+babel 在 let 定义的变量前加了道下划线，避免在块级作用域外访问到该变量，除了对变量名的转换，我们也可以通过自执行函数来模拟块级作用域：
+
+```js
+(function() {
+  for (var i = 0; i < 5; i++) {
+    console.log(i); // 0 1 2 3 4
+  }
+})();
+
+console.log(i); // Uncaught ReferenceError: i is not defined
+```
+
+实现 const 的关键在于`Object.defineProperty()`这个 API，这个 API 用于在一个对象上增加或修改属性。通过配置属性描述符，可以精确地控制属性行为。
+
+```js
+function _const(key, value) {
+  const desc = {
+    value,
+    writable: false,
+  };
+  Object.defineProperty(window, key, desc);
+}
+
+_const("obj", { a: 1 }); //定义obj
+obj.b = 2; //可以正常给obj的属性赋值
+obj = {}; //抛出错误，提示对象read-only
+```
+
+## ES5 如何实现继承
+
+### 原型链继承
+
+直接让子类的原型对象指向父类实例，当子类实例找不到对应的属性和方法时，就会往它的原型对象，也就是父类实例上找，从而实现对父类的属性和方法的继承。
+
+```js
+function Parent() {
+  this.name = "Yang";
+}
+Parent.prototype.getName = function() {
+  return this.name;
+};
+
+function Child() {}
+Child.prototype = new Parent();
+
+var myself = new Child();
+
+myself.getName(); // 'Yang'
+```
+
+问题：
+
+- 引用类型的属性被所有实例共享
+- 在创建 Child 的实例时，不能向 Parent 传参
+
+### 构造函数模式
+
+在子类的构造函数中执行父类的构造函数，并为其绑定子类的 this，让父类的构造函数把成员属性和方法都挂到子类的 this 上去，这样既能避免实例之间共享一个原型实例，又能向父类构造方法传参：
+
+```js
+function Parent(name) {
+  this.name = name;
+}
+function Child(name) {
+  Parent.call(this, name);
+}
+var myself1 = new Child("Yang");
+var myself2 = new Child("Wang");
+
+console.log(myself1.name); // 'Yang'
+console.log(myself2.name); // 'Wang'
+```
+
+优点：
+
+- 避免了引用类型的属性被所有实例共享
+- 可以在 Child 中向 Parent 传参
+
+缺点：
+
+- 方法都在构造函数中定义，每次创建实例都会创建一遍方法
+
+### 组合模式
+
+构造函数模式与原型模式双剑合璧。
+
+```js
+function Parent(name) {
+  this.name = name;
+  this.colors = ["red", "blue", "green"];
+}
+Parent.prototype.getName = function() {
+  return this.name;
+};
+
+function Child(name, age) {
+  Parent.call(this, name);
+  this.age = age;
+}
+Child.prototype = new Parent();
+Child.prototype.constructor = Child;
+
+var child1 = new Child("yang", 27);
+child1.colors.push("white");
+
+console.log(child1.name); // "yang"
+console.log(child1.age); // 27
+console.log(child1.colors); // ["red", "blue", "green", "white"]
+
+var child2 = new Child("ming", 20);
+
+console.log(child2.name); // "ming"
+console.log(child2.age); // 20
+console.log(child2.colors); // ["red", "blue", "green"]
+child2.getName(); // "ming"
+```
+
+优点：融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式。
+
+### 寄生组合式继承
+
+组合继承最大的缺点是会调用两次父构造函数。
+
+- 设置子类型实例的原型的时候：`Child.prototype = new Parent();`
+- 创建子类型实例的时候：`Parent.call(this, name);`
+
+```js
+function object(proto) {
+  function F() {}
+  F.prototype = proto;
+  return new F();
+}
+
+function prototype(child, parent) {
+  var prototype = object(parent.prototype);
+  child.prototype.constructor = child;
+  child.prototype = prototype;
+}
+
+prototype(Child, Parent);
+```
+
+引用《JavaScript 高级程序设计》中对寄生组合式继承的夸赞就是：
+
+> 这种方式的高效率体现它只调用了一次 Parent 构造函数，并且因此避免了在 Parent.prototype 上面创建不必要的、多余的属性。与此同时，原型链还能保持不变；因此，还能够正常使用 instanceof 和 isPrototypeOf。开发人员普遍认为寄生组合式继承是引用类型最理想的继承范式。
+
+参考资料：[JavaScript 深入之继承的多种方式和优缺点](https://github.com/mqyqingfeng/Blog/issues/16)
+
+原型链继承，通过把子类实例的原型指向父类实例来继承父类的属性和方法，但原型链继承的缺陷在于对子类实例继承的引用类型的修改会影响到所有的实例对象以及无法向父类的构造方法传参。
+
+因此我们引入了构造函数继承, 通过在子类构造函数中调用父类构造函数并传入子类 this 来获取父类的属性和方法，但构造函数继承也存在缺陷，构造函数继承不能继承到父类原型链上的属性和方法。
+
+所以我们综合了两种继承的优点，提出了组合式继承，但组合式继承也引入了新的问题，它每次创建子类实例都执行了两次父类构造方法，我们通过将子类原型指向父类实例改为子类原型指向父类原型的浅拷贝来解决这一问题，也就是最终实现 —— 寄生组合式继承。
+
 ## 为什么要使用模块化
 
 使用模块化可以给我们带来以下好处：
@@ -111,12 +267,12 @@ module.a;
 // 这里其实就是包装了一层立即执行函数，这样就不会污染全局变量了，
 // 重要的是 module 这里，module 是 Node 独有的一个变量
 module.exports = {
-  a: 1
+  a: 1,
 };
 // module 基本实现
 var module = {
   id: "xxxx", // 我总得知道怎么去找到他吧
-  exports: {} // exports 就是个空对象
+  exports: {}, // exports 就是个空对象
 };
 // 这个是为什么 exports 和 module.exports 用法相似的原因
 var exports = module.exports;
@@ -164,7 +320,7 @@ let onWatch = (obj, setBind, getLogger) => {
     set(target, property, value, receiver) {
       setBind(value, property);
       return Reflect.set(target, property, value);
-    }
+    },
   };
   return new Proxy(obj, handler);
 };
@@ -254,11 +410,11 @@ Promise 实现了链式调用，也就是说每次调用 then 之后返回的都
 
 ```js
 Promise.resolve(1)
-  .then(res => {
+  .then((res) => {
     console.log(res); // => 1
     return 2; // 包装成 Promise.resolve(2)
   })
-  .then(res => {
+  .then((res) => {
     console.log(res); // => 2
   });
 ```
@@ -305,7 +461,7 @@ function setInterval(callback, interval) {
 }
 
 let a = 0;
-setInterval(timer => {
+setInterval((timer) => {
   console.log(1);
   a++;
   if (a === 3) cancelAnimationFrame(timer);
@@ -488,6 +644,15 @@ console.log(0.100000000000000002); // 0.1
 parseFloat((0.1 + 0.2).toFixed(10)) === 0.3; // true
 ```
 
+## V8 如何执行一段 JS 代码
+
+- 预解析：检查语法错误但不生成 AST
+- 生成 AST：经过词法/语法分析，生成抽象语法树
+- 生成字节码：基线编译器(Ignition)将 AST 转换成字节码
+- 生成机器码：优化编译器(Turbofan)将字节码转换成优化过的机器码，此外在逐行执行字节码的过程中，如果一段代码经常被执行，那么 V8 会将这段代码直接转换成机器码保存起来，下一次执行就不必经过字节码，优化了执行速度
+
+详细资料：[V8 是怎么跑起来的 —— V8 的 JavaScript 执行管道](https://juejin.im/post/5dc4d823f265da4d4c202d3b)
+
 ## V8 下的垃圾回收机制是怎么样的
 
 V8 实现了准确式 GC，GC 算法采用了分代式垃圾回收机制。因此，V8 将内存（堆）分为新生代和老生代两部分。
@@ -545,6 +710,10 @@ enum AllocationSpace {
 但在 2018 年，GC 技术又有了一个重大突破，这项技术名为并发标记。该技术可以让 GC 扫描和标记对象时，同时允许 JS 运行。
 
 清除对象后会造成堆内存出现碎片的情况，当碎片超过一定限制后会启动**压缩算法**。在压缩过程中，将活的对象像一端移动，直到所有对象都移动完成然后清理掉不需要的内存。
+
+其他资料：
+
+- [聊聊V8引擎的垃圾回收](https://juejin.im/post/5ad3f1156fb9a028b86e78be#heading-10)
 
 ## Git 相关知识
 
@@ -648,7 +817,7 @@ git config –global user.name "tao"
 git config –global user.email "istaotao@aliyun.com"
 ```
 
-### 如何知道分支是否已合并为master
+### 如何知道分支是否已合并为 master
 
 ```sh
 # 列出了已合并到当前分支的分支
@@ -675,6 +844,7 @@ git branch –no-merged
 
 ### 学习资料
 
+- [2万字 | 前端基础拾遗90问](https://juejin.im/post/5e8b261ae51d4546c0382ab4)
 - [关于 Git 的 20 个面试题](https://segmentfault.com/a/1190000019315509)
 - [Git 教程](https://www.yiibai.com/git)
 

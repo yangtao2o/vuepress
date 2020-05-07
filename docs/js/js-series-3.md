@@ -84,7 +84,7 @@ Person.prototype = {
   name: "kevin",
   getName: function() {
     console.log(this.name);
-  }
+  },
 };
 
 var person1 = new Person();
@@ -104,7 +104,7 @@ Person.prototype = {
   name: "kevin",
   getName: function() {
     console.log(this.name);
-  }
+  },
 };
 
 var person1 = new Person();
@@ -127,7 +127,7 @@ Person.prototype = {
   constructor: Person,
   getName: function() {
     console.log(this.name);
-  }
+  },
 };
 
 var person1 = new Person();
@@ -164,7 +164,7 @@ function Person(name) {
       constructor: Person,
       getName: function() {
         console.log(this.name);
-      }
+      },
     };
   }
 }
@@ -199,7 +199,7 @@ function Person(name) {
       constructor: Person,
       getName: function() {
         console.log(this.name);
-      }
+      },
     };
 
     return new Person(name);
@@ -321,23 +321,23 @@ console.log(person1.name); // daisy
 
 ```js
 function Parent() {
-  this.name = 'Yang';
+  this.name = "Yang";
 }
 Parent.prototype.getName = function() {
   return this.name;
-}
+};
 
-function Child() { }
+function Child() {}
 Child.prototype = new Parent();
 
 var myself = new Child();
-myself.getName();  // 'Yang'
+myself.getName(); // 'Yang'
 ```
 
 问题：
 
 - 引用类型的属性被所有实例共享
-- 在创建 Child 的实例时，不能向Parent传参
+- 在创建 Child 的实例时，不能向 Parent 传参
 
 ### 借用构造函数(经典继承)
 
@@ -348,10 +348,10 @@ function Parent(name) {
 function Child(name) {
   Parent.call(this, name);
 }
-var myself1 = new Child('Yang');
-var myself2 = new Child('Wang');
-console.log(myself1.name)  // 'Yang'
-console.log(myself2.name)  // 'Wang'
+var myself1 = new Child("Yang");
+var myself2 = new Child("Wang");
+console.log(myself1.name); // 'Yang'
+console.log(myself2.name); // 'Wang'
 ```
 
 优点：
@@ -370,11 +370,11 @@ console.log(myself2.name)  // 'Wang'
 ```js
 function Parent(name) {
   this.name = name;
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 Parent.prototype.getName = function() {
   return this.name;
-}
+};
 
 function Child(name, age) {
   Parent.call(this, name);
@@ -383,19 +383,19 @@ function Child(name, age) {
 Child.prototype = new Parent();
 Child.prototype.constructor = Child;
 
-var child1 = new Child('yang', 27);
-child1.colors.push('white');
+var child1 = new Child("yang", 27);
+child1.colors.push("white");
 
-console.log(child1.name);  // "yang"
-console.log(child1.age);  // 27
-console.log(child1.colors);  // ["red", "blue", "green", "white"]
+console.log(child1.name); // "yang"
+console.log(child1.age); // 27
+console.log(child1.colors); // ["red", "blue", "green", "white"]
 
-var child2 = new Child('ming', 20);
+var child2 = new Child("ming", 20);
 
-console.log(child2.name);  // "ming"
-console.log(child2.age);  // 20
-console.log(child2.colors);  // ["red", "blue", "green"]
-child2.getName();  // "ming"
+console.log(child2.name); // "ming"
+console.log(child2.age); // 20
+console.log(child2.colors); // ["red", "blue", "green"]
+child2.getName(); // "ming"
 ```
 
 优点：融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式。
@@ -422,7 +422,7 @@ function createObj(proto) {
 function createObj(o) {
   var clone = Object.create(o);
   clone.sayName = function() {
-    console.log('hi');
+    console.log("hi");
   };
   return clone;
 }
@@ -443,6 +443,7 @@ function object(proto) {
   F.prototype = proto;
   return new F();
 }
+
 function prototype(child, parent) {
   var prototype = object(parent.prototype);
   child.prototype.constructor = child;
@@ -452,8 +453,8 @@ function prototype(child, parent) {
 prototype(Child, Parent);
 ```
 
-引用《JavaScript高级程序设计》中对寄生组合式继承的夸赞就是：
+引用《JavaScript 高级程序设计》中对寄生组合式继承的夸赞就是：
 
 > 这种方式的高效率体现它只调用了一次 Parent 构造函数，并且因此避免了在 Parent.prototype 上面创建不必要的、多余的属性。与此同时，原型链还能保持不变；因此，还能够正常使用 instanceof 和 isPrototypeOf。开发人员普遍认为寄生组合式继承是引用类型最理想的继承范式。
 
-原文链接：[JavaScript深入之继承的多种方式和优缺点](https://github.com/mqyqingfeng/Blog/issues/16)
+原文链接：[JavaScript 深入之继承的多种方式和优缺点](https://github.com/mqyqingfeng/Blog/issues/16)

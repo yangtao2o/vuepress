@@ -854,23 +854,23 @@ SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进�
 
 ## Vue 源码解析
 
-- [Vue 源码解析](https://www.bilibili.com/video/BV1qJ411W7YR) - 小马哥\_老师 视频
-- [剖析 Vue.js 内部运行机制](https://juejin.im/book/5a36661851882538e2259c0f/section/5a37bbb35188257d167a4d64)
 - [Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis/)
+- [Vue 源码解析](https://www.bilibili.com/video/BV1qJ411W7YR) - 小马哥老师 视频
+- [剖析 Vue.js 内部运行机制](https://juejin.im/book/5a36661851882538e2259c0f/section/5a37bbb35188257d167a4d64)
 - [Vue 逐行级别的源码分析](https://github.com/HcySunYang/vue-design/tree/master) - HcySunYang 大佬
 - [Vuex 源码解析](https://github.com/answershuto/learnVue/blob/master/docs/Vuex%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90.MarkDown)
 
 ## Vue 学习资料
 
-- [Vue 官方文档 API](https://cn.vuejs.org/v2/api/)
-- [Vuex](https://vuex.vuejs.org/zh/)
-- [「进击的前端工程师」从源码解读 Vue 生命周期，让面试官对你刮目相看](https://juejin.im/post/5d1b464a51882579d824af5b)
-- [「面试题」20+Vue 面试题整理 🔥(持续更新)](https://juejin.im/post/5e649e3e5188252c06113021)
+- [Vue 官方文档 API](https://cn.vuejs.org/v2/api/)、[Vuex](https://vuex.vuejs.org/zh/)
+- [从源码解读 Vue 生命周期，让面试官对你刮目相看](https://juejin.im/post/5d1b464a51882579d824af5b)
+- [12道vue高频原理面试题,你能答出几道](https://juejin.im/post/5e04411f6fb9a0166049a073)
+- [20+Vue 面试题整理 🔥(持续更新)](https://juejin.im/post/5e649e3e5188252c06113021)
 - [30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）](https://juejin.im/post/5d59f2a451882549be53b170)
-- [Vue 组件间通信六种方式（完整版）](https://juejin.im/post/5cde0b43f265da03867e78d3)
 - [Vue 开发必须知道的 36 个技巧【近 1W 字】](https://juejin.im/post/5d9d386fe51d45784d3f8637)
-- [Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis/)
+- [Vue 组件间通信六种方式（完整版）](https://juejin.im/post/5cde0b43f265da03867e78d3)
 - [深入实践 ES6 Proxy & Reflect](https://zhuanlan.zhihu.com/p/60126477)
+- [Vue.js 技术揭秘](https://ustbhuangyi.github.io/vue-analysis/)
 
 ## 掘金优质作者
 

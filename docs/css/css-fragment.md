@@ -205,6 +205,10 @@ document.documentElement.style.fontSize =
 
 那么此时设计稿上的 1px 宽度，实际代表的 css 参数应该是 0.5px 对应物理像素 1px，那么怎么实现这个物理像素为 1px 呢？
 
+学习资料：
+
+- [关于移动端适配，你必须要知道的](https://juejin.im/post/5cddf289f265da038f77696c)
+
 ## 移动端 1px
 
 ### 利用 css 的 伪元素`::after` + `transfrom` 进行缩放

@@ -65,9 +65,13 @@ HTTPS 使用 `证书+数字签名` 的方法来解决这个问题。步骤如下
 - 对比结果一致，则证明服务器发来的证书合法，没有被冒充
 - 此时浏览器就可以读取证书中的公钥，用于后续加密了
 
+## 总结
+
+HTTPS 就是使用 `SSL/TLS` 协议进行加密传输，让客户端拿到服务器的公钥，然后客户端随机生成一个对称加密的秘钥，使用公钥加密，传输给服务端，后续的所有信息都通过该对称秘钥进行加密解密，完成整个 HTTPS 的流程。
+
 ## 学习资料
 
-- [（建议精读）HTTP灵魂之问，巩固你的 HTTP 知识体系](https://juejin.im/post/5e76bd516fb9a07cce750746) - 作者整理的非常详细
+- [（建议精读）HTTP 灵魂之问，巩固你的 HTTP 知识体系](https://juejin.im/post/5e76bd516fb9a07cce750746) - 作者整理的非常详细
 - [前端必须懂的计算机网络知识—(HTTP)](https://juejin.im/post/5ba9d5075188255c652d4208)
 - [前端必须懂的计算机网络知识—(跨域、代理、本地存储)](https://juejin.im/post/5bb1cc2af265da0ae5052496)
 - [计算机网络：这是一份全面& 详细 HTTP 知识讲解](https://www.jianshu.com/p/a6d086a3997d)
@@ -75,3 +79,4 @@ HTTPS 使用 `证书+数字签名` 的方法来解决这个问题。步骤如下
 - [一次完整的 HTTP 请求与响应涉及了哪些知识？](https://www.jianshu.com/p/c1d6a294d3c0)
 - [深入理解 Http 请求、DNS 劫持与解析](https://juejin.im/post/59ba146c6fb9a00a4636d8b6)
 - [漫画：用故事说透 HTTPS](https://juejin.im/post/5df7959051882512480a83e7)
+- [看图学 HTTPS](https://juejin.im/post/5b0274ac6fb9a07aaa118f49)

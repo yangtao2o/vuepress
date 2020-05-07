@@ -1,10 +1,10 @@
 module.exports = [
   {
-    title: "Vue 基础知识",
-    children: ["learn"]
+    title: "Vue 知识体系",
+    children: ["learn", "v-props"]
   },
   {
     title: "Vue 相关",
-    children: ["v-props", "vuepress-blog", "v-webpack", "v-router"]
+    children: ["vuepress-blog", "v-webpack", "v-router"]
   }
 ];
