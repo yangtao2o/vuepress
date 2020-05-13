@@ -20,7 +20,7 @@ module.exports = [
   },
   {
     title: "前端开发",
-    children: ["article", "web"]
+    children: ["interview", "web"]
   },
   {
     title: "开发工具",

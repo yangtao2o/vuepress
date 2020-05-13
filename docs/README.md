@@ -2,7 +2,7 @@
 home: true
 heroImage: /bookmark.svg
 actionText: Let's Go →
-actionLink: /react/learn.html
+actionLink: /vue/learn.html
 features:
 - title: JUST DO IT
   details: I will do my best to keep my knowledge current.
