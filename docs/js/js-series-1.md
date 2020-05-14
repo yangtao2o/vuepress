@@ -18,7 +18,7 @@ person2.name; // 'Jake'
 
 每一个 JavaScript 对象(除了 null )都具有的一个属性，叫**proto**，这个属性会指向该对象的原型。
 
-构造函数的 prototype 属性，指向了调用该构造函数而创建的实例的原型 person.**proto**
+构造函数的 prototype 属性，指向了调用该构造函数而创建的实例的原型 `person.__proto__`
 
 ```js
 person.__proto__ === Person.prototype; // true

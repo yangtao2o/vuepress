@@ -217,9 +217,9 @@ localStorage.setItem("user", JSON.stringify(updatedUser));
 localStorage.removeItem("user");
 ```
 
-**Local Storage 的优点：**相比于 Cookie，其提供了更直观地接口来存储数据更安全,能存储更多数据。
+**Local Storage 的优点：** 相比于 Cookie，其提供了更直观地接口来存储数据更安全,能存储更多数据。
 
-**Local Storage 的缺点：**只能存储字符串数据，浏览器支持`IE8+/Edge/Firefox 2+/Chrome/Safari 4+/Opera 11.5+(caniuse)`
+**Local Storage 的缺点：** 只能存储字符串数据，浏览器支持`IE8+/Edge/Firefox 2+/Chrome/Safari 4+/Opera 11.5+(caniuse)`
 
 ## SessionStorage
 

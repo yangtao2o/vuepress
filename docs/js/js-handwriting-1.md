@@ -295,7 +295,7 @@ o = Object.create(Constructor.prototype);
 // 相当于
 Object.setPrototypeOf(o, Constructor.prototype);
 // 再相当于
-o.__proto__ === Constructor.prototype);
+o.__proto__ === Constructor.prototype;
 // 哇哦，完美
 
 o = Object.create(Object.prototype, {
