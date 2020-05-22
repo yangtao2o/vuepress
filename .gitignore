@@ -65,3 +65,7 @@ docs/.vuepress/public/Python/
 docs/.vuepress/public/Database/
 
 .idea
+
+.temp
+
+.cache

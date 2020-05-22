@@ -1,5 +1,3 @@
-const nav = require("./config/config-nav");
-const sidebar = require("./config/config-sidebar");
 module.exports = {
   base: "/vuepress/", // 基准 URL
   title: "大涛子客栈",
@@ -9,27 +7,29 @@ module.exports = {
       "link",
       {
         rel: "icon",
-        href: "/favicon.ico"
-      }
-    ]
+        href: "/favicon.ico",
+      },
+    ],
   ],
   port: 8080,
-  // dest: '.vuepress/dist',  // 指定 vuepress build 的输出目录
-  ga: "",
+  dest: ".vuepress/dist", // 指定 vuepress build 的输出目录
   markdown: {
-    // markdown设置
-    lineNumbers: true
+    lineNumbers: false,
   },
   themeConfig: {
-    // 主题配置
+    logo: "/favicon.ico",
     repo: "yangtao2o/vuepress", // 项目的 github 地址
-    repoLabel: "代码", // github 地址的链接名
-    editLinks: false, // 当前 markdown 的 github 代码链接
-    editLinkText: "查看原文|编辑此页",
+    repoLabel: "Github", // github 地址的链接名
     lastUpdated: "Last Updated",
-    sidebar,
-    nav
+    nav: require("./config/nav"),
+    sidebar: require("./config/sidebar"),
+    smoothScroll: true,
   },
-  evergreen: true,
-  plugins: ['@vuepress/back-to-top']
+  evergreen: true, // 浏览器兼容性，只设置现代浏览器
+  plugins: ["@vuepress/back-to-top"],
+  extraWatchFiles: [
+    ".vuepress/config/nav.js", // 使用相对路径
+    ".vuepress/config/sidebar.js", // 使用相对路径
+    // '/path/to/bar.js'   // 使用绝对路径
+  ],
 };
