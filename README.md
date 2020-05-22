@@ -30,6 +30,11 @@ yarn deploy
 - [Valine](https://valine.js.org/) - 一款快速、简洁且高效的无后端评论系统
 - [Valine: 独立博客评论系统](https://deserts.io/diy-a-comment-system/)
 
+## 主题
+
+- [AntDocs](https://antdocs.seeyoz.cn/) —— 一款 Ant Design 设计风格的 VuePress 主题
+- [vuepress-theme-reco](https://vuepress-theme-reco.recoluan.com/) —— 一款简洁而优雅的 vuepress 博客 & 文档 主题
+
 ## Vuepress Issues
 
 ### 问题
