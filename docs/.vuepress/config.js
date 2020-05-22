@@ -12,7 +12,7 @@ module.exports = {
     ],
   ],
   port: 8080,
-  dest: ".vuepress/dist", // 指定 vuepress build 的输出目录
+  dest: "docs/.vuepress/dist", // 指定 vuepress build 的输出目录
   markdown: {
     lineNumbers: false,
   },

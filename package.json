@@ -4,9 +4,9 @@
   "description": "使用vuepress构建一个博客",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --ext md,vue --watch .vuepress --watch . --exec vuepress dev docs",
-    "build": "vuepress build docs",
-    "deploy": "npm run build && gh-pages -d docs/.vuepress/dist"
+    "docs:dev": "nodemon --ext md,vue --watch .vuepress --watch . --exec vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "deploy": "yarn docs:build && gh-pages -d docs/.vuepress/dist"
   },
   "repository": {
     "type": "git",
