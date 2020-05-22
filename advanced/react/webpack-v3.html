@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>入门 Webpack@3 的配置过程 | 大涛子客栈</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="icon" href="/vuepress/favicon.ico">
+    <meta name="description" content="前端开发、摄影、羽毛球、电影">
+    <link rel="preload" href="/vuepress/assets/css/0.styles.ac741d4c.css" as="style"><link rel="preload" href="/vuepress/assets/js/app.02736889.js" as="script"><link rel="preload" href="/vuepress/assets/js/2.8fb47256.js" as="script"><link rel="preload" href="/vuepress/assets/js/15.04afca91.js" as="script"><link rel="prefetch" href="/vuepress/assets/js/10.4ba867b0.js"><link rel="prefetch" href="/vuepress/assets/js/100.7bb1cd64.js"><link rel="prefetch" href="/vuepress/assets/js/101.c3e89ad0.js"><link rel="prefetch" href="/vuepress/assets/js/102.738014ea.js"><link rel="prefetch" href="/vuepress/assets/js/103.7703bf92.js"><link rel="prefetch" href="/vuepress/assets/js/104.3f2c60a9.js"><link rel="prefetch" href="/vuepress/assets/js/105.6f6d34db.js"><link rel="prefetch" href="/vuepress/assets/js/106.ac8dd52c.js"><link rel="prefetch" href="/vuepress/assets/js/107.48b61013.js"><link rel="prefetch" href="/vuepress/assets/js/108.962f7c8c.js"><link rel="prefetch" href="/vuepress/assets/js/109.2b0153c9.js"><link rel="prefetch" href="/vuepress/assets/js/11.a4e8f933.js"><link rel="prefetch" href="/vuepress/assets/js/110.f07e2cd7.js"><link rel="prefetch" href="/vuepress/assets/js/111.e5c08a87.js"><link rel="prefetch" href="/vuepress/assets/js/112.cdd87776.js"><link rel="prefetch" href="/vuepress/assets/js/113.a4e6bbd3.js"><link rel="prefetch" href="/vuepress/assets/js/114.0f0d1823.js"><link rel="prefetch" href="/vuepress/assets/js/115.1b9a0870.js"><link rel="prefetch" href="/vuepress/assets/js/116.ceadf6b6.js"><link rel="prefetch" href="/vuepress/assets/js/12.9dc04937.js"><link rel="prefetch" href="/vuepress/assets/js/13.5700f0d4.js"><link rel="prefetch" href="/vuepress/assets/js/14.5fb352cc.js"><link rel="prefetch" href="/vuepress/assets/js/16.e54c509a.js"><link rel="prefetch" href="/vuepress/assets/js/17.21485160.js"><link rel="prefetch" href="/vuepress/assets/js/18.2ca782a5.js"><link rel="prefetch" href="/vuepress/assets/js/19.c30f6dc0.js"><link rel="prefetch" href="/vuepress/assets/js/20.0539a734.js"><link rel="prefetch" href="/vuepress/assets/js/21.393ae4af.js"><link rel="prefetch" href="/vuepress/assets/js/22.28fd5c54.js"><link rel="prefetch" href="/vuepress/assets/js/23.f146e5ad.js"><link rel="prefetch" href="/vuepress/assets/js/24.e1de1905.js"><link rel="prefetch" href="/vuepress/assets/js/25.5a9abc2b.js"><link rel="prefetch" href="/vuepress/assets/js/26.b564d08f.js"><link rel="prefetch" href="/vuepress/assets/js/27.150d7865.js"><link rel="prefetch" href="/vuepress/assets/js/28.49378f8b.js"><link rel="prefetch" href="/vuepress/assets/js/29.d079fbb8.js"><link rel="prefetch" href="/vuepress/assets/js/3.ae1a94c1.js"><link rel="prefetch" href="/vuepress/assets/js/30.2427b69a.js"><link rel="prefetch" href="/vuepress/assets/js/31.51dcda12.js"><link rel="prefetch" href="/vuepress/assets/js/32.da11df9f.js"><link rel="prefetch" href="/vuepress/assets/js/33.dbb80adc.js"><link rel="prefetch" href="/vuepress/assets/js/34.500b833b.js"><link rel="prefetch" href="/vuepress/assets/js/35.71ce48eb.js"><link rel="prefetch" href="/vuepress/assets/js/36.e606fc6c.js"><link rel="prefetch" href="/vuepress/assets/js/37.adc90e57.js"><link rel="prefetch" href="/vuepress/assets/js/38.9c518951.js"><link rel="prefetch" href="/vuepress/assets/js/39.31ee1ea9.js"><link rel="prefetch" href="/vuepress/assets/js/4.2469769d.js"><link rel="prefetch" href="/vuepress/assets/js/40.7c86483b.js"><link rel="prefetch" href="/vuepress/assets/js/41.8f908d34.js"><link rel="prefetch" href="/vuepress/assets/js/42.899c976e.js"><link rel="prefetch" href="/vuepress/assets/js/43.868755e9.js"><link rel="prefetch" href="/vuepress/assets/js/44.0574d534.js"><link rel="prefetch" href="/vuepress/assets/js/45.516da418.js"><link rel="prefetch" href="/vuepress/assets/js/46.59cfd76c.js"><link rel="prefetch" href="/vuepress/assets/js/47.46768572.js"><link rel="prefetch" href="/vuepress/assets/js/48.b12a2b46.js"><link rel="prefetch" href="/vuepress/assets/js/49.055d2483.js"><link rel="prefetch" href="/vuepress/assets/js/5.a65c7af8.js"><link rel="prefetch" href="/vuepress/assets/js/50.38461707.js"><link rel="prefetch" href="/vuepress/assets/js/51.ad1e4683.js"><link rel="prefetch" href="/vuepress/assets/js/52.921f9db9.js"><link rel="prefetch" href="/vuepress/assets/js/53.9ee64307.js"><link rel="prefetch" href="/vuepress/assets/js/54.a6df28f8.js"><link rel="prefetch" href="/vuepress/assets/js/55.90d2bee7.js"><link rel="prefetch" href="/vuepress/assets/js/56.d54afd09.js"><link rel="prefetch" href="/vuepress/assets/js/57.46d0767c.js"><link rel="prefetch" href="/vuepress/assets/js/58.b24a2623.js"><link rel="prefetch" href="/vuepress/assets/js/59.e4d15643.js"><link rel="prefetch" href="/vuepress/assets/js/6.3d928c22.js"><link rel="prefetch" href="/vuepress/assets/js/60.70be1eac.js"><link rel="prefetch" href="/vuepress/assets/js/61.e330f998.js"><link rel="prefetch" href="/vuepress/assets/js/62.15485d93.js"><link rel="prefetch" href="/vuepress/assets/js/63.828e65f0.js"><link rel="prefetch" href="/vuepress/assets/js/64.11394c06.js"><link rel="prefetch" href="/vuepress/assets/js/65.fe55e094.js"><link rel="prefetch" href="/vuepress/assets/js/66.c7048dcc.js"><link rel="prefetch" href="/vuepress/assets/js/67.e687408f.js"><link rel="prefetch" href="/vuepress/assets/js/68.0a0f86fc.js"><link rel="prefetch" href="/vuepress/assets/js/69.02476e29.js"><link rel="prefetch" href="/vuepress/assets/js/7.a82536d3.js"><link rel="prefetch" href="/vuepress/assets/js/70.dab8102c.js"><link rel="prefetch" href="/vuepress/assets/js/71.6f3be243.js"><link rel="prefetch" href="/vuepress/assets/js/72.3eb5cbf0.js"><link rel="prefetch" href="/vuepress/assets/js/73.303e02df.js"><link rel="prefetch" href="/vuepress/assets/js/74.1bee22d8.js"><link rel="prefetch" href="/vuepress/assets/js/75.2705c52d.js"><link rel="prefetch" href="/vuepress/assets/js/76.d3901653.js"><link rel="prefetch" href="/vuepress/assets/js/77.60474eaa.js"><link rel="prefetch" href="/vuepress/assets/js/78.ce3f95fd.js"><link rel="prefetch" href="/vuepress/assets/js/79.6109fa37.js"><link rel="prefetch" href="/vuepress/assets/js/8.8c61602c.js"><link rel="prefetch" href="/vuepress/assets/js/80.792681a3.js"><link rel="prefetch" href="/vuepress/assets/js/81.9141f812.js"><link rel="prefetch" href="/vuepress/assets/js/82.b0bf84bc.js"><link rel="prefetch" href="/vuepress/assets/js/83.4a1b580a.js"><link rel="prefetch" href="/vuepress/assets/js/84.468528aa.js"><link rel="prefetch" href="/vuepress/assets/js/85.21f1c814.js"><link rel="prefetch" href="/vuepress/assets/js/86.5278eeb0.js"><link rel="prefetch" href="/vuepress/assets/js/87.320ac752.js"><link rel="prefetch" href="/vuepress/assets/js/88.01986bed.js"><link rel="prefetch" href="/vuepress/assets/js/89.60c3208b.js"><link rel="prefetch" href="/vuepress/assets/js/9.6dd35875.js"><link rel="prefetch" href="/vuepress/assets/js/90.f57f1578.js"><link rel="prefetch" href="/vuepress/assets/js/91.40599bce.js"><link rel="prefetch" href="/vuepress/assets/js/92.759c9f33.js"><link rel="prefetch" href="/vuepress/assets/js/93.0bd2f25b.js"><link rel="prefetch" href="/vuepress/assets/js/94.171375e2.js"><link rel="prefetch" href="/vuepress/assets/js/95.a32986c9.js"><link rel="prefetch" href="/vuepress/assets/js/96.ed91a0b9.js"><link rel="prefetch" href="/vuepress/assets/js/97.b3eaac8c.js"><link rel="prefetch" href="/vuepress/assets/js/98.86be2f21.js"><link rel="prefetch" href="/vuepress/assets/js/99.f76172ed.js">
+    <link rel="stylesheet" href="/vuepress/assets/css/0.styles.ac741d4c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vuepress/" class="home-link router-link-active"><img src="/vuepress/favicon.ico" alt="大涛子客栈" class="logo"> <span class="site-name can-hide">大涛子客栈</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://www.yangtao.site" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/vuepress/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/vuepress/basic/" class="nav-link">
+  基础
+</a></div><div class="nav-item"><a href="/vuepress/advanced/" class="nav-link router-link-active">
+  进阶
+</a></div><div class="nav-item"><a href="/vuepress/tool/" class="nav-link">
+  工具
+</a></div><div class="nav-item"><a href="/vuepress/protocol/" class="nav-link">
+  网络协议
+</a></div><div class="nav-item"><a href="/vuepress/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="秘籍" class="dropdown-title"><span class="title">秘籍</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          大牛博客
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://ustbhuangyi.github.io/vue-analysis/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Vue技术揭秘
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.conardli.top/blog/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  ConardLi的blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.conardli.top/docs/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  awesome-coding-js
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://muyiy.vip/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  木易杨前端进阶
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  冴羽的博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://www.chenng.cn/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Chenng 的主页 - Tencent
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://47.98.159.95/my_blog/nav/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  神三元的博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          面试宝典
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.cxymsg.com/guide/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  前端面试与进阶指南
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://yangtao2o.github.io/learn/#/docs/Interview" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  前端硬核面试专题
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://biaochenxuying.github.io/blog/guide/#%E7%AE%80%E4%BB%8B" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  全栈修炼
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          大佬人物
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.liaoxuefeng.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  廖雪峰
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  阮一峰
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.zhangxinxu.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  张鑫旭
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          造车工具
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="http://collect.w3ctrain.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  收藏夹
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://tool.lu/c/developer/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  在线工具
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          前端工程
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://juejin.im/post/5c591fda6fb9a049dc02b1cc" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  网络基础
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://juejin.im/post/5d5b307b5188253da24d3cd1" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  数据结构和算法
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="MySite" class="dropdown-title"><span class="title">MySite</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://www.yangtao.site" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.nowcoder.net/istaotao" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  牛客网博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/58b67dd58fd9c50061238e38/collections" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金收藏
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/58b67dd58fd9c50061238e38/shares/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金分享
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://www.imooc.com/u/3120512/articles" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  慕课网手记
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://codepen.io/istaotao/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CodePen
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.csdn.net/qq_42840269" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CSDN
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://segmentfault.com/u/taoboy/notes" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  SegmentFault
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <a href="https://github.com/yangtao2o/vuepress" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://www.yangtao.site" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/vuepress/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/vuepress/basic/" class="nav-link">
+  基础
+</a></div><div class="nav-item"><a href="/vuepress/advanced/" class="nav-link router-link-active">
+  进阶
+</a></div><div class="nav-item"><a href="/vuepress/tool/" class="nav-link">
+  工具
+</a></div><div class="nav-item"><a href="/vuepress/protocol/" class="nav-link">
+  网络协议
+</a></div><div class="nav-item"><a href="/vuepress/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="秘籍" class="dropdown-title"><span class="title">秘籍</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          大牛博客
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://ustbhuangyi.github.io/vue-analysis/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Vue技术揭秘
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.conardli.top/blog/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  ConardLi的blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.conardli.top/docs/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  awesome-coding-js
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://muyiy.vip/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  木易杨前端进阶
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  冴羽的博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://www.chenng.cn/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Chenng 的主页 - Tencent
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://47.98.159.95/my_blog/nav/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  神三元的博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          面试宝典
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.cxymsg.com/guide/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  前端面试与进阶指南
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://yangtao2o.github.io/learn/#/docs/Interview" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  前端硬核面试专题
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://biaochenxuying.github.io/blog/guide/#%E7%AE%80%E4%BB%8B" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  全栈修炼
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          大佬人物
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.liaoxuefeng.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  廖雪峰
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  阮一峰
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.zhangxinxu.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  张鑫旭
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          造车工具
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="http://collect.w3ctrain.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  收藏夹
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://tool.lu/c/developer/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  在线工具
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          前端工程
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://juejin.im/post/5c591fda6fb9a049dc02b1cc" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  网络基础
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://juejin.im/post/5d5b307b5188253da24d3cd1" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  数据结构和算法
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="MySite" class="dropdown-title"><span class="title">MySite</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://www.yangtao.site" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.nowcoder.net/istaotao" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  牛客网博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/58b67dd58fd9c50061238e38/collections" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金收藏
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/58b67dd58fd9c50061238e38/shares/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金分享
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://www.imooc.com/u/3120512/articles" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  慕课网手记
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://codepen.io/istaotao/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CodePen
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.csdn.net/qq_42840269" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CSDN
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://segmentfault.com/u/taoboy/notes" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  SegmentFault
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <a href="https://github.com/yangtao2o/vuepress" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Vue 知识体系</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>React 知识体系</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vuepress/advanced/react/doc-basic.html" class="sidebar-link">React 基础理论</a></li><li><a href="/vuepress/advanced/react/doc-advanced.html" class="sidebar-link">React 高级特性</a></li><li><a href="/vuepress/advanced/react/doc-others.html" class="sidebar-link">Redux、Router、性能优化等</a></li><li><a href="/vuepress/advanced/react/state-methods.html" class="sidebar-link">React 状态管理的几种方式</a></li><li><a href="/vuepress/advanced/react/demo.html" class="sidebar-link">入门学习 React 一些实例</a></li><li><a href="/vuepress/advanced/react/webpack-v3.html" aria-current="page" class="active sidebar-link">入门 Webpack@3 的配置过程</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#前言" class="sidebar-link">前言</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#起步" class="sidebar-link">起步</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#配置-hmtl-模板" class="sidebar-link">配置 HMTL 模板</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#babel-处理脚本" class="sidebar-link">Babel 处理脚本</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#配置-react" class="sidebar-link">配置 React</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#解析-css" class="sidebar-link">解析 CSS</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#解析-scss" class="sidebar-link">解析 Scss</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#处理图片资源" class="sidebar-link">处理图片资源</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#处理-fonts-字体" class="sidebar-link">处理 fonts 字体</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#公共模块" class="sidebar-link">公共模块</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#使用-webpack-dev-server" class="sidebar-link">使用 webpack-dev-server</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#清理-dist-文件夹" class="sidebar-link">清理 /dist 文件夹</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#模块热替换-hmr" class="sidebar-link">模块热替换 HMR</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#启动-server" class="sidebar-link">启动 Server</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#最后的配置文件" class="sidebar-link">最后的配置文件</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#项目目录结构" class="sidebar-link">项目目录结构</a></li><li class="sidebar-sub-header"><a href="/vuepress/advanced/react/webpack-v3.html#项目启动" class="sidebar-link">项目启动</a></li></ul></li><li><a href="/vuepress/advanced/react/article.html" class="sidebar-link">学习 React 的一些记录日志</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="入门-webpack-3-的配置过程"><a href="#入门-webpack-3-的配置过程" class="header-anchor">#</a> 入门 Webpack@3 的配置过程</h1> <h2 id="前言"><a href="#前言" class="header-anchor">#</a> 前言</h2> <ul><li><a href="https://webpack.docschina.org/guides/" target="_blank" rel="noopener noreferrer">webpack 指南<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://www.jianshu.com/p/0e01ca947e50" target="_blank" rel="noopener noreferrer">React 的 Webpack 配置<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <p><em>PS：</em> 文章结尾有完整实例启动方法：<a href="https://github.com/yangtao2o/happymmall/tree/webpack%403-react" target="_blank" rel="noopener noreferrer">Github 地址<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>本次配置练习主要是针对 <code>webpack-v3</code>，切换分支至 <code>webpack@3-react</code> ，每一次 <code>Commits</code>，基本上对应着相应的文件配置，可以对照着瞅瞅。</p> <h2 id="起步"><a href="#起步" class="header-anchor">#</a> 起步</h2> <p>准备环境：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>➜  happymmall git:<span class="token punctuation">(</span>webpack@3-react<span class="token punctuation">)</span> ✗ node -v
+v11.13.0
+➜  happymmall git:<span class="token punctuation">(</span>webpack@3-react<span class="token punctuation">)</span> ✗ <span class="token function">npm</span> -v
+<span class="token number">6.10</span>.1
+➜  happymmall git:<span class="token punctuation">(</span>webpack@3-react<span class="token punctuation">)</span> ✗ <span class="token function">git</span> --version
+<span class="token function">git</span> version <span class="token number">2.17</span>.2 <span class="token punctuation">(</span>Apple Git-113<span class="token punctuation">)</span>
+➜  happymmall git:<span class="token punctuation">(</span>webpack@3-react<span class="token punctuation">)</span> ✗ <span class="token function">yarn</span> -v
+<span class="token number">1.17</span>.3
+</code></pre></div><h3 id="安装-yarn"><a href="#安装-yarn" class="header-anchor">#</a> 安装 <a href="https://yarn.bootcss.com/docs/install/#mac-stable" target="_blank" rel="noopener noreferrer">yarn<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># homebrew 安装</span>
+brew <span class="token function">install</span> <span class="token function">yarn</span>
+
+<span class="token comment"># npm/cnpm 安装</span>
+<span class="token function">npm</span> <span class="token function">install</span> cnpm -g
+cnpm <span class="token function">install</span> <span class="token function">yarn</span> -g
+
+<span class="token comment"># 测试是否安装成功</span>
+➜  ~ <span class="token function">yarn</span> --version
+<span class="token number">1.17</span>.3
+</code></pre></div><p>常用命令：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> init  <span class="token comment"># 初始化</span>
+<span class="token function">yarn</span> <span class="token function">add</span> <span class="token punctuation">[</span>package<span class="token punctuation">]</span>  <span class="token comment"># 添加依赖包</span>
+<span class="token function">yarn</span> <span class="token function">add</span> <span class="token punctuation">[</span>package<span class="token punctuation">]</span> --dev   <span class="token comment"># 添加到 devDependencies</span>
+<span class="token function">yarn</span> remove <span class="token punctuation">[</span>package<span class="token punctuation">]</span>  <span class="token comment"># 删除依赖包</span>
+<span class="token function">yarn</span> <span class="token function">install</span>   <span class="token comment"># 安装所有依赖包</span>
+</code></pre></div><h3 id="安装-webpack-3"><a href="#安装-webpack-3" class="header-anchor">#</a> 安装 webpack@3</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> init
+<span class="token function">yarn</span> <span class="token function">add</span> webpack@3.10.0 --dev
+</code></pre></div><p>根目录新建 <code>webpack.config.js</code>,并新建 <code>src/index.js</code></p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// webpack.config.js</span>
+<span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;path&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  entry<span class="token operator">:</span> <span class="token string">&quot;./src/index.js&quot;</span><span class="token punctuation">,</span>
+  output<span class="token operator">:</span> <span class="token punctuation">{</span>
+    path<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;dist&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    filename<span class="token operator">:</span> <span class="token string">&quot;app.js&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// index.js</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;Hello, world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>运行：<code>node_modules/.bin/webpack</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>➜  happymmall git:<span class="token punctuation">(</span>webpack@3-react<span class="token punctuation">)</span> ✗ node_modules/.bin/webpack
+Hash: 62e68b9cc366c7b50ac6
+Version: webpack <span class="token number">3.10</span>.0
+Time: 34ms
+ Asset    Size  Chunks             Chunk Names
+app.js  <span class="token number">2.5</span> kB       <span class="token number">0</span>  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  main
+   <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> ./src/index.js <span class="token number">28</span> bytes <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+</code></pre></div><p>打开 <code>dist/app.js</code>，搜索 <code>Hello</code>:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/***/</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">module<span class="token punctuation">,</span> exports</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hello, world'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">/******/</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>一个简单的文件就此打包成功，开心吧...</p> <h2 id="配置-hmtl-模板"><a href="#配置-hmtl-模板" class="header-anchor">#</a> 配置 HMTL 模板</h2> <p>文档：<a href="https://webpack.js.org/plugins/html-webpack-plugin/#root" target="_blank" rel="noopener noreferrer">HtmlWebpackPlugin<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> 简化了 HTML 文件的创建，以便为你的 webpack 包提供服务。这对于在文件名中包含每次会随着编译而发生变化哈希的 webpack bundle 尤其有用。</p> <p>安装 html-webpack-plugin</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> html-webpack-plugin@2.30.1 --dev
+</code></pre></div><p>新建：<code>src/index.html</code>, 并初始化一个 html 内容，然后配置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;path&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;html-webpack-plugin&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  entry<span class="token operator">:</span> <span class="token string">&quot;./src/index.js&quot;</span><span class="token punctuation">,</span>
+  output<span class="token operator">:</span> <span class="token punctuation">{</span>
+    path<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;dist&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    filename<span class="token operator">:</span> <span class="token string">&quot;app.js&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      template<span class="token operator">:</span> <span class="token string">&quot;./src/index.html&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>接着跑一下：<code>node_modules/.bin/webpack</code>，不出意外的话，dist 下会出现一个 index.html，打开查看就会发现，不仅有我们自己指定的内容，还把<code>app.js</code>也自动引入了，这波操作够可以。</p> <h2 id="babel-处理脚本"><a href="#babel-处理脚本" class="header-anchor">#</a> Babel 处理脚本</h2> <p>文档：<a href="https://www.webpackjs.com/loaders/babel-loader/" target="_blank" rel="noopener noreferrer">babel-loader<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>安装 babel</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> babel-loader@7.1.2 babel-core@6.26.0 babel-preset-env@1.6.1 --dev
+</code></pre></div><p>设置 config 文件：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>module<span class="token operator">:</span> <span class="token punctuation">{</span>
+  rules<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      test<span class="token operator">:</span> <span class="token regex">/\.js$/</span><span class="token punctuation">,</span>
+      exclude<span class="token operator">:</span> <span class="token regex">/(node_modules)/</span><span class="token punctuation">,</span> <span class="token comment">// 忽略此文件</span>
+      use<span class="token operator">:</span> <span class="token punctuation">{</span>
+        loader<span class="token operator">:</span> <span class="token string">&quot;babel-loader&quot;</span><span class="token punctuation">,</span>
+        options<span class="token operator">:</span> <span class="token punctuation">{</span>
+          presets<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;env&quot;</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>然后修改 <code>src/index.js</code>:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">class</span> <span class="token class-name">People</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">&quot;people&quot;</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Man</span> <span class="token keyword">extends</span> <span class="token class-name">People</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">27</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>运行：<code>node_modules/.bin/webpack</code>，然后再去<code>dist/app.js</code>，就会发现已经转译成功：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">var</span> <span class="token function-variable function">People</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">People</span><span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">_classCallCheck</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> People<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">&quot;people&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> Man <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">_People</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">_inherits</span><span class="token punctuation">(</span>Man<span class="token punctuation">,</span> _People<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">Man</span><span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">_classCallCheck</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> Man<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> _this <span class="token operator">=</span> <span class="token function">_possibleConstructorReturn</span><span class="token punctuation">(</span>
+      <span class="token keyword">this</span><span class="token punctuation">,</span>
+      <span class="token punctuation">(</span>Man<span class="token punctuation">.</span>__proto__ <span class="token operator">||</span> Object<span class="token punctuation">.</span><span class="token function">getPrototypeOf</span><span class="token punctuation">(</span>Man<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    _this<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">27</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> _this<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> Man<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>People<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="配置-react"><a href="#配置-react" class="header-anchor">#</a> 配置 React</h2> <p>安装：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> babel-preset-react@6.24.1 --dev
+<span class="token function">yarn</span> <span class="token function">add</span> react@16.2.0 react-dom@16.2.0
+</code></pre></div><p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>module<span class="token operator">:</span> <span class="token punctuation">{</span>
+  rules<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      test<span class="token operator">:</span> <span class="token regex">/\.jsx$/</span><span class="token punctuation">,</span>
+      exclude<span class="token operator">:</span> <span class="token regex">/(node_modules)/</span><span class="token punctuation">,</span>
+      use<span class="token operator">:</span> <span class="token punctuation">{</span>
+        loader<span class="token operator">:</span> <span class="token string">&quot;babel-loader&quot;</span><span class="token punctuation">,</span>
+        options<span class="token operator">:</span> <span class="token punctuation">{</span>
+          presets<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;env&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 这时候的入口文件也需要更改下测试</span>
+entry<span class="token operator">:</span> <span class="token string">'./src/index.jsx'</span><span class="token punctuation">,</span>
+</code></pre></div><p>然后修改 <code>src/index.js</code> 为 <code>src/index.jsx</code>:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">&quot;react-dom&quot;</span><span class="token punctuation">;</span>
+
+ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>Hello<span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;root&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>运行：<code>node_modules/.bin/webpack</code>，然后再去<code>dist/app.js</code>，查找如下：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// ...</span>
+_reactDom2<span class="token punctuation">.</span>default<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+  _react2<span class="token punctuation">.</span>default<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">&quot;h1&quot;</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">&quot;Hello, React.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;root&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// ...</span>
+</code></pre></div><p>那么，表示解析 .jsx 成功。</p> <h2 id="解析-css"><a href="#解析-css" class="header-anchor">#</a> 解析 CSS</h2> <p>安装：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> style-loader@0.19.1 css-loader@0.28.8 --dev
+</code></pre></div><p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span>
+  test<span class="token operator">:</span> <span class="token regex">/\.css$/</span><span class="token punctuation">,</span>
+  use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'style-loader'</span><span class="token punctuation">,</span> <span class="token string">'css-loader'</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在 index.jsx 里添加：<code>import './style.css';</code>，在<code>style.css</code>添加一些：</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">body</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 16px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>接着跑一下：<code>node_modules/.bin/webpack</code>，再接着去 dist 下的 app.js 找找：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// module</span>
+exports<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">[</span>module<span class="token punctuation">.</span>i<span class="token punctuation">,</span> <span class="token string">&quot;body {\n  color: red;\n  font-size: 16px;\n}&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>嗯，已经被解析并添加到 app.js 文件中。但是，我们有时候需要大量的 css 文件，并需要 js 解析，那就需要个插件单独处理：<a href="https://webpack.js.org/plugins/extract-text-webpack-plugin/#root" target="_blank" rel="noopener noreferrer">ExtractTextWebpackPlugin<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> extract-text-webpack-plugin@3.0.2 --dev
+</code></pre></div><p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    template<span class="token operator">:</span> <span class="token string">&quot;./src/index.html&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token comment">// Add</span>
+  <span class="token keyword">new</span> <span class="token class-name">ExtractTextWebpackPlugin</span><span class="token punctuation">(</span><span class="token string">&quot;styles.css&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">,</span>
+module<span class="token operator">:</span> <span class="token punctuation">{</span>
+  rules<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">// Add</span>
+    <span class="token punctuation">{</span>
+      test<span class="token operator">:</span> <span class="token regex">/\.css$/</span><span class="token punctuation">,</span>
+      use<span class="token operator">:</span> ExtractTextWebpackPlugin<span class="token punctuation">.</span><span class="token function">extract</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        fallback<span class="token operator">:</span> <span class="token string">&quot;style-loader&quot;</span><span class="token punctuation">,</span>
+        use<span class="token operator">:</span> <span class="token string">&quot;css-loader&quot;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>然后跑一下，dist 下就会出现我们设置的 <code>styles.css</code> 文件，并且会自动添加至 <code>index.html</code>:</p> <div class="language-html extra-class"><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>style.css<span class="token punctuation">&quot;</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>stylesheet<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</code></pre></div><h2 id="解析-scss"><a href="#解析-scss" class="header-anchor">#</a> 解析 Scss</h2> <p>安装: sass-loader node-sass</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> sass-loader@6.0.6 node-sass@4.7.2 --dev
+</code></pre></div><p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span>
+  test<span class="token operator">:</span> <span class="token regex">/\.scss$/</span><span class="token punctuation">,</span>
+  use<span class="token operator">:</span> ExtractTextWebpackPlugin<span class="token punctuation">.</span><span class="token function">extract</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    fallback<span class="token operator">:</span> <span class="token string">&quot;style-loader&quot;</span><span class="token punctuation">,</span>
+    use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;css-loader&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;sass-loader&quot;</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>这时候，我们去 src 下新建一个 <code>app.scss</code>:</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">body</span> <span class="token punctuation">{</span>
+  <span class="token selector">h1</span> <span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>并且在 <code>index.jsx</code> 中引入：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> <span class="token string">&quot;./style.css&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token string">&quot;./app.scss&quot;</span><span class="token punctuation">;</span>
+</code></pre></div><p>接着，跑一下看看，刷~的一声，打开 dist 下的 <code>styles.css</code>，看看是不是我们引入的内容：</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">body</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 16px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">body h1</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>测试通过，完美！</p> <h2 id="处理图片资源"><a href="#处理图片资源" class="header-anchor">#</a> 处理图片资源</h2> <p>安装：<a href="https://webpack.js.org/loaders/url-loader/#root" target="_blank" rel="noopener noreferrer">url-loader<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> file-loader@1.1.6 url-loader@0.6.2 --dev
+</code></pre></div><p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span>
+  test<span class="token operator">:</span> <span class="token regex">/\.(png|jpg|gif)$/</span><span class="token punctuation">,</span>
+  use<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      loader<span class="token operator">:</span> <span class="token string">'url-loader'</span><span class="token punctuation">,</span>
+      options<span class="token operator">:</span> <span class="token punctuation">{</span>
+        limit<span class="token operator">:</span> <span class="token number">8192</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>同样的 src 下找张图片，测试下是否通过，在 <code>index.jsx</code> 里添加：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">import</span> ImgSrc <span class="token keyword">from</span> <span class="token string">&quot;./react.png&quot;</span><span class="token punctuation">;</span>
+
+ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>
+  <span class="token operator">&lt;</span>div<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>Hello<span class="token punctuation">,</span> React<span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>img src<span class="token operator">=</span><span class="token punctuation">{</span>ImgSrc<span class="token punctuation">}</span> alt<span class="token operator">=</span><span class="token string">&quot;react&quot;</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+  document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&quot;root&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>然后跑一下，发现：如果图片大于 limit 的设置（8kb=8192/1024kb）就会出现在 dist 目录下，否则会以 base64 格式直接引入使用。</p> <h2 id="处理-fonts-字体"><a href="#处理-fonts-字体" class="header-anchor">#</a> 处理 fonts 字体</h2> <p>先下载个<a href="http://www.fontawesome.com.cn/get-started/" target="_blank" rel="noopener noreferrer">Font Awesome<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>试试水：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> font-awesome
+</code></pre></div><p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span>
+  test<span class="token operator">:</span> <span class="token regex">/\.(woff|woff2|eot|ttf|otf|svg)$/</span><span class="token punctuation">,</span>
+  use<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      loader<span class="token operator">:</span> <span class="token string">'url-loader'</span><span class="token punctuation">,</span>
+      options<span class="token operator">:</span> <span class="token punctuation">{</span>
+        limit<span class="token operator">:</span> <span class="token number">8192</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>然后按照以下几个步骤来试水：</p> <ul><li>复制 <code>font-awesome/</code> 目录到你的项目中</li> <li>只保留 fonts 文件 和 scss 文件里的内容，其他可以删除</li> <li>最后去你的主文件：<code>app.scss</code> 添加它：</li></ul> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$fa-font-path</span></span><span class="token punctuation">:</span> <span class="token string">&quot;./font-awesome/fonts&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">@import</span> <span class="token string">&quot;./font-awesome/scss/font-awesome.scss&quot;</span><span class="token punctuation">;</span>
+</code></pre></div><p>接着我们跑一下：<code>node_modules/.bin/webpack</code>，dist 下瞬间就会出现一堆文件，表示测试通过。</p> <h2 id="公共模块"><a href="#公共模块" class="header-anchor">#</a> 公共模块</h2> <p><a href="https://webpack.docschina.org/plugins/commons-chunk-plugin/#%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener noreferrer">CommonsChunkPlugin<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>插件，是一个可选的用于建立一个独立文件(又称作 chunk)的功能，这个文件包括多个入口 chunk 的公共模块。</p> <p>先访问缓存中的公共代码，加快浏览器的访问速度。</p> <p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;webpack&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// ...</span>
+<span class="token keyword">new</span> <span class="token class-name">webpack<span class="token punctuation">.</span>optimize<span class="token punctuation">.</span>CommonsChunkPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">'commons'</span><span class="token punctuation">,</span> <span class="token comment">// 公共 chunk 的名称</span>
+  filename<span class="token operator">:</span> <span class="token string">'js/base.js'</span>  <span class="token comment">// 公共 chunk 的文件名</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+</code></pre></div><h2 id="使用-webpack-dev-server"><a href="#使用-webpack-dev-server" class="header-anchor">#</a> 使用 webpack-dev-server</h2> <p><code>webpack-dev-server</code> 为你提供了一个简单的 <code>web server</code>，并且具有 <code>live reloading</code>(实时重新加载) 功能。</p> <p>安装：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> webpack-dev-server@2.9.7 --dev
+</code></pre></div><p>修改配置文件，告诉 <code>dev server</code>，从什么位置查找文件：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>devServer<span class="token operator">:</span> <span class="token punctuation">{</span>
+  contentBase<span class="token operator">:</span> <span class="token string">'./dist'</span><span class="token punctuation">,</span>
+  port<span class="token operator">:</span> <span class="token number">8082</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>接着去 <code>package.json</code>里添加一个可以直接运行 <code>dev server</code> 的 script：</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;start&quot;</span><span class="token operator">:</span> <span class="token string">&quot;webpack-dev-server --open&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;build&quot;</span><span class="token operator">:</span> <span class="token string">&quot;webpack&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre></div><p>这样就不用每次都去访问 <code>node_modules/.bin/webpack</code> 了，直接启动：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 启动 dev server</span>
+<span class="token function">npm</span> start
+<span class="token comment"># 打包构建</span>
+<span class="token function">npm</span> run build
+</code></pre></div><h2 id="清理-dist-文件夹"><a href="#清理-dist-文件夹" class="header-anchor">#</a> 清理 /dist 文件夹</h2> <p>需求：每次 <code>build</code> 的时候，发现 <code>/dist</code> 下的文件一直会堆砌，能不能每次构建的时候，只生成项目中真正在使用的文件？</p> <p>方法：在每次构建前清理 <code>/dist</code> 文件夹，这样只会生成用到的文件。</p> <p>使用 <code>clean-webpack-plugin</code> 插件来进行清理:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> clean-webpack-plugin --dev
+</code></pre></div><p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">const</span> <span class="token punctuation">{</span> CleanWebpackPlugin <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;clean-webpack-plugin&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">new</span> <span class="token class-name">CleanWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="模块热替换-hmr"><a href="#模块热替换-hmr" class="header-anchor">#</a> 模块热替换 HMR</h2> <p>需求：在开发环境下，可不可以每次保存之后，不用刷新浏览器，就自动更新了呢？</p> <p>方法：<a href="https://webpack.docschina.org/guides/hot-module-replacement/" target="_blank" rel="noopener noreferrer">模块热替换<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>(<code>hot module replacement</code> 或 <code>HMR</code>)，只更新改动的文件。</p> <p>设置：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;webpack&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token keyword">new</span> <span class="token class-name">webpack<span class="token punctuation">.</span>HotModuleReplacementPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">,</span>
+devServer<span class="token operator">:</span> <span class="token punctuation">{</span>
+  contentBase<span class="token operator">:</span> <span class="token string">'./dist'</span><span class="token punctuation">,</span>
+  hot<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>  <span class="token comment">// 开启</span>
+  port<span class="token operator">:</span> <span class="token number">8082</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>这样，重启服务，然后修改 <code>index.jsx</code> 文件，就会发现自动更新了，妈妈再也不用担心我的 F5 了...</p> <h2 id="启动-server"><a href="#启动-server" class="header-anchor">#</a> 启动 Server</h2> <p><code>webpack-dev-middleware</code> 是一个封装器(<code>wrapper</code>)，它可以把 <code>webpack</code> 处理过的文件发送到一个 <code>server</code>。</p> <p>安装：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">yarn</span> <span class="token function">add</span> webpack-dev-middleware@2.0.6 --dev
+<span class="token function">yarn</span> <span class="token function">add</span> express --dev
+</code></pre></div><p>根目录新建一个 <code>server.js</code>:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;express&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;webpack&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> webpackDevMiddleware <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;webpack-dev-middleware&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./webpack.config.js&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> compiler <span class="token operator">=</span> <span class="token function">webpack</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 告诉 express 使用 webpack-dev-middleware，</span>
+<span class="token comment">// 以及将 webpack.config.js 配置文件作为基础配置</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>
+  <span class="token function">webpackDevMiddleware</span><span class="token punctuation">(</span>compiler<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    publicPath<span class="token operator">:</span> config<span class="token punctuation">.</span>output<span class="token punctuation">.</span>publicPath
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 使用配置文件的端口号</span>
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>devServer<span class="token punctuation">.</span>port<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Example app listening on port </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>config<span class="token punctuation">.</span>devServer<span class="token punctuation">.</span>port<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">!\n</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>我们将会在 server 脚本使用 publicPath，以确保文件资源能够正确地 serve 在 http://localhost:8082 下：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>output<span class="token operator">:</span> <span class="token punctuation">{</span>
+  path<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;dist&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  filename<span class="token operator">:</span> <span class="token string">&quot;app.js&quot;</span><span class="token punctuation">,</span>
+  publicPath<span class="token operator">:</span> <span class="token string">'/'</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre></div><p>接着，添加一个 <code>npm script</code>：</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token property">&quot;server&quot;</span><span class="token operator">:</span> <span class="token string">&quot;node server.js&quot;</span>
+</code></pre></div><p>跑一下：<code>npm run server</code>，访问 <code>http://localhost:8082/</code>，完美运行。</p> <h2 id="最后的配置文件"><a href="#最后的配置文件" class="header-anchor">#</a> 最后的配置文件</h2> <p>webpack.config.js:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;path&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;webpack&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;html-webpack-plugin&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> ExtractTextWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;extract-text-webpack-plugin&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> CleanWebpackPlugin <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;clean-webpack-plugin&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  entry<span class="token operator">:</span> <span class="token string">&quot;./src/index.jsx&quot;</span><span class="token punctuation">,</span>
+  output<span class="token operator">:</span> <span class="token punctuation">{</span>
+    path<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;dist&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    filename<span class="token operator">:</span> <span class="token string">&quot;app.js&quot;</span><span class="token punctuation">,</span>
+    publicPath<span class="token operator">:</span> <span class="token string">&quot;/&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  devServer<span class="token operator">:</span> <span class="token punctuation">{</span>
+    contentBase<span class="token operator">:</span> <span class="token string">&quot;./dist&quot;</span><span class="token punctuation">,</span>
+    hot<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    port<span class="token operator">:</span> <span class="token number">8082</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token keyword">new</span> <span class="token class-name">CleanWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">new</span> <span class="token class-name">HtmlWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      template<span class="token operator">:</span> <span class="token string">&quot;./src/index.html&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">new</span> <span class="token class-name">ExtractTextWebpackPlugin</span><span class="token punctuation">(</span><span class="token string">&quot;styles.css&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">new</span> <span class="token class-name">webpack<span class="token punctuation">.</span>optimize<span class="token punctuation">.</span>CommonsChunkPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      name<span class="token operator">:</span> <span class="token string">&quot;commons&quot;</span><span class="token punctuation">,</span>
+      filename<span class="token operator">:</span> <span class="token string">&quot;js/base.js&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">new</span> <span class="token class-name">webpack<span class="token punctuation">.</span>HotModuleReplacementPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  module<span class="token operator">:</span> <span class="token punctuation">{</span>
+    rules<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        test<span class="token operator">:</span> <span class="token regex">/\.(js|jsx)$/</span><span class="token punctuation">,</span>
+        exclude<span class="token operator">:</span> <span class="token regex">/(node_modules)/</span><span class="token punctuation">,</span>
+        use<span class="token operator">:</span> <span class="token punctuation">{</span>
+          loader<span class="token operator">:</span> <span class="token string">&quot;babel-loader&quot;</span><span class="token punctuation">,</span>
+          options<span class="token operator">:</span> <span class="token punctuation">{</span>
+            presets<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;env&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;react&quot;</span><span class="token punctuation">]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        test<span class="token operator">:</span> <span class="token regex">/\.(sc|c)ss$/</span><span class="token punctuation">,</span>
+        use<span class="token operator">:</span> ExtractTextWebpackPlugin<span class="token punctuation">.</span><span class="token function">extract</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          fallback<span class="token operator">:</span> <span class="token string">&quot;style-loader&quot;</span><span class="token punctuation">,</span>
+          use<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;css-loader&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;sass-loader&quot;</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        test<span class="token operator">:</span> <span class="token regex">/\.(png|jpg|gif)$/</span><span class="token punctuation">,</span>
+        use<span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span>
+            loader<span class="token operator">:</span> <span class="token string">&quot;url-loader&quot;</span><span class="token punctuation">,</span>
+            options<span class="token operator">:</span> <span class="token punctuation">{</span>
+              limit<span class="token operator">:</span> <span class="token number">8192</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        test<span class="token operator">:</span> <span class="token regex">/\.(woff|woff2|eot|ttf|otf|svg)$/</span><span class="token punctuation">,</span>
+        use<span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span>
+            loader<span class="token operator">:</span> <span class="token string">&quot;url-loader&quot;</span><span class="token punctuation">,</span>
+            options<span class="token operator">:</span> <span class="token punctuation">{</span>
+              limit<span class="token operator">:</span> <span class="token number">8192</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="项目目录结构"><a href="#项目目录结构" class="header-anchor">#</a> 项目目录结构</h2> <p>关于 tree 的使用总结：<a href="https://www.jianshu.com/p/6b57f6e40d64" target="_blank" rel="noopener noreferrer">MacOS 如何使用 tree 生成目录结构<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>常用命令：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 下载</span>
+brew <span class="token function">install</span> tree
+
+<span class="token comment"># 显示某个文件夹下的所有文件</span>
+tree -a
+
+<span class="token comment"># 只显示文件夹</span>
+tree -d
+
+<span class="token comment"># 显示项目的层级，如三级</span>
+tree -L <span class="token number">3</span>
+
+<span class="token comment"># 过滤，如除node_modules文件</span>
+tree -I <span class="token string">&quot;node_modules&quot;</span>
+
+<span class="token comment"># 输出</span>
+tree <span class="token operator">&gt;</span> tree.md
+
+<span class="token comment"># Help</span>
+tree --help
+
+<span class="token comment"># 最后，我的输出：</span>
+tree -I <span class="token string">&quot;node_modules&quot;</span> <span class="token operator">&gt;</span> tree.md
+</code></pre></div><p>tree.md 的内容为：</p> <div class="language-md extra-class"><pre class="language-md"><code>.
+├── README.md
+├── dist
+├── package.json
+├── server.js
+├── src
+│ ├── app.scss
+│ ├── font-awesome
+│ │ ├── fonts
+│ │ │ ├── FontAwesome.otf
+│ │ │ ├── fontawesome-webfont.eot
+│ │ │ ├── fontawesome-webfont.svg
+│ │ │ ├── fontawesome-webfont.ttf
+│ │ │ ├── fontawesome-webfont.woff
+│ │ │ └── fontawesome-webfont.woff2
+│ │ └── scss
+│ │ ├── \_animated.scss
+│ │ ├── \_bordered-pulled.scss
+│ │ ├── \_core.scss
+│ │ ├── \_fixed-width.scss
+│ │ ├── \_icons.scss
+│ │ ├── \_larger.scss
+│ │ ├── \_list.scss
+│ │ ├── \_mixins.scss
+│ │ ├── \_path.scss
+│ │ ├── \_rotated-flipped.scss
+│ │ ├── \_screen-reader.scss
+│ │ ├── \_stacked.scss
+│ │ ├── \_variables.scss
+│ │ └── font-awesome.scss
+│ ├── index.html
+│ ├── index.js
+│ ├── index.jsx
+│ ├── react.png
+│ └── style.css
+├── tree.md
+├── webpack.config.js
+└── yarn.lock
+
+5 directories, 32 files
+</code></pre></div><h2 id="项目启动"><a href="#项目启动" class="header-anchor">#</a> 项目启动</h2> <blockquote><p>项目里的每一次 <code>Commits</code>，基本上对应着相应的文件配置，可以对照着瞅瞅。</p></blockquote> <p>克隆一份项目</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">git</span> clone https://github.com/yangtao2o/happymmall.git
+</code></pre></div><p>进入目录</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">cd</span> happymmall
+</code></pre></div><p>切换分支至 webpack@3-react</p> <div class="language-bash extra-class"><pre class="language-bash"><code>➜  happymmall git:<span class="token punctuation">(</span>master<span class="token punctuation">)</span> <span class="token function">git</span> checkout webpack@3-react
+</code></pre></div><p>下载依赖包</p> <div class="language-bash extra-class"><pre class="language-bash"><code>➜  happymmall git:<span class="token punctuation">(</span>webpack@3-react<span class="token punctuation">)</span> <span class="token function">yarn</span> <span class="token function">install</span>
+</code></pre></div><p>启动</p> <div class="language-bash extra-class"><pre class="language-bash"><code>➜  happymmall git:<span class="token punctuation">(</span>webpack@3-react<span class="token punctuation">)</span> <span class="token function">npm</span> start
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">5/22/2020, 5:01:49 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/vuepress/advanced/react/demo.html" class="prev">
+        入门学习 React 一些实例
+      </a></span> <span class="next"><a href="/vuepress/advanced/react/article.html">
+        学习 React 的一些记录日志
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/vuepress/assets/js/app.02736889.js" defer></script><script src="/vuepress/assets/js/2.8fb47256.js" defer></script><script src="/vuepress/assets/js/15.04afca91.js" defer></script>
+  </body>
+</html>

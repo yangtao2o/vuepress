@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sass 使用总结 | 大涛子客栈</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="icon" href="/vuepress/favicon.ico">
+    <meta name="description" content="前端开发、摄影、羽毛球、电影">
+    <link rel="preload" href="/vuepress/assets/css/0.styles.ac741d4c.css" as="style"><link rel="preload" href="/vuepress/assets/js/app.02736889.js" as="script"><link rel="preload" href="/vuepress/assets/js/2.8fb47256.js" as="script"><link rel="preload" href="/vuepress/assets/js/30.2427b69a.js" as="script"><link rel="prefetch" href="/vuepress/assets/js/10.4ba867b0.js"><link rel="prefetch" href="/vuepress/assets/js/100.7bb1cd64.js"><link rel="prefetch" href="/vuepress/assets/js/101.c3e89ad0.js"><link rel="prefetch" href="/vuepress/assets/js/102.738014ea.js"><link rel="prefetch" href="/vuepress/assets/js/103.7703bf92.js"><link rel="prefetch" href="/vuepress/assets/js/104.3f2c60a9.js"><link rel="prefetch" href="/vuepress/assets/js/105.6f6d34db.js"><link rel="prefetch" href="/vuepress/assets/js/106.ac8dd52c.js"><link rel="prefetch" href="/vuepress/assets/js/107.48b61013.js"><link rel="prefetch" href="/vuepress/assets/js/108.962f7c8c.js"><link rel="prefetch" href="/vuepress/assets/js/109.2b0153c9.js"><link rel="prefetch" href="/vuepress/assets/js/11.a4e8f933.js"><link rel="prefetch" href="/vuepress/assets/js/110.f07e2cd7.js"><link rel="prefetch" href="/vuepress/assets/js/111.e5c08a87.js"><link rel="prefetch" href="/vuepress/assets/js/112.cdd87776.js"><link rel="prefetch" href="/vuepress/assets/js/113.a4e6bbd3.js"><link rel="prefetch" href="/vuepress/assets/js/114.0f0d1823.js"><link rel="prefetch" href="/vuepress/assets/js/115.1b9a0870.js"><link rel="prefetch" href="/vuepress/assets/js/116.ceadf6b6.js"><link rel="prefetch" href="/vuepress/assets/js/12.9dc04937.js"><link rel="prefetch" href="/vuepress/assets/js/13.5700f0d4.js"><link rel="prefetch" href="/vuepress/assets/js/14.5fb352cc.js"><link rel="prefetch" href="/vuepress/assets/js/15.04afca91.js"><link rel="prefetch" href="/vuepress/assets/js/16.e54c509a.js"><link rel="prefetch" href="/vuepress/assets/js/17.21485160.js"><link rel="prefetch" href="/vuepress/assets/js/18.2ca782a5.js"><link rel="prefetch" href="/vuepress/assets/js/19.c30f6dc0.js"><link rel="prefetch" href="/vuepress/assets/js/20.0539a734.js"><link rel="prefetch" href="/vuepress/assets/js/21.393ae4af.js"><link rel="prefetch" href="/vuepress/assets/js/22.28fd5c54.js"><link rel="prefetch" href="/vuepress/assets/js/23.f146e5ad.js"><link rel="prefetch" href="/vuepress/assets/js/24.e1de1905.js"><link rel="prefetch" href="/vuepress/assets/js/25.5a9abc2b.js"><link rel="prefetch" href="/vuepress/assets/js/26.b564d08f.js"><link rel="prefetch" href="/vuepress/assets/js/27.150d7865.js"><link rel="prefetch" href="/vuepress/assets/js/28.49378f8b.js"><link rel="prefetch" href="/vuepress/assets/js/29.d079fbb8.js"><link rel="prefetch" href="/vuepress/assets/js/3.ae1a94c1.js"><link rel="prefetch" href="/vuepress/assets/js/31.51dcda12.js"><link rel="prefetch" href="/vuepress/assets/js/32.da11df9f.js"><link rel="prefetch" href="/vuepress/assets/js/33.dbb80adc.js"><link rel="prefetch" href="/vuepress/assets/js/34.500b833b.js"><link rel="prefetch" href="/vuepress/assets/js/35.71ce48eb.js"><link rel="prefetch" href="/vuepress/assets/js/36.e606fc6c.js"><link rel="prefetch" href="/vuepress/assets/js/37.adc90e57.js"><link rel="prefetch" href="/vuepress/assets/js/38.9c518951.js"><link rel="prefetch" href="/vuepress/assets/js/39.31ee1ea9.js"><link rel="prefetch" href="/vuepress/assets/js/4.2469769d.js"><link rel="prefetch" href="/vuepress/assets/js/40.7c86483b.js"><link rel="prefetch" href="/vuepress/assets/js/41.8f908d34.js"><link rel="prefetch" href="/vuepress/assets/js/42.899c976e.js"><link rel="prefetch" href="/vuepress/assets/js/43.868755e9.js"><link rel="prefetch" href="/vuepress/assets/js/44.0574d534.js"><link rel="prefetch" href="/vuepress/assets/js/45.516da418.js"><link rel="prefetch" href="/vuepress/assets/js/46.59cfd76c.js"><link rel="prefetch" href="/vuepress/assets/js/47.46768572.js"><link rel="prefetch" href="/vuepress/assets/js/48.b12a2b46.js"><link rel="prefetch" href="/vuepress/assets/js/49.055d2483.js"><link rel="prefetch" href="/vuepress/assets/js/5.a65c7af8.js"><link rel="prefetch" href="/vuepress/assets/js/50.38461707.js"><link rel="prefetch" href="/vuepress/assets/js/51.ad1e4683.js"><link rel="prefetch" href="/vuepress/assets/js/52.921f9db9.js"><link rel="prefetch" href="/vuepress/assets/js/53.9ee64307.js"><link rel="prefetch" href="/vuepress/assets/js/54.a6df28f8.js"><link rel="prefetch" href="/vuepress/assets/js/55.90d2bee7.js"><link rel="prefetch" href="/vuepress/assets/js/56.d54afd09.js"><link rel="prefetch" href="/vuepress/assets/js/57.46d0767c.js"><link rel="prefetch" href="/vuepress/assets/js/58.b24a2623.js"><link rel="prefetch" href="/vuepress/assets/js/59.e4d15643.js"><link rel="prefetch" href="/vuepress/assets/js/6.3d928c22.js"><link rel="prefetch" href="/vuepress/assets/js/60.70be1eac.js"><link rel="prefetch" href="/vuepress/assets/js/61.e330f998.js"><link rel="prefetch" href="/vuepress/assets/js/62.15485d93.js"><link rel="prefetch" href="/vuepress/assets/js/63.828e65f0.js"><link rel="prefetch" href="/vuepress/assets/js/64.11394c06.js"><link rel="prefetch" href="/vuepress/assets/js/65.fe55e094.js"><link rel="prefetch" href="/vuepress/assets/js/66.c7048dcc.js"><link rel="prefetch" href="/vuepress/assets/js/67.e687408f.js"><link rel="prefetch" href="/vuepress/assets/js/68.0a0f86fc.js"><link rel="prefetch" href="/vuepress/assets/js/69.02476e29.js"><link rel="prefetch" href="/vuepress/assets/js/7.a82536d3.js"><link rel="prefetch" href="/vuepress/assets/js/70.dab8102c.js"><link rel="prefetch" href="/vuepress/assets/js/71.6f3be243.js"><link rel="prefetch" href="/vuepress/assets/js/72.3eb5cbf0.js"><link rel="prefetch" href="/vuepress/assets/js/73.303e02df.js"><link rel="prefetch" href="/vuepress/assets/js/74.1bee22d8.js"><link rel="prefetch" href="/vuepress/assets/js/75.2705c52d.js"><link rel="prefetch" href="/vuepress/assets/js/76.d3901653.js"><link rel="prefetch" href="/vuepress/assets/js/77.60474eaa.js"><link rel="prefetch" href="/vuepress/assets/js/78.ce3f95fd.js"><link rel="prefetch" href="/vuepress/assets/js/79.6109fa37.js"><link rel="prefetch" href="/vuepress/assets/js/8.8c61602c.js"><link rel="prefetch" href="/vuepress/assets/js/80.792681a3.js"><link rel="prefetch" href="/vuepress/assets/js/81.9141f812.js"><link rel="prefetch" href="/vuepress/assets/js/82.b0bf84bc.js"><link rel="prefetch" href="/vuepress/assets/js/83.4a1b580a.js"><link rel="prefetch" href="/vuepress/assets/js/84.468528aa.js"><link rel="prefetch" href="/vuepress/assets/js/85.21f1c814.js"><link rel="prefetch" href="/vuepress/assets/js/86.5278eeb0.js"><link rel="prefetch" href="/vuepress/assets/js/87.320ac752.js"><link rel="prefetch" href="/vuepress/assets/js/88.01986bed.js"><link rel="prefetch" href="/vuepress/assets/js/89.60c3208b.js"><link rel="prefetch" href="/vuepress/assets/js/9.6dd35875.js"><link rel="prefetch" href="/vuepress/assets/js/90.f57f1578.js"><link rel="prefetch" href="/vuepress/assets/js/91.40599bce.js"><link rel="prefetch" href="/vuepress/assets/js/92.759c9f33.js"><link rel="prefetch" href="/vuepress/assets/js/93.0bd2f25b.js"><link rel="prefetch" href="/vuepress/assets/js/94.171375e2.js"><link rel="prefetch" href="/vuepress/assets/js/95.a32986c9.js"><link rel="prefetch" href="/vuepress/assets/js/96.ed91a0b9.js"><link rel="prefetch" href="/vuepress/assets/js/97.b3eaac8c.js"><link rel="prefetch" href="/vuepress/assets/js/98.86be2f21.js"><link rel="prefetch" href="/vuepress/assets/js/99.f76172ed.js">
+    <link rel="stylesheet" href="/vuepress/assets/css/0.styles.ac741d4c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vuepress/" class="home-link router-link-active"><img src="/vuepress/favicon.ico" alt="大涛子客栈" class="logo"> <span class="site-name can-hide">大涛子客栈</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://www.yangtao.site" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/vuepress/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/vuepress/basic/" class="nav-link router-link-active">
+  基础
+</a></div><div class="nav-item"><a href="/vuepress/advanced/" class="nav-link">
+  进阶
+</a></div><div class="nav-item"><a href="/vuepress/tool/" class="nav-link">
+  工具
+</a></div><div class="nav-item"><a href="/vuepress/protocol/" class="nav-link">
+  网络协议
+</a></div><div class="nav-item"><a href="/vuepress/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="秘籍" class="dropdown-title"><span class="title">秘籍</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          大牛博客
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://ustbhuangyi.github.io/vue-analysis/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Vue技术揭秘
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.conardli.top/blog/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  ConardLi的blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.conardli.top/docs/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  awesome-coding-js
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://muyiy.vip/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  木易杨前端进阶
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  冴羽的博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://www.chenng.cn/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Chenng 的主页 - Tencent
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://47.98.159.95/my_blog/nav/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  神三元的博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          面试宝典
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.cxymsg.com/guide/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  前端面试与进阶指南
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://yangtao2o.github.io/learn/#/docs/Interview" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  前端硬核面试专题
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://biaochenxuying.github.io/blog/guide/#%E7%AE%80%E4%BB%8B" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  全栈修炼
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          大佬人物
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.liaoxuefeng.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  廖雪峰
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  阮一峰
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.zhangxinxu.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  张鑫旭
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          造车工具
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="http://collect.w3ctrain.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  收藏夹
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://tool.lu/c/developer/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  在线工具
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          前端工程
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://juejin.im/post/5c591fda6fb9a049dc02b1cc" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  网络基础
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://juejin.im/post/5d5b307b5188253da24d3cd1" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  数据结构和算法
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="MySite" class="dropdown-title"><span class="title">MySite</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://www.yangtao.site" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.nowcoder.net/istaotao" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  牛客网博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/58b67dd58fd9c50061238e38/collections" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金收藏
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/58b67dd58fd9c50061238e38/shares/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金分享
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://www.imooc.com/u/3120512/articles" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  慕课网手记
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://codepen.io/istaotao/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CodePen
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.csdn.net/qq_42840269" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CSDN
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://segmentfault.com/u/taoboy/notes" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  SegmentFault
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <a href="https://github.com/yangtao2o/vuepress" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://www.yangtao.site" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/vuepress/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/vuepress/basic/" class="nav-link router-link-active">
+  基础
+</a></div><div class="nav-item"><a href="/vuepress/advanced/" class="nav-link">
+  进阶
+</a></div><div class="nav-item"><a href="/vuepress/tool/" class="nav-link">
+  工具
+</a></div><div class="nav-item"><a href="/vuepress/protocol/" class="nav-link">
+  网络协议
+</a></div><div class="nav-item"><a href="/vuepress/other/" class="nav-link">
+  其他
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="秘籍" class="dropdown-title"><span class="title">秘籍</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          大牛博客
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://ustbhuangyi.github.io/vue-analysis/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Vue技术揭秘
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.conardli.top/blog/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  ConardLi的blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.conardli.top/docs/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  awesome-coding-js
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://muyiy.vip/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  木易杨前端进阶
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  冴羽的博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://www.chenng.cn/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Chenng 的主页 - Tencent
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://47.98.159.95/my_blog/nav/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  神三元的博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          面试宝典
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.cxymsg.com/guide/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  前端面试与进阶指南
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://yangtao2o.github.io/learn/#/docs/Interview" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  前端硬核面试专题
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://biaochenxuying.github.io/blog/guide/#%E7%AE%80%E4%BB%8B" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  全栈修炼
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          大佬人物
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://www.liaoxuefeng.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  廖雪峰
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  阮一峰
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="http://www.zhangxinxu.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  张鑫旭
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          造车工具
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="http://collect.w3ctrain.com/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  收藏夹
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://tool.lu/c/developer/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  在线工具
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li><li class="dropdown-item"><h4>
+          前端工程
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="https://juejin.im/post/5c591fda6fb9a049dc02b1cc" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  网络基础
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-subitem"><a href="https://juejin.im/post/5d5b307b5188253da24d3cd1" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  数据结构和算法
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="MySite" class="dropdown-title"><span class="title">MySite</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://www.yangtao.site" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.nowcoder.net/istaotao" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  牛客网博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/58b67dd58fd9c50061238e38/collections" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金收藏
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://juejin.im/user/58b67dd58fd9c50061238e38/shares/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  掘金分享
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://www.imooc.com/u/3120512/articles" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  慕课网手记
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://codepen.io/istaotao/" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CodePen
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://blog.csdn.net/qq_42840269" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CSDN
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="https://segmentfault.com/u/taoboy/notes" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  SegmentFault
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <a href="https://github.com/yangtao2o/vuepress" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>HTML CSS</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vuepress/basic/" aria-current="page" class="sidebar-link">Html 基础理论</a></li><li><a href="/vuepress/basic/html/css.html" class="sidebar-link">CSS 基础理论</a></li><li><a href="/vuepress/basic/html/css-fragment.html" class="sidebar-link">CSS 理论碎片</a></li><li><a href="/vuepress/basic/html/css-code.html" class="sidebar-link">常用 CSS 使用总结</a></li><li><a href="/vuepress/basic/html/css3.html" class="sidebar-link">CSS3 新特性总结</a></li><li><a href="/vuepress/basic/html/css-rem.html" class="sidebar-link">CSS 单位 rem 和 em</a></li><li><a href="/vuepress/basic/html/sass.html" aria-current="page" class="active sidebar-link">Sass 使用总结</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#安装" class="sidebar-link">安装</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#四种编译排版" class="sidebar-link">四种编译排版</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#静默注释" class="sidebar-link">静默注释</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#使用变量" class="sidebar-link">使用变量</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#嵌套-css-规则" class="sidebar-link">嵌套 CSS 规则</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#rules" class="sidebar-link">@-Rules</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#控制指令" class="sidebar-link">控制指令</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#混合器" class="sidebar-link">混合器</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#函数指令" class="sidebar-link">函数指令</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#sassscript" class="sidebar-link">SassScript</a></li><li class="sidebar-sub-header"><a href="/vuepress/basic/html/sass.html#bootstrap-4" class="sidebar-link">Bootstrap@4</a></li></ul></li><li><a href="/vuepress/basic/html/article.html" class="sidebar-link">CSS 学习资源</a></li><li><a href="/vuepress/basic/html/html-edm.html" class="sidebar-link">从零制作 edm 邮件的规则</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>JS 冴羽系列</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>JS 手写系列</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>JS 经典实例</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>学习总结</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>数据结构与算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>插件等资源</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="sass-使用总结"><a href="#sass-使用总结" class="header-anchor">#</a> Sass 使用总结</h1> <blockquote><p>世界上最成熟、最稳定、最强大的专业级 CSS 扩展语言！ - Sass 官网</p></blockquote> <p>主要内容：</p> <ul><li>Sass 使用总结</li> <li>Bootstrap@4 关于 float 组件的实现</li></ul> <h2 id="安装"><a href="#安装" class="header-anchor">#</a> 安装</h2> <p>我本地结合 gulp+sass 自动化工具使用，主要如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">npm</span> <span class="token function">install</span> node-sass gulp-sass --save-dev
+</code></pre></div><p><code>gulpfile.js</code> 文件主要配置如下，详情可以参考<a href="https://github.com/yangtao2o/gulp-project/tree/master/src/mygulp" target="_blank" rel="noopener noreferrer">这里<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> <span class="token punctuation">{</span> src<span class="token punctuation">,</span> dest<span class="token punctuation">,</span> watch <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;gulp&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> sass <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;gulp-sass&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+sass<span class="token punctuation">.</span>compiler <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;node-sass&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">scss</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token function">src</span><span class="token punctuation">(</span>scssGlobSrc<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">sass</span><span class="token punctuation">(</span><span class="token punctuation">{</span> outputStyle<span class="token operator">:</span> <span class="token string">&quot;expanded&quot;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&quot;error&quot;</span><span class="token punctuation">,</span> sass<span class="token punctuation">.</span>logError<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">dest</span><span class="token punctuation">(</span><span class="token string">&quot;dist/sass&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+exports<span class="token punctuation">.</span>scss <span class="token operator">=</span> scss<span class="token punctuation">;</span>
+</code></pre></div><p>启动：<code>gulp scss</code>。</p> <ul><li><a href="https://www.sass.hk/install/" target="_blank" rel="noopener noreferrer">如何安装 Sass<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <h2 id="四种编译排版"><a href="#四种编译排版" class="header-anchor">#</a> 四种编译排版</h2> <div class="language-css extra-class"><pre class="language-css"><code><span class="token comment">/*未编译样式*/</span>
+<span class="token selector">.box</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 400px<span class="token selector">;
+  &amp;-title</span> <span class="token punctuation">{</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+    <span class="token property">line-height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>nested 编译排版格式</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token comment">/*命令行内容*/</span>
+sass style.<span class="token property">scss</span><span class="token punctuation">:</span>style.css --style nested
+
+<span class="token comment">/*编译过后样式*/</span>
+<span class="token selector">.box</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 400px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.box-title</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>expanded 编译排版格式</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token comment">/*命令行内容*/</span>
+sass style.<span class="token property">scss</span><span class="token punctuation">:</span>style.css --style expanded
+
+<span class="token comment">/*编译过后样式*/</span>
+<span class="token selector">.box</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 400px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.box-title</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>compact 编译排版格式</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token comment">/*命令行内容*/</span>
+sass style.<span class="token property">scss</span><span class="token punctuation">:</span>style.css --style compact
+
+<span class="token comment">/*编译过后样式*/</span>
+<span class="token selector">.box</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 400px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.box-title</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>compressed 编译排版格式</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token comment">/*命令行内容*/</span>
+sass style.<span class="token property">scss</span><span class="token punctuation">:</span>style.css --style compressed
+
+<span class="token comment">/*编译过后样式*/</span>
+<span class="token selector">.box</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 400px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.box-title</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="静默注释"><a href="#静默注释" class="header-anchor">#</a> 静默注释</h2> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">body </span><span class="token punctuation">{</span>
+  <span class="token comment">// 这种注释内容不会出现在生成的css文件中</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #333<span class="token punctuation">;</span>
+  <span class="token comment">/* 这种注释内容会出现在生成的css文件中 */</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">body</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #333<span class="token punctuation">;</span>
+  <span class="token comment">/* 这种注释内容会出现在生成的css文件中 */</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="使用变量"><a href="#使用变量" class="header-anchor">#</a> 使用变量</h2> <p>非常简单明了，变量申明：<code>$color: #4a4a4a;</code>，变量引用：<code>color: $color;</code>，具体例子演示如下：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$bg-color</span></span><span class="token punctuation">:</span> #f90<span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$font-color</span></span><span class="token punctuation">:</span> #444<span class="token punctuation">;</span>
+<span class="token selector">body </span><span class="token punctuation">{</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token variable">$bg-color</span><span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token variable">$font-color</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.selected </span><span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid <span class="token variable">$font-color</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">body</span> <span class="token punctuation">{</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> #f90<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #444<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.selected</span> <span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid #444<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="嵌套-css-规则"><a href="#嵌套-css-规则" class="header-anchor">#</a> 嵌套 CSS 规则</h2> <p>文档：在 Sass 中，你可以像俄罗斯套娃那样在规则块中嵌套规则块。sass 在输出 css 时会帮你把这些嵌套规则处理好，避免你的重复书写。</p> <p>看个例子，基本就知道什么意思：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">ul </span><span class="token punctuation">{</span>
+  <span class="token selector">li </span><span class="token punctuation">{</span>
+    <span class="token selector">a </span><span class="token punctuation">{</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> <span class="token variable">$font-color</span><span class="token punctuation">;</span>
+      <span class="token selector"><span class="token parent important">&amp;</span>:hover </span><span class="token punctuation">{</span>
+        <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token selector"><span class="token parent important">&amp;</span>::after </span><span class="token punctuation">{</span>
+        <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">&quot;...&quot;</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">ul li a</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #444<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">ul li a:hover</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">ul li a::after</span> <span class="token punctuation">{</span>
+  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">&quot;...&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>够简洁，不过有一些嵌套规则，需要稍稍留意，比如：</p> <ul><li>父选择器的标识符<code>&amp;</code></li> <li>群组选择器的嵌套</li> <li>子组合选择器和同层组合选择器：<code>&gt;、+ 和 ~</code></li> <li>属性嵌套</li></ul> <h3 id="父选择器的标识符"><a href="#父选择器的标识符" class="header-anchor">#</a> 父选择器的标识符</h3> <p>父选择器的标识符<code>&amp;</code>，记住<code>&amp;</code>是爸爸，你可以在爸爸的后边，也可以在爸爸的前边，随你，哈哈哈哈：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">nav a </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token variable">$font-color</span><span class="token punctuation">;</span>
+  <span class="token comment">/* Dad after */</span>
+  <span class="token selector"><span class="token parent important">&amp;</span>:hover </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">/* Dad before */</span>
+  <span class="token selector">.header <span class="token parent important">&amp;</span> </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">nav a</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #444<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/* Dad after */</span>
+<span class="token selector">nav a:hover</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/* Dad before */</span>
+<span class="token selector">.header nav a</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Dad 是爸爸们：<code>nav a</code>，什么场景能用到<code>Dad before</code>？想想<code>nav a</code>是通用样式，我想给 header 组件单独<code>nav a</code>的样式，即<code>.header nav a</code>，即<code>.header &amp;</code>。</p> <p>当然，还可以这样用：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">.main </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
+  <span class="token selector"><span class="token parent important">&amp;</span>-sidebar </span><span class="token punctuation">{</span>
+    <span class="token property">border</span><span class="token punctuation">:</span> 1px solid<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// css</span>
+<span class="token selector">.main </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.main-sidebar </span><span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="群组选择器的嵌套"><a href="#群组选择器的嵌套" class="header-anchor">#</a> 群组选择器的嵌套</h3> <p>文档例子：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">.container </span><span class="token punctuation">{</span>
+  <span class="token selector">h1,
+  h2,
+  h3 </span><span class="token punctuation">{</span>
+    <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 0.8em<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token selector">nav,
+aside </span><span class="token punctuation">{</span>
+  <span class="token selector">a </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.container h1,
+.container h2,
+.container h3</span> <span class="token punctuation">{</span>
+  <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 0.8em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">nav a,
+aside a</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>名字就已经告诉咱们这个规则的要点是：群组。大括号<code>{</code>前端的都可以是一个群组，比如<code>.container</code>，比如<code>nav, aside</code>，不论多少。</p> <p>做为群组的任何一员，有权利获取子嗣，而且还得跟其他群组成员一模一样，若 Ta 有 三个（<code>h1, h2, h3</code>）子嗣，那群组的任何一员也得各自有三个子嗣；Ta 如果只有一个（<code>a</code>）子嗣，即使群组人很多，也得每个成员一人一个。</p> <p>演练：有三个组件<code>header article footer</code>，我希望字体颜色有默认值，链接例外，并且有 hover 变化。</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">.header,
+.acticle,
+.footer </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token variable">$font-color</span><span class="token punctuation">;</span>
+  <span class="token selector">a </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> #999<span class="token punctuation">;</span>
+    <span class="token selector"><span class="token parent important">&amp;</span>:hover </span><span class="token punctuation">{</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.header,
+.acticle,
+.footer</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #444<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.header a,
+.acticle a,
+.footer a</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #999<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.header a:hover,
+.acticle a:hover,
+.footer a:hover</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="子组合和同层组合"><a href="#子组合和同层组合" class="header-anchor">#</a> 子组合和同层组合</h3> <p>子组合选择器 <code>&gt;</code> 和同层组合选择器 <code>+、~</code>，和 CSS 的规则一致。</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token comment">/* 选择article 后的同层所有 article 元素 */</span>
+<span class="token selector">article ~ article</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> 1px dashed #ccc<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/* 选择nav元素后紧跟的article元素 */</span>
+<span class="token selector">nav + article</span> <span class="token punctuation">{</span>
+  <span class="token property">margin-top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/* 选择article下的所有命中section选择器的元素 */</span>
+<span class="token selector">article &gt; section</span> <span class="token punctuation">{</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> #eee<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>文档例子：</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">article</span> <span class="token punctuation">{</span>
+  <span class="token selector">~ article</span> <span class="token punctuation">{</span>
+    <span class="token property">border-top</span><span class="token punctuation">:</span> 1px dashed #ccc<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">&gt; section</span> <span class="token punctuation">{</span>
+    <span class="token property">background</span><span class="token punctuation">:</span> #eee<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">dl &gt;</span> <span class="token punctuation">{</span>
+    <span class="token selector">dt</span> <span class="token punctuation">{</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> #333<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector">dd</span> <span class="token punctuation">{</span>
+      <span class="token property">color</span><span class="token punctuation">:</span> #555<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">nav + &amp;</span> <span class="token punctuation">{</span>
+    <span class="token property">margin-top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">article ~ article</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> 1px dashed #ccc<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">article &gt; section</span> <span class="token punctuation">{</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> #eee<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">article dl &gt; dt</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #333<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">article dl &gt; dd</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #555<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">nav + article</span> <span class="token punctuation">{</span>
+  <span class="token property">margin-top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="嵌套属性"><a href="#嵌套属性" class="header-anchor">#</a> 嵌套属性</h3> <blockquote><p>规则：把属性名从中划线-的地方断开，在根属性后边添加一个冒号<code>:</code>，紧跟一个<code>{ }</code>块，把子属性部分写在这个<code>{ }</code>块中。就像 css 选择器嵌套一样，sass 会把你的子属性一一解开，把根属性和子属性部分通过中划线<code>-</code>连接起来，最后生成的效果与你手动一遍遍写的 css 样式一样：</p></blockquote> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">nav </span><span class="token punctuation">{</span>
+  <span class="token selector">border: </span><span class="token punctuation">{</span>
+    <span class="token property">style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> #ccc<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token selector">nav </span><span class="token punctuation">{</span>
+  <span class="token selector">border: 1px solid #ccc </span><span class="token punctuation">{</span>
+    <span class="token property">left</span><span class="token punctuation">:</span> 0px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// css</span>
+<span class="token selector">nav </span><span class="token punctuation">{</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> #ccc<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">nav </span><span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid #ccc<span class="token punctuation">;</span>
+  <span class="token property">border-left</span><span class="token punctuation">:</span> 0px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>一句话：我要把<code>border-style</code>里的<code>-</code>打断，拆散左右，并替换成<code>:</code>，重新使用<code>{}</code>嵌套使用，宗旨就是不破不立，有破才有立，把所有重复的东西统统归并，只写关键部位。</p> <h2 id="rules"><a href="#rules" class="header-anchor">#</a> @-Rules</h2> <h3 id="import-导入"><a href="#import-导入" class="header-anchor">#</a> @import 导入</h3> <p>在单独使用 css 的 <code>@import</code> 规则导入文件，是不及 <code>link</code> 的效率，比如加载字体库，有次在项目中就吃过这个亏，那会发誓打死我也不用这个规则。</p> <p>sass 的<code>@import</code> 规则是在生成 css 文件时就把相关文件导入进来，所以，和 css 的<code>@import</code>没有什么关系，放心食用。</p> <p>但是由于 sass 兼容原生的 css，所以它也支持原生的 CSS<code>@import</code>，比如导入文件或者 url 是以 <code>.css</code>结尾的。</p> <p>使用：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token comment">// 常用方法</span>
+<span class="token keyword">@import</span> <span class="token string">&quot;header&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">@import</span> <span class="token string">&quot;footer&quot;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 多个导入</span>
+<span class="token keyword">@import</span> <span class="token string">&quot;rounded-corners&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;text-shadow&quot;</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 嵌套导入</span>
+<span class="token selector">.blue-theme </span><span class="token punctuation">{</span>
+  <span class="token keyword">@import</span> <span class="token string">&quot;blue-theme&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>如果将文件命名为 <code>_colors.scss</code>，便不会编译<code>_colours.css</code> 文件，但是导入时依然是<code>@import &quot;colors&quot;;</code>。</p> <h3 id="media-媒体查询"><a href="#media-媒体查询" class="header-anchor">#</a> @media 媒体查询</h3> <p>Sass 中 @media 指令与 CSS 中用法一样，不过还允许其在 CSS 规则中嵌套，编译时，@media 将被编译到文件的最外层，包含嵌套的父选择器。</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">.sidebar </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+  <span class="token atrule"><span class="token rule">@media</span> screen <span class="token operator">and</span> <span class="token punctuation">(</span><span class="token property">orientation</span><span class="token punctuation">:</span> landscape<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 500px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/* 拼接 and */</span>
+<span class="token atrule"><span class="token rule">@media</span> screen</span> <span class="token punctuation">{</span>
+  <span class="token selector">.sidebar </span><span class="token punctuation">{</span>
+    <span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 1140px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+      <span class="token property">width</span><span class="token punctuation">:</span> 960px<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.other </span><span class="token punctuation">{</span>
+    <span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 640px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+      <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.sidebar</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule"><span class="token rule">@media</span> screen and <span class="token punctuation">(</span><span class="token property">orientation</span><span class="token punctuation">:</span> landscape<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.sidebar</span> <span class="token punctuation">{</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 500px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/* 拼接 and */</span>
+<span class="token atrule"><span class="token rule">@media</span> screen and <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 1140px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.sidebar</span> <span class="token punctuation">{</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 960px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule"><span class="token rule">@media</span> screen and <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> 640px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.other</span> <span class="token punctuation">{</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="extend"><a href="#extend" class="header-anchor">#</a> @extend</h3> <p>和其他语言一样，就是继承。比如代码中的<code>.error</code>，以及同级<code>.intrusion</code>，都会被继承：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token selector">.error </span><span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px #f00<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #fdd<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.error.intrusion </span><span class="token punctuation">{</span>
+  <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url">url</span><span class="token punctuation">(</span><span class="token string">&quot;/image/hacked.png&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.seriousError </span><span class="token punctuation">{</span>
+  <span class="token keyword">@extend</span> .error<span class="token punctuation">;</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 3px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.error,
+.seriousError</span> <span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px #f00<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #fdd<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.error.intrusion,
+.intrusion.seriousError</span> <span class="token punctuation">{</span>
+  <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>&quot;/image/hacked.png&quot;<span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.seriousError</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 3px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="控制指令"><a href="#控制指令" class="header-anchor">#</a> 控制指令</h2> <h3 id="if"><a href="#if" class="header-anchor">#</a> @if</h3> <p>和 JavaScript 的 if 一样：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$type</span></span><span class="token punctuation">:</span> monster<span class="token punctuation">;</span>
+<span class="token selector">p </span><span class="token punctuation">{</span>
+  <span class="token keyword">@if</span> <span class="token selector"><span class="token variable">$type</span> == ocean </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">@else if</span> <span class="token selector"><span class="token variable">$type</span> == monster </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">@else</span> <span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">p</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="for"><a href="#for" class="header-anchor">#</a> @for</h3> <p>区别在于 through 与 to 的含义：through 包含最后一位，而 to 不包含：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token keyword">@for</span> <span class="token variable">$i</span> <span class="token keyword">from</span> <span class="token selector">1 to 3 </span><span class="token punctuation">{</span>
+  <span class="token selector">.list-<span class="token variable">#{$i}</span> </span><span class="token punctuation">{</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 1em <span class="token operator">*</span> <span class="token variable">$i</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">@for</span> <span class="token variable">$i</span> <span class="token keyword">from</span> 1 <span class="token keyword">through</span> <span class="token selector">3 </span><span class="token punctuation">{</span>
+  <span class="token selector">.item-<span class="token variable">#{$i}</span> </span><span class="token punctuation">{</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 2rem <span class="token operator">*</span> <span class="token variable">$i</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.list-1</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 1em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.list-2</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 2em<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.item-1</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.item-2</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 4rem<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.item-3</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 6rem<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="each"><a href="#each" class="header-anchor">#</a> @each</h3> <p>类似于 JavaScript 的 <code>for...in</code>：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token keyword">@each</span> <span class="token selector"><span class="token variable">$kind</span> in small, middle, large </span><span class="token punctuation">{</span>
+  <span class="token selector">.<span class="token variable">#{$kind}</span>-icon </span><span class="token punctuation">{</span>
+    <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url">url</span><span class="token punctuation">(</span><span class="token string">&quot;/images/#{$kind}-icon.png&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.small-icon</span> <span class="token punctuation">{</span>
+  <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>&quot;/images/small-icon.png&quot;<span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.middle-icon</span> <span class="token punctuation">{</span>
+  <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>&quot;/images/middle-icon.png&quot;<span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.large-icon</span> <span class="token punctuation">{</span>
+  <span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>&quot;/images/large-icon.png&quot;<span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="混合器"><a href="#混合器" class="header-anchor">#</a> 混合器</h2> <p>混合器使用<code>@mixin</code>标识符定义，通过<code>@include</code>来使用这个混合器，用来解决大段重用的代码。</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token keyword">@mixin</span> <span class="token selector">clearfix </span><span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> inline-block<span class="token punctuation">;</span>
+  <span class="token selector"><span class="token parent important">&amp;</span>:after </span><span class="token punctuation">{</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">&quot;.&quot;</span><span class="token punctuation">;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token property">clear</span><span class="token punctuation">:</span> both<span class="token punctuation">;</span>
+    <span class="token property">visibility</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">* html <span class="token parent important">&amp;</span> </span><span class="token punctuation">{</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.clearfix </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> clearfix<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.clearfix</span> <span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> inline-block<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.clearfix:after</span> <span class="token punctuation">{</span>
+  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">&quot;.&quot;</span><span class="token punctuation">;</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">clear</span><span class="token punctuation">:</span> both<span class="token punctuation">;</span>
+  <span class="token property">visibility</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">* html .clearfix</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>最强大的一点就是如同函数一般，可以传参，不仅可以指定默认值，并且可以使用关键词参数，这样就不用管参数前后顺序了：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token keyword">@mixin</span> <span class="token function">border-value</span><span class="token punctuation">(</span><span class="token property"><span class="token variable">$width</span></span><span class="token punctuation">:</span> 1px<span class="token punctuation">,</span> <span class="token property"><span class="token variable">$color</span></span><span class="token punctuation">:</span> #333<span class="token punctuation">,</span> <span class="token property"><span class="token variable">$style</span></span><span class="token punctuation">:</span> solid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> <span class="token variable">$width</span><span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> <span class="token variable">$color</span><span class="token punctuation">;</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> <span class="token variable">$style</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*不传参*/</span>
+<span class="token selector">h1 </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> border-value<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*传参*/</span>
+<span class="token selector">h2 </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> <span class="token function">border-value</span><span class="token punctuation">(</span>2px<span class="token punctuation">,</span> #666<span class="token punctuation">,</span> dashed<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*关键词传参*/</span>
+<span class="token selector">h3 </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> <span class="token function">border-value</span><span class="token punctuation">(</span><span class="token property"><span class="token variable">$style</span></span><span class="token punctuation">:</span> dashed<span class="token punctuation">,</span> <span class="token property"><span class="token variable">$width</span></span><span class="token punctuation">:</span> 3px<span class="token punctuation">,</span> <span class="token property"><span class="token variable">$color</span></span><span class="token punctuation">:</span> #999<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token comment">/*不传参*/</span>
+<span class="token selector">h1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> #333<span class="token punctuation">;</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/*传参*/</span>
+<span class="token selector">h2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 2px<span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> #666<span class="token punctuation">;</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> dashed<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/*关键词传参*/</span>
+<span class="token selector">h3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 3px<span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> #999<span class="token punctuation">;</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> dashed<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="函数指令"><a href="#函数指令" class="header-anchor">#</a> 函数指令</h2> <p>与 mixin 相同，也可以传递若干个全局变量给函数作为参数。一个函数可以含有多条语句，需要调用 <code>@return</code> 输出结果。</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$grid-width</span></span><span class="token punctuation">:</span> 40px<span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$gutter-width</span></span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+
+<span class="token keyword">@function</span> <span class="token function">grid-width</span><span class="token punctuation">(</span><span class="token variable">$n</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">@return</span> <span class="token variable">$n</span> <span class="token operator">*</span> <span class="token variable">$grid-width</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token variable">$n</span> <span class="token operator">-</span> 1<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token variable">$gutter-width</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.sidebar1 </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">grid-width</span><span class="token punctuation">(</span>5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.sidebar2 </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">grid-width</span><span class="token punctuation">(</span><span class="token property"><span class="token variable">$n</span></span><span class="token punctuation">:</span> 10<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.sidebar1</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 240px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.sidebar2</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 490px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="sassscript"><a href="#sassscript" class="header-anchor">#</a> SassScript</h2> <h3 id="数据类型"><a href="#数据类型" class="header-anchor">#</a> 数据类型</h3> <p>SassScript 支持 6 种主要的数据类型：</p> <ul><li>数字，<code>1, 2, 13, 10px</code></li> <li>字符串，有引号字符串与无引号字符串，<code>&quot;foo&quot;, 'bar', baz</code></li> <li>颜色，<code>blue, #04a3f9, rgba(255,0,0,0.5)</code></li> <li>布尔型，<code>true, false</code></li> <li>空值，<code>null</code></li> <li>数组 (list)，用空格或逗号作分隔符，<code>1.5em 1em 0 2em, Helvetica, Arial, sans-serif</code></li> <li>maps, 相当于 JavaScript 的 object，<code>(key1: value1, key2: value2)</code></li></ul> <h3 id="运算"><a href="#运算" class="header-anchor">#</a> 运算</h3> <p>SassScript 支持数字的加减乘除、取整等运算 <code>(+, -, *, /, %)</code>，关系运算 <code>&lt;, &gt;, &lt;=, &gt;=</code> 也可用于数字运算，相等运算 <code>==</code>, <code>!=</code> 可用于所有数据类型。</p> <h3 id="插值语句"><a href="#插值语句" class="header-anchor">#</a> 插值语句 #{}</h3> <p>通过 <code>#{}</code> 插值语句可以在选择器或属性名中使用变量，避免 Sass 运行运算表达式。</p> <h2 id="bootstrap-4"><a href="#bootstrap-4" class="header-anchor">#</a> Bootstrap@4</h2> <ul><li><a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap v4.4.1<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <p>入口文件 <code>bootstrap.scss</code>的引入组件很多，我们就挑一个看看，比如下面是我们最终的 float 内容：</p> <div class="language-css extra-class"><pre class="language-css"><code><span class="token selector">.float-left</span> <span class="token punctuation">{</span>
+  <span class="token property">float</span><span class="token punctuation">:</span> left <span class="token important">!important</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.float-right</span> <span class="token punctuation">{</span>
+  <span class="token property">float</span><span class="token punctuation">:</span> right <span class="token important">!important</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.float-none</span> <span class="token punctuation">{</span>
+  <span class="token property">float</span><span class="token punctuation">:</span> none <span class="token important">!important</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 576px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.float-sm-left</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> left <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.float-sm-right</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> right <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.float-sm-none</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> none <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 768px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.float-md-left</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> left <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.float-md-right</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> right <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.float-md-none</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> none <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 992px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.float-lg-left</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> left <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.float-lg-right</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> right <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.float-lg-none</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> none <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 1200px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">.float-xl-left</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> left <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.float-xl-right</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> right <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">.float-xl-none</span> <span class="token punctuation">{</span>
+    <span class="token property">float</span><span class="token punctuation">:</span> none <span class="token important">!important</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>然后，我们去看看 bootstrap 是如何实现的：</p> <h3 id="第一步：找路"><a href="#第一步：找路" class="header-anchor">#</a> 第一步：找路</h3> <p>根据 <code>bootstrap.scss</code>里的内容<code>@import &quot;mixins&quot;;</code>，进入当前目录下的<code>_mixins.scss</code>，看到<code>@import &quot;mixins/float&quot;;</code>，所以继续打开<code>mixins</code> 目录下的 <code>_float.scss</code>。</p> <h3 id="第二步：内容"><a href="#第二步：内容" class="header-anchor">#</a> 第二步：内容</h3> <p><code>_float.scss</code>所有内容如下：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token comment">// stylelint-disable declaration-no-important</span>
+
+<span class="token keyword">@each</span> <span class="token variable">$breakpoint</span> in <span class="token function">map-keys</span><span class="token punctuation">(</span><span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> <span class="token function">media-breakpoint-up</span><span class="token punctuation">(</span><span class="token variable">$breakpoint</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token property"><span class="token variable">$infix</span></span><span class="token punctuation">:</span> <span class="token function">breakpoint-infix</span><span class="token punctuation">(</span><span class="token variable">$breakpoint</span><span class="token punctuation">,</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token selector">.float<span class="token variable">#{$infix}</span>-left </span><span class="token punctuation">{</span>
+      <span class="token property">float</span><span class="token punctuation">:</span> left <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector">.float<span class="token variable">#{$infix}</span>-right </span><span class="token punctuation">{</span>
+      <span class="token property">float</span><span class="token punctuation">:</span> right <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector">.float<span class="token variable">#{$infix}</span>-none </span><span class="token punctuation">{</span>
+      <span class="token property">float</span><span class="token punctuation">:</span> none <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>接着，有三个地方，我不知道是什么，如<code>map-keys()</code>，<code>media-breakpoint-up()</code>，<code>breakpoint-infix()</code>。</p> <h3 id="第三步：解惑"><a href="#第三步：解惑" class="header-anchor">#</a> 第三步：解惑</h3> <ul><li><code>map-keys()</code> 返回 map 里面所有的 key：</li></ul> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$grid-breakpoints</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+  <span class="token property">xs</span><span class="token punctuation">:</span> 0<span class="token punctuation">,</span>
+  <span class="token property">sm</span><span class="token punctuation">:</span> 576px<span class="token punctuation">,</span>
+  <span class="token property">md</span><span class="token punctuation">:</span> 768px<span class="token punctuation">,</span>
+  <span class="token property">lg</span><span class="token punctuation">:</span> 992px<span class="token punctuation">,</span>
+  <span class="token property">xl</span><span class="token punctuation">:</span> 1200px
+<span class="token punctuation">)</span> <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+
+<span class="token keyword">@each</span> <span class="token variable">$breakpoint</span> in <span class="token function">map-keys</span><span class="token punctuation">(</span><span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token selector">.<span class="token variable">#{$breakpoint}</span> </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// css</span>
+<span class="token selector">.xs </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.sm </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.md </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.lg </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.xl </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>资料：<a href="https://www.cnblogs.com/whqet/p/Sassmap.html" target="_blank" rel="noopener noreferrer">Sass map 详解<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <ul><li><code>media-breakpoint-up()</code>，自定义函数，主要是根据媒体查询给出不同的结果</li></ul> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token comment">// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.</span>
+<span class="token comment">// Makes the @content apply to the given breakpoint and wider.</span>
+<span class="token keyword">@mixin</span> <span class="token function">media-breakpoint-up</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token property"><span class="token variable">$breakpoints</span></span><span class="token punctuation">:</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token property"><span class="token variable">$min</span></span><span class="token punctuation">:</span> <span class="token function">breakpoint-min</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$breakpoints</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">@if</span> <span class="token selector"><span class="token variable">$min</span> </span><span class="token punctuation">{</span>
+    <span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token variable">$min</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+      <span class="token keyword">@content</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">@else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">@content</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>这里<code>breakpoint-min()</code>也是个函数：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token comment">// Minimum breakpoint width. Null for the smallest (first) breakpoint.</span>
+<span class="token comment">//</span>
+<span class="token comment">//    &gt;&gt; breakpoint-min(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))</span>
+<span class="token comment">//    576px</span>
+<span class="token keyword">@function</span> <span class="token function">breakpoint-min</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token property"><span class="token variable">$breakpoints</span></span><span class="token punctuation">:</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token property"><span class="token variable">$min</span></span><span class="token punctuation">:</span> <span class="token function">map-get</span><span class="token punctuation">(</span><span class="token variable">$breakpoints</span><span class="token punctuation">,</span> <span class="token variable">$name</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">@return</span> <span class="token function">if</span><span class="token punctuation">(</span><span class="token variable">$min</span> <span class="token operator">!=</span> 0<span class="token punctuation">,</span> <span class="token variable">$min</span><span class="token punctuation">,</span> <span class="token null keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>这里的<code>map-get</code>同 <code>map-keys</code>用法，返回 map 里面指定可以的 <code>value</code>：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$min-num</span></span><span class="token punctuation">:</span> <span class="token function">breakpoint-min</span><span class="token punctuation">(</span>sm<span class="token punctuation">,</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token variable">$min-num</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">p </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> #444<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// css</span>
+<span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 576px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token selector">p </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> #444<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><code>@content</code>用在<code>mixin</code>里面的，当定义一个<code>mixin</code>后，并且设置了<code>@content</code>之后，、<code>@include</code>的时候可以传入相应的内容到<code>mixin</code>里面：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$color</span></span><span class="token punctuation">:</span> white<span class="token punctuation">;</span>
+<span class="token keyword">@mixin</span> <span class="token function">colors</span><span class="token punctuation">(</span><span class="token property"><span class="token variable">$color</span></span><span class="token punctuation">:</span> blue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token variable">$color</span><span class="token punctuation">;</span>
+  <span class="token keyword">@content</span><span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> <span class="token variable">$color</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.colors </span><span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> <span class="token selector">colors </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token variable">$color</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// css</span>
+<span class="token selector">.colors </span><span class="token punctuation">{</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> white<span class="token punctuation">;</span>
+  <span class="token property">border-color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>资料：<a href="https://segmentfault.com/q/1010000004119350" target="_blank" rel="noopener noreferrer">sass 语法中的@content<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <ul><li><code>breakpoint-infix()</code>，自定义函数：</li></ul> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token comment">// Returns a blank string if smallest breakpoint, otherwise returns the name with a dash in front.</span>
+<span class="token comment">// Useful for making responsive utilities.</span>
+<span class="token comment">//</span>
+<span class="token comment">//    &gt;&gt; breakpoint-infix(xs, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))</span>
+<span class="token comment">//    &quot;&quot;  (Returns a blank string)</span>
+<span class="token comment">//    &gt;&gt; breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))</span>
+<span class="token comment">//    &quot;-sm&quot;</span>
+<span class="token keyword">@function</span> <span class="token function">breakpoint-infix</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token property"><span class="token variable">$breakpoints</span></span><span class="token punctuation">:</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">@return</span> <span class="token function">if</span><span class="token punctuation">(</span><span class="token function">breakpoint-min</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$breakpoints</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token null keyword">null</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;-#{$name}&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>根据注释我们演示一下：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$min-value-sm</span></span><span class="token punctuation">:</span> <span class="token function">breakpoint-infix</span><span class="token punctuation">(</span>sm<span class="token punctuation">,</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property"><span class="token variable">$min-value-xs</span></span><span class="token punctuation">:</span> <span class="token function">breakpoint-infix</span><span class="token punctuation">(</span>xs<span class="token punctuation">,</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token selector">.float<span class="token variable">#{$min-value-sm}</span>-left </span><span class="token punctuation">{</span>
+  <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.float<span class="token variable">#{$min-value-xs}</span>-left </span><span class="token punctuation">{</span>
+  <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// css</span>
+<span class="token selector">.float-sm-left </span><span class="token punctuation">{</span>
+  <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.float-left </span><span class="token punctuation">{</span>
+  <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="整合"><a href="#整合" class="header-anchor">#</a> 整合</h3> <p>最后，我们把所有关于 float 的内容组合在一起：</p> <div class="language-scss extra-class"><pre class="language-scss"><code><span class="token property"><span class="token variable">$grid-breakpoints</span></span><span class="token punctuation">:</span> <span class="token punctuation">(</span>
+  <span class="token property">xs</span><span class="token punctuation">:</span> 0<span class="token punctuation">,</span>
+  <span class="token property">sm</span><span class="token punctuation">:</span> 576px<span class="token punctuation">,</span>
+  <span class="token property">md</span><span class="token punctuation">:</span> 768px<span class="token punctuation">,</span>
+  <span class="token property">lg</span><span class="token punctuation">:</span> 992px<span class="token punctuation">,</span>
+  <span class="token property">xl</span><span class="token punctuation">:</span> 1200px
+<span class="token punctuation">)</span> <span class="token statement keyword">!default</span><span class="token punctuation">;</span>
+
+<span class="token keyword">@function</span> <span class="token function">breakpoint-min</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token property"><span class="token variable">$breakpoints</span></span><span class="token punctuation">:</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token property"><span class="token variable">$min</span></span><span class="token punctuation">:</span> <span class="token function">map-get</span><span class="token punctuation">(</span><span class="token variable">$breakpoints</span><span class="token punctuation">,</span> <span class="token variable">$name</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">@return</span> <span class="token function">if</span><span class="token punctuation">(</span><span class="token variable">$min</span> <span class="token operator">!=</span> 0<span class="token punctuation">,</span> <span class="token variable">$min</span><span class="token punctuation">,</span> <span class="token null keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">@function</span> <span class="token function">breakpoint-infix</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token property"><span class="token variable">$breakpoints</span></span><span class="token punctuation">:</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">@return</span> <span class="token function">if</span><span class="token punctuation">(</span><span class="token function">breakpoint-min</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$breakpoints</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token null keyword">null</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;-#{$name}&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">@mixin</span> <span class="token function">media-breakpoint-up</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token property"><span class="token variable">$breakpoints</span></span><span class="token punctuation">:</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token property"><span class="token variable">$min</span></span><span class="token punctuation">:</span> <span class="token function">breakpoint-min</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$breakpoints</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">@if</span> <span class="token selector"><span class="token variable">$min</span> </span><span class="token punctuation">{</span>
+    <span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token variable">$min</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+      <span class="token keyword">@content</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">@else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">@content</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">@each</span> <span class="token variable">$breakpoint</span> in <span class="token function">map-keys</span><span class="token punctuation">(</span><span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">@include</span> <span class="token function">media-breakpoint-up</span><span class="token punctuation">(</span><span class="token variable">$breakpoint</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token property"><span class="token variable">$infix</span></span><span class="token punctuation">:</span> <span class="token function">breakpoint-infix</span><span class="token punctuation">(</span><span class="token variable">$breakpoint</span><span class="token punctuation">,</span> <span class="token variable">$grid-breakpoints</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token selector">.float<span class="token variable">#{$infix}</span>-left </span><span class="token punctuation">{</span>
+      <span class="token property">float</span><span class="token punctuation">:</span> left <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector">.float<span class="token variable">#{$infix}</span>-right </span><span class="token punctuation">{</span>
+      <span class="token property">float</span><span class="token punctuation">:</span> right <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector">.float<span class="token variable">#{$infix}</span>-none </span><span class="token punctuation">{</span>
+      <span class="token property">float</span><span class="token punctuation">:</span> none <span class="token important">!important</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>这样直接就可以在环境里跑起来了。</p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">5/22/2020, 5:01:49 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/vuepress/basic/html/css-rem.html" class="prev">
+        CSS 单位 rem 和 em
+      </a></span> <span class="next"><a href="/vuepress/basic/html/article.html">
+        CSS 学习资源
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/vuepress/assets/js/app.02736889.js" defer></script><script src="/vuepress/assets/js/2.8fb47256.js" defer></script><script src="/vuepress/assets/js/30.2427b69a.js" defer></script>
+  </body>
+</html>
