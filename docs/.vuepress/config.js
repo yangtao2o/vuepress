@@ -1,7 +1,7 @@
 module.exports = {
   base: "/vuepress/", // 基准 URL
   title: "大涛子客栈",
-  description: "前端开发、摄影、羽毛球、电影",
+  description: "前端知识体系",
   head: [
     [
       "link",

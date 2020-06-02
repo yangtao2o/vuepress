@@ -50,11 +50,11 @@ module.exports = {
         "other/f-prototype",
         "other/f-this-apply-call",
         "other/f-class",
-        "other/mode-1",
-        "other/interview-2020",
         "other/js-code",
         "other/js-code-big",
         "other/throttle-debounce",
+        "other/mode-1",
+        "other/interview-2020",
       ],
     },
     {
